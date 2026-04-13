@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import * as XLSX from "xlsx";
 import { BarChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ComposedChart, Area, PieChart, Pie, Cell } from "recharts";
 
@@ -238,11 +238,10 @@ export default function Dashboard() {
   const [fileName, setFileName]         = useState(null);
   const [uploadError, setUploadError]   = useState(null);
   const [saving, setSaving]             = useState(false);
-  const [loading, setLoading]           = useState(true);
   const fileInputRef = useRef(null);
 
   // Al cargar la página, leer datos desde GitHub
-  useState(() => {
+  useEffect(() => {
     fetch(GITHUB_RAW_URL + '?t=' + Date.now())
       .then(r => r.json())
       .then(data => {
@@ -253,8 +252,7 @@ export default function Dashboard() {
           setFileName(data.fileName);
         }
       })
-      .catch(() => {})
-      .finally(() => setLoading(false));
+      .catch(() => {});
   }, []);
 
   const handleFileUpload = (e) => {
