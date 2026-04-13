@@ -227,7 +227,7 @@ function ProgressBar({ current, target, label, color }) {
   );
 }
 
-const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/pabloCastellanosDATA/dashboard-blaster/main/dashboard-data.json';
+const DATA_URL = '/api/get-data';
 
 /* ─── Dashboard principal ──────────────────────────────────────────────────── */
 export default function Dashboard() {
@@ -242,7 +242,7 @@ export default function Dashboard() {
 
   // Al cargar la página, leer datos desde GitHub
   useEffect(() => {
-    fetch(GITHUB_RAW_URL + '?t=' + Date.now())
+    fetch(DATA_URL)
       .then(r => r.json())
       .then(data => {
         if (data.dailyData?.length > 0) {
