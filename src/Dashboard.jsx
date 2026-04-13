@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ComposedChart, Area, Legend, PieChart, Pie, Cell } from "recharts";
+import { BarChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ComposedChart, Area, PieChart, Pie, Cell } from "recharts";
 
 const DAILY_DATA = [
   { fecha: "2026-04-01", fechaShort: "01 Abr", consumo: 2915487, minutos: 132522, leads: 1651, ventas: 30, ingreso: 4057920, roi: 1.39, costoMin: 1766 },
