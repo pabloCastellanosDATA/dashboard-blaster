@@ -227,38 +227,42 @@ function ProgressBar({ current, target, label, color }) {
   );
 }
 
-/* ─── Helpers localStorage ─────────────────────────────────────────────────── */
-function loadFromStorage() {
-  try {
-    const raw = localStorage.getItem('dashboard_blaster_data');
-    if (!raw) return null;
-    return JSON.parse(raw);
-  } catch { return null; }
-}
-
-function saveToStorage(dailyData, providerData, totals, fileName) {
-  try {
-    localStorage.setItem('dashboard_blaster_data', JSON.stringify({ dailyData, providerData, totals, fileName }));
-  } catch {}
-}
+const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/pabloCastellanosDATA/dashboard-blaster/main/dashboard-data.json';
 
 /* ─── Dashboard principal ──────────────────────────────────────────────────── */
 export default function Dashboard() {
-  const saved = loadFromStorage();
   const [activeView, setActiveView]     = useState("general");
-  const [dailyData, setDailyData]       = useState(saved?.dailyData     || DEFAULT_DAILY_DATA);
-  const [providerData, setProviderData] = useState(saved?.providerData  || DEFAULT_PROVIDER_DATA);
-  const [totals, setTotals]             = useState(saved?.totals        || DEFAULT_TOTALS);
-  const [fileName, setFileName]         = useState(saved?.fileName      || null);
+  const [dailyData, setDailyData]       = useState(DEFAULT_DAILY_DATA);
+  const [providerData, setProviderData] = useState(DEFAULT_PROVIDER_DATA);
+  const [totals, setTotals]             = useState(DEFAULT_TOTALS);
+  const [fileName, setFileName]         = useState(null);
   const [uploadError, setUploadError]   = useState(null);
+  const [saving, setSaving]             = useState(false);
+  const [loading, setLoading]           = useState(true);
   const fileInputRef = useRef(null);
+
+  // Al cargar la página, leer datos desde GitHub
+  useState(() => {
+    fetch(GITHUB_RAW_URL + '?t=' + Date.now())
+      .then(r => r.json())
+      .then(data => {
+        if (data.dailyData?.length > 0) {
+          setDailyData(data.dailyData);
+          setProviderData(data.providerData);
+          setTotals(data.totals);
+          setFileName(data.fileName);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
     setUploadError(null);
     const reader = new FileReader();
-    reader.onload = (evt) => {
+    reader.onload = async (evt) => {
       try {
         const workbook = XLSX.read(evt.target.result, { type: 'binary' });
         const parsed = parseExcelFile(workbook);
@@ -267,11 +271,23 @@ export default function Dashboard() {
           setProviderData(parsed.providerData);
           setTotals(parsed.totals);
           setFileName(file.name);
-          saveToStorage(parsed.dailyData, parsed.providerData, parsed.totals, file.name);
+          // Guardar en GitHub via serverless function
+          setSaving(true);
+          const res = await fetch('/api/save-data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ dailyData: parsed.dailyData, providerData: parsed.providerData, totals: parsed.totals, fileName: file.name }),
+          });
+          if (!res.ok) {
+            const err = await res.json();
+            setUploadError('Datos cargados pero no se pudo guardar en la nube: ' + err.error);
+          }
+          setSaving(false);
         } else {
           setUploadError('No se pudo leer el archivo. Verificá que sea el Excel correcto.');
         }
       } catch (err) {
+        setSaving(false);
         setUploadError('Error al procesar el archivo: ' + err.message);
       }
     };
@@ -339,17 +355,17 @@ export default function Dashboard() {
             onChange={handleFileUpload}
           />
           <button
-            onClick={() => fileInputRef.current?.click()}
+            onClick={() => !saving && fileInputRef.current?.click()}
             style={{
-              padding: "8px 16px", borderRadius: 8, cursor: "pointer",
-              border: "1px solid rgba(99,235,175,0.4)",
-              background: "rgba(99,235,175,0.08)",
-              color: "#63ebaf", fontSize: 12, fontWeight: 600,
+              padding: "8px 16px", borderRadius: 8, cursor: saving ? "default" : "pointer",
+              border: `1px solid ${saving ? "rgba(251,191,36,0.4)" : "rgba(99,235,175,0.4)"}`,
+              background: saving ? "rgba(251,191,36,0.08)" : "rgba(99,235,175,0.08)",
+              color: saving ? "#fbbf24" : "#63ebaf", fontSize: 12, fontWeight: 600,
               display: "flex", alignItems: "center", gap: 6,
               transition: "all 0.2s",
             }}
           >
-            📂 Cargar Excel
+            {saving ? "⏳ Guardando..." : "📂 Cargar Excel"}
           </button>
 
           {/* Tabs */}
