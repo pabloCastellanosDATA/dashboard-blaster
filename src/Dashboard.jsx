@@ -120,7 +120,7 @@ function parseExcelFile(workbook) {
     //           $FacturaxFTE(10), $InversionxFTE(11), $Fact-Inversion(12), Roi(13), %Efect.(14)
     const totals = {
       consumo:          k[2]  || 0,
-      proyInversion:    k[3]  || 0,
+      proyInversion:    proyConsumo,        // proyección mensual real desde hoja dinámica
       leads:            Math.round(k[4] || 0),
       costoLead:        Math.round(k[5] || 0),
       ventas:           Math.round(k[6] || 0),
