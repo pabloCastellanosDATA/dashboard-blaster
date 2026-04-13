@@ -227,13 +227,29 @@ function ProgressBar({ current, target, label, color }) {
   );
 }
 
+/* ─── Helpers localStorage ─────────────────────────────────────────────────── */
+function loadFromStorage() {
+  try {
+    const raw = localStorage.getItem('dashboard_blaster_data');
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch { return null; }
+}
+
+function saveToStorage(dailyData, providerData, totals, fileName) {
+  try {
+    localStorage.setItem('dashboard_blaster_data', JSON.stringify({ dailyData, providerData, totals, fileName }));
+  } catch {}
+}
+
 /* ─── Dashboard principal ──────────────────────────────────────────────────── */
 export default function Dashboard() {
+  const saved = loadFromStorage();
   const [activeView, setActiveView]     = useState("general");
-  const [dailyData, setDailyData]       = useState(DEFAULT_DAILY_DATA);
-  const [providerData, setProviderData] = useState(DEFAULT_PROVIDER_DATA);
-  const [totals, setTotals]             = useState(DEFAULT_TOTALS);
-  const [fileName, setFileName]         = useState(null);
+  const [dailyData, setDailyData]       = useState(saved?.dailyData     || DEFAULT_DAILY_DATA);
+  const [providerData, setProviderData] = useState(saved?.providerData  || DEFAULT_PROVIDER_DATA);
+  const [totals, setTotals]             = useState(saved?.totals        || DEFAULT_TOTALS);
+  const [fileName, setFileName]         = useState(saved?.fileName      || null);
   const [uploadError, setUploadError]   = useState(null);
   const fileInputRef = useRef(null);
 
@@ -251,6 +267,7 @@ export default function Dashboard() {
           setProviderData(parsed.providerData);
           setTotals(parsed.totals);
           setFileName(file.name);
+          saveToStorage(parsed.dailyData, parsed.providerData, parsed.totals, file.name);
         } else {
           setUploadError('No se pudo leer el archivo. Verificá que sea el Excel correcto.');
         }
