@@ -207,7 +207,7 @@ function ProgressBar({ current, target, label, color }) {
 const EMPTY_TOTALS = { consumo: 0, ingreso: 0, leads: 0, ventas: 0, roi: 0, costoLead: 0, proyInversion: 0, proyConsumo: 0, diasLaborales: 25, diasTranscurridos: 0, agentes: 0, fte: 0, efectividad: 0, facturaxFTE: 0 };
 
 export default function Dashboard() {
-  const [activeView, setActiveView]       = useState("general");
+  const [activeView, setActiveView]       = useState("operativo");
   const [activeCampaign, setActiveCampaign] = useState("blaster");
   const [dailyData, setDailyData]         = useState([]);
   const [providerData, setProviderData]   = useState([]);
@@ -292,9 +292,8 @@ export default function Dashboard() {
   }, [digitalData]);
 
   const tabs = [
-    { id: "general",    label: "General",    icon: "◉" },
-    { id: "financiero", label: "Financiero", icon: "◈" },
     { id: "operativo",  label: "Operativo",  icon: "◆" },
+    { id: "financiero", label: "Financiero", icon: "◈" },
   ];
 
   const lastDate = dailyData.length > 0 ? dailyData[dailyData.length - 1].fecha : null;
@@ -420,8 +419,8 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* Gráficos: General / Financiero */}
-          {(activeView === "general" || activeView === "financiero") && (
+          {/* Gráficos: Financiero */}
+          {activeView === "financiero" && (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 16, marginBottom: 20 }}>
               <div style={{ background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%)", border: "1px solid rgba(99, 235, 175, 0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
                 <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}>
@@ -470,59 +469,6 @@ export default function Dashboard() {
                     </span>
                   ))}
                 </div>
-              </div>
-            </div>
-          )}
-
-          {/* Gráficos: General — Blaster operativo (sin sub-nav) */}
-          {activeView === "general" && (
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 16, marginBottom: 20 }}>
-              <div style={{ background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%)", border: "1px solid rgba(56, 189, 248, 0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}>
-                  <span style={{ color: "#38bdf8" }}>◆</span> Costo por Proveedor (Diario)
-                </div>
-                <ResponsiveContainer width="100%" height={240}>
-                  <BarChart data={providerData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(100,116,139,0.15)" />
-                    <XAxis dataKey="fecha" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
-                    <YAxis tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} tickFormatter={v => fmt(v)} />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Bar dataKey="bestvoiper" name="Bestvoiper" stackId="a" fill="#63ebaf" />
-                    <Bar dataKey="chock"      name="Chock"      stackId="a" fill="#818cf8" radius={[6, 6, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-                <div style={{ display: "flex", gap: 20, justifyContent: "center", marginTop: 8 }}>
-                  {providerTotals.map(p => (
-                    <span key={p.name} style={{ fontSize: 11, display: "flex", alignItems: "center", gap: 5 }}>
-                      <span style={{ width: 10, height: 10, borderRadius: 3, background: p.color, display: "inline-block" }} />
-                      <span style={{ color: "#94a3b8" }}>{p.name}:</span>
-                      <span style={{ color: p.color, fontWeight: 700, fontFamily: "'JetBrains Mono', monospace" }}>{fmt(p.value)}</span>
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div style={{ background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%)", border: "1px solid rgba(244, 114, 182, 0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}>
-                  <span style={{ color: "#f472b6" }}>◉</span> Leads vs Ventas (Diario)
-                </div>
-                <ResponsiveContainer width="100%" height={240}>
-                  <ComposedChart data={dailyData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
-                    <defs>
-                      <linearGradient id="gradLeads" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#38bdf8" stopOpacity={0.25} />
-                        <stop offset="100%" stopColor="#38bdf8" stopOpacity={0.02} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(100,116,139,0.15)" />
-                    <XAxis dataKey="fechaShort" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
-                    <YAxis yAxisId="left"  tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
-                    <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Area yAxisId="left"  type="monotone" dataKey="leads"  name="Leads"  fill="url(#gradLeads)" stroke="#38bdf8" strokeWidth={2} />
-                    <Bar  yAxisId="right"                 dataKey="ventas" name="Ventas" fill="#f472b6" radius={[4, 4, 0, 0]} barSize={24} fillOpacity={0.85} />
-                  </ComposedChart>
-                </ResponsiveContainer>
               </div>
             </div>
           )}
@@ -743,7 +689,7 @@ export default function Dashboard() {
           )}
 
           {/* Distribución + Tabla */}
-          {(activeView === "general" || activeView === "financiero") && (
+          {activeView === "financiero" && (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 16, marginBottom: 20 }}>
               <div style={{ background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%)", border: "1px solid rgba(99, 235, 175, 0.1)", borderRadius: 16, padding: "20px 16px" }}>
                 <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 12 }}>
