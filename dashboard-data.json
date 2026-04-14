@@ -184,7 +184,23 @@
     "diasLaborales": 25,
     "diasTranscurridos": 11,
     "ventasActivasBlaster": 899,
-    "ventasActivasDigital": 357
+    "ventasActivasDigital": 357,
+    "tiposActivasBlaster": {
+      "Migracion": 308,
+      "Portabilidad": 590
+    },
+    "tiposActivasDigital": {
+      "Migracion": 41,
+      "Portabilidad": 316
+    },
+    "tiposCreadasBlaster": {
+      "Migracion": 271,
+      "Portabilidad": 881
+    },
+    "tiposCreadasDigital": {
+      "Migracion": 37,
+      "Portabilidad": 447
+    }
   },
   "digitalData": [
     {
