@@ -383,29 +383,42 @@ export default function Dashboard() {
       {dailyData.length > 0 && (
         <>
           {/* KPI Cards */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 12, marginBottom: 24 }}>
-            <KPICard icon="💰" title="Inversión Total"   value={fmt(totals.consumo)}  subtitle={`Proy: ${fmt(totals.proyInversion)}`}                      accent="#63ebaf" trend="up" />
-            <KPICard icon="📊" title="Ingreso Facturado" value={fmt(totals.ingreso)}  subtitle={`${totals.diasTranscurridos}/${totals.diasLaborales} días`} accent="#818cf8" trend="up" />
-            <KPICard icon="🎯" title="ROI Global"        value={`${totals.roi}x`}     subtitle="Ingreso / Inversión"                                         accent={totals.roi >= 1.5 ? "#63ebaf" : "#fbbf24"} trend="up" />
-            <KPICard icon="📞" title="Leads Totales"     value={fmtNum(totals.leads)} subtitle={`Costo/Lead: ${fmt(totals.costoLead)}`}                      accent="#38bdf8" />
-            <KPICard icon="✅" title="Ventas"            value={totals.ventas}        subtitle={`Efectividad: ${totals.efectividad}%`}                       accent="#f472b6" trend="up" />
-            <KPICard icon="👥" title="Agentes / FTE"     value={`${totals.agentes} / ${totals.fte}`} subtitle={`Fact/FTE: ${fmt(totals.facturaxFTE)}`}      accent="#fbbf24" />
-          </div>
+          {activeView === "operativo" && activeCampaign === "digital" ? (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 12, marginBottom: 24 }}>
+              <KPICard icon="💸" title="Inversión"  value={fmt(digitalTotals.inversion)}  subtitle="Costo campañas Meta"                                                                            accent="#f472b6" />
+              <KPICard icon="💰" title="Ingreso"    value={fmt(digitalTotals.ingreso)}    subtitle="Ventas × ticket"                                                                                accent="#818cf8" trend="up" />
+              <KPICard icon="🎯" title="ROI Global" value={`${digitalTotals.roi}x`}       subtitle="Ingreso / Inversión"                                                                            accent={digitalTotals.roi >= 2 ? "#63ebaf" : "#fbbf24"} trend="up" />
+              <KPICard icon="📲" title="Leads"      value={fmtNum(digitalTotals.leads)}   subtitle={`CPL: ${fmt(digitalTotals.cpl)}`}                                                              accent="#38bdf8" />
+              <KPICard icon="✅" title="Ventas"     value={digitalTotals.ventas}           subtitle={`Conv: ${digitalTotals.leads > 0 ? ((digitalTotals.ventas / digitalTotals.leads)*100).toFixed(1) : 0}%`} accent="#f472b6" trend="up" />
+              <KPICard icon="✉️" title="Mensajes"   value={fmtNum(digitalTotals.mensajes)} subtitle="Envíos totales"                                                                               accent="#fbbf24" />
+            </div>
+          ) : (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 12, marginBottom: 24 }}>
+              <KPICard icon="💰" title="Inversión Total"   value={fmt(totals.consumo)}  subtitle={`Proy: ${fmt(totals.proyInversion)}`}                      accent="#63ebaf" trend="up" />
+              <KPICard icon="📊" title="Ingreso Facturado" value={fmt(totals.ingreso)}  subtitle={`${totals.diasTranscurridos}/${totals.diasLaborales} días`} accent="#818cf8" trend="up" />
+              <KPICard icon="🎯" title="ROI Global"        value={`${totals.roi}x`}     subtitle="Ingreso / Inversión"                                        accent={totals.roi >= 1.5 ? "#63ebaf" : "#fbbf24"} trend="up" />
+              <KPICard icon="📞" title="Leads Totales"     value={fmtNum(totals.leads)} subtitle={`Costo/Lead: ${fmt(totals.costoLead)}`}                     accent="#38bdf8" />
+              <KPICard icon="✅" title="Ventas"            value={totals.ventas}        subtitle={`Efectividad: ${totals.efectividad}%`}                      accent="#f472b6" trend="up" />
+              <KPICard icon="👥" title="Agentes / FTE"     value={`${totals.agentes} / ${totals.fte}`} subtitle={`Fact/FTE: ${fmt(totals.facturaxFTE)}`}     accent="#fbbf24" />
+            </div>
+          )}
 
-          {/* Progreso del mes */}
-          <div style={{
-            background: "linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%)",
-            border: "1px solid rgba(99, 235, 175, 0.12)", borderRadius: 16, padding: "20px 24px", marginBottom: 24,
-          }}>
-            <div style={{ fontSize: 14, fontWeight: 700, color: "#e2e8f0", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
-              <span style={{ color: "#63ebaf" }}>⟐</span> Progreso del Mes — {totals.diasTranscurridos} de {totals.diasLaborales} días laborales
+          {/* Progreso del mes — solo Blaster */}
+          {!(activeView === "operativo" && activeCampaign === "digital") && (
+            <div style={{
+              background: "linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%)",
+              border: "1px solid rgba(99, 235, 175, 0.12)", borderRadius: 16, padding: "20px 24px", marginBottom: 24,
+            }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "#e2e8f0", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ color: "#63ebaf" }}>⟐</span> Progreso del Mes — {totals.diasTranscurridos} de {totals.diasLaborales} días laborales
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
+                <ProgressBar current={totals.consumo}           target={totals.proyInversion} label="Inversión vs Proyección" color="#63ebaf" />
+                <ProgressBar current={totals.ingreso}           target={totals.proyConsumo}   label="Ingreso vs Proyección"   color="#818cf8" />
+                <ProgressBar current={totals.diasTranscurridos} target={totals.diasLaborales} label="Avance del Mes"          color="#38bdf8" />
+              </div>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
-              <ProgressBar current={totals.consumo}          target={totals.proyInversion} label="Inversión vs Proyección" color="#63ebaf" />
-              <ProgressBar current={totals.ingreso}          target={totals.proyConsumo}   label="Ingreso vs Proyección"   color="#818cf8" />
-              <ProgressBar current={totals.diasTranscurridos} target={totals.diasLaborales} label="Avance del Mes"         color="#38bdf8" />
-            </div>
-          </div>
+          )}
 
           {/* Gráficos: General / Financiero */}
           {(activeView === "general" || activeView === "financiero") && (
