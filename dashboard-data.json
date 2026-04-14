@@ -6,9 +6,9 @@
       "consumo": 2915487,
       "minutos": 132522.13636363635,
       "leads": 1651,
-      "ventas": 75,
-      "ingreso": 10144800,
-      "roi": 3.48,
+      "ventas": 125,
+      "ingreso": 16908000,
+      "roi": 5.8,
       "costoMin": 1766
     },
     {
@@ -17,9 +17,9 @@
       "consumo": 2041859,
       "minutos": 92811.77272727274,
       "leads": 1082,
-      "ventas": 41,
-      "ingreso": 5545824,
-      "roi": 2.72,
+      "ventas": 81,
+      "ingreso": 10956384,
+      "roi": 5.37,
       "costoMin": 1887
     },
     {
@@ -28,9 +28,9 @@
       "consumo": 479578,
       "minutos": 21799,
       "leads": 287,
-      "ventas": 2,
-      "ingreso": 270528,
-      "roi": 0.56,
+      "ventas": 4,
+      "ingreso": 541056,
+      "roi": 1.13,
       "costoMin": 1671
     },
     {
@@ -39,9 +39,9 @@
       "consumo": 3262680,
       "minutos": 148303.63636363635,
       "leads": 1890,
-      "ventas": 70,
-      "ingreso": 9468480,
-      "roi": 2.9,
+      "ventas": 129,
+      "ingreso": 17449056,
+      "roi": 5.35,
       "costoMin": 1726
     },
     {
@@ -50,9 +50,9 @@
       "consumo": 3293473,
       "minutos": 149703.31818181818,
       "leads": 1792,
-      "ventas": 46,
-      "ingreso": 6222144,
-      "roi": 1.89,
+      "ventas": 120,
+      "ingreso": 16231680,
+      "roi": 4.93,
       "costoMin": 1838
     },
     {
@@ -61,9 +61,9 @@
       "consumo": 3416538,
       "minutos": 155297.18181818182,
       "leads": 1740,
-      "ventas": 43,
-      "ingreso": 5816352,
-      "roi": 1.7,
+      "ventas": 127,
+      "ingreso": 17178528,
+      "roi": 5.03,
       "costoMin": 1964
     },
     {
@@ -72,9 +72,9 @@
       "consumo": 3133346,
       "minutos": 142424.81818181818,
       "leads": 1749,
-      "ventas": 37,
-      "ingreso": 5004768,
-      "roi": 1.6,
+      "ventas": 137,
+      "ingreso": 18531168,
+      "roi": 5.91,
       "costoMin": 1792
     },
     {
@@ -83,9 +83,9 @@
       "consumo": 3309864,
       "minutos": 150448.36363636365,
       "leads": 1695,
-      "ventas": 36,
-      "ingreso": 4869504,
-      "roi": 1.47,
+      "ventas": 137,
+      "ingreso": 18531168,
+      "roi": 5.6,
       "costoMin": 1953
     },
     {
@@ -94,10 +94,21 @@
       "consumo": 2529892,
       "minutos": 114995.09090909091,
       "leads": 1304,
-      "ventas": 18,
-      "ingreso": 2434752,
-      "roi": 0.96,
+      "ventas": 113,
+      "ingreso": 15284832,
+      "roi": 6.04,
       "costoMin": 1940
+    },
+    {
+      "fecha": "2026-04-13",
+      "fechaShort": "13 Abr",
+      "consumo": 2758840,
+      "minutos": 125401.81818181818,
+      "leads": 1550,
+      "ventas": 115,
+      "ingreso": 15555360,
+      "roi": 5.64,
+      "costoMin": 1780
     }
   ],
   "providerData": [
@@ -150,23 +161,28 @@
       "fecha": "11 Abr",
       "bestvoiper": 620996,
       "chock": 1908896
+    },
+    {
+      "fecha": "13 Abr",
+      "bestvoiper": 556134,
+      "chock": 2202706
     }
   ],
   "totals": {
-    "consumo": 24382717,
-    "proyInversion": 60956792.50000001,
-    "leads": 13190,
-    "costoLead": 1849,
-    "ventas": 368,
-    "ingreso": 49777152,
+    "consumo": 27141557,
+    "proyInversion": 61685356.81818182,
+    "leads": 14740,
+    "costoLead": 1841,
+    "ventas": 1088,
+    "ingreso": 147167232,
     "agentes": 36,
     "fte": 29.74,
-    "facturaxFTE": 1673793.1228070175,
-    "roi": 2.04,
-    "efectividad": 2.79,
-    "proyConsumo": 60956792.50000001,
+    "facturaxFTE": 4948605.754385965,
+    "roi": 5.42,
+    "efectividad": 7.38,
+    "proyConsumo": 61685356.81818182,
     "diasLaborales": 25,
-    "diasTranscurridos": 10
+    "diasTranscurridos": 11
   },
   "fileName": "consumo troncales blaster - copia.xlsx"
 }
