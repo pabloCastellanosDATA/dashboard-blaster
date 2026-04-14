@@ -116,6 +116,29 @@ function parseExcelFile(workbook) {
         });
     }
 
+    // Hoja: Consulta1 → ventas activas por campaña (fecha_cierre = mes en curso)
+    const COL_ORIGEN  = 22;
+    const COL_CIERRE  = 30;
+    const BLASTER_OR  = ['Blaster', 'Freelance', 'Part Time'];
+    const DIGITAL_OR  = ['Digital'];
+    let ventasActivasBlaster = 0;
+    let ventasActivasDigital = 0;
+    const wsConsulta = workbook.Sheets['Consulta1'];
+    if (wsConsulta && dailyData.length > 0) {
+      // Derivar clave de mes desde los datos diarios (ej: "2026-04-01" → "202604")
+      const [y, m] = dailyData[0].fecha.split('-');
+      const mesKey = `${y}${m}`;
+      const rawC = XLSX.utils.sheet_to_json(wsConsulta, { header: 1 });
+      rawC.slice(1).forEach(r => {
+        if (r[COL_CIERRE] !== mesKey) return;
+        const origen = r[COL_ORIGEN];
+        if (BLASTER_OR.includes(origen)) ventasActivasBlaster++;
+        else if (DIGITAL_OR.includes(origen)) ventasActivasDigital++;
+      });
+    }
+    totals.ventasActivasBlaster = ventasActivasBlaster;
+    totals.ventasActivasDigital = ventasActivasDigital;
+
     return { dailyData, providerData, totals, digitalData };
   } catch (err) {
     console.error('Error al parsear Excel:', err);
@@ -204,7 +227,7 @@ function ProgressBar({ current, target, label, color }) {
   );
 }
 
-const EMPTY_TOTALS = { consumo: 0, ingreso: 0, leads: 0, ventas: 0, roi: 0, costoLead: 0, proyInversion: 0, proyConsumo: 0, diasLaborales: 25, diasTranscurridos: 0, agentes: 0, fte: 0, efectividad: 0, facturaxFTE: 0 };
+const EMPTY_TOTALS = { consumo: 0, ingreso: 0, leads: 0, ventas: 0, roi: 0, costoLead: 0, proyInversion: 0, proyConsumo: 0, diasLaborales: 25, diasTranscurridos: 0, agentes: 0, fte: 0, efectividad: 0, facturaxFTE: 0, ventasActivasBlaster: 0, ventasActivasDigital: 0 };
 
 export default function Dashboard() {
   const [activeView, setActiveView]       = useState("operativo");
@@ -389,7 +412,8 @@ export default function Dashboard() {
               <KPICard icon="🎯" title="ROI Global" value={`${digitalTotals.roi}x`}       subtitle="Ingreso / Inversión"                                                                            accent={digitalTotals.roi >= 2 ? "#63ebaf" : "#fbbf24"} trend="up" />
               <KPICard icon="📲" title="Leads"      value={fmtNum(digitalTotals.leads)}   subtitle={`CPL: ${fmt(digitalTotals.cpl)}`}                                                              accent="#38bdf8" />
               <KPICard icon="✅" title="Ventas Creadas"     value={digitalTotals.ventas}           subtitle={`Conv: ${digitalTotals.leads > 0 ? ((digitalTotals.ventas / digitalTotals.leads)*100).toFixed(1) : 0}%`} accent="#f472b6" trend="up" />
-              <KPICard icon="✉️" title="Mensajes"   value={fmtNum(digitalTotals.mensajes)} subtitle="Envíos totales"                                                                               accent="#fbbf24" />
+              <KPICard icon="🟢" title="Ventas Activas"   value={totals.ventasActivasDigital}    subtitle="Activadas este mes"                                                                      accent="#63ebaf" trend="up" />
+              <KPICard icon="✉️" title="Mensajes"         value={fmtNum(digitalTotals.mensajes)} subtitle="Envíos totales"                                                                          accent="#fbbf24" />
             </div>
           ) : (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 12, marginBottom: 24 }}>
@@ -397,8 +421,9 @@ export default function Dashboard() {
               <KPICard icon="📊" title="Ingreso Facturado" value={fmt(totals.ingreso)}  subtitle={`${totals.diasTranscurridos}/${totals.diasLaborales} días`} accent="#818cf8" trend="up" />
               <KPICard icon="🎯" title="ROI Global"        value={`${totals.roi}x`}     subtitle="Ingreso / Inversión"                                        accent={totals.roi >= 1.5 ? "#63ebaf" : "#fbbf24"} trend="up" />
               <KPICard icon="📞" title="Leads Totales"     value={fmtNum(totals.leads)} subtitle={`Costo/Lead: ${fmt(totals.costoLead)}`}                     accent="#38bdf8" />
-              <KPICard icon="✅" title="Ventas Creadas"            value={totals.ventas}        subtitle={`Efectividad: ${totals.efectividad}%`}                      accent="#f472b6" trend="up" />
-              <KPICard icon="👥" title="Agentes / FTE"     value={`${totals.agentes} / ${totals.fte}`} subtitle={`Fact/FTE: ${fmt(totals.facturaxFTE)}`}     accent="#fbbf24" />
+              <KPICard icon="✅" title="Ventas Creadas"  value={totals.ventas}               subtitle={`Efectividad: ${totals.efectividad}%`}  accent="#f472b6" trend="up" />
+              <KPICard icon="🟢" title="Ventas Activas" value={totals.ventasActivasBlaster} subtitle="Activadas este mes"                    accent="#63ebaf" trend="up" />
+              <KPICard icon="👥" title="Agentes / FTE"  value={`${totals.agentes} / ${totals.fte}`} subtitle={`Fact/FTE: ${fmt(totals.facturaxFTE)}`} accent="#fbbf24" />
             </div>
           )}
 
@@ -556,8 +581,9 @@ export default function Dashboard() {
                         <KPICard icon="💰" title="Ingreso"    value={fmt(digitalTotals.ingreso)}   subtitle="Ventas × ticket"             accent="#818cf8" trend="up" />
                         <KPICard icon="🎯" title="ROI"        value={`${digitalTotals.roi}x`}      subtitle="Ingreso / Inversión"         accent={digitalTotals.roi >= 2 ? "#63ebaf" : "#fbbf24"} trend="up" />
                         <KPICard icon="📲" title="Leads"      value={fmtNum(digitalTotals.leads)}  subtitle={`CPL: ${fmt(digitalTotals.cpl)}`} accent="#38bdf8" />
-                        <KPICard icon="✅" title="Ventas Creadas"     value={digitalTotals.ventas}          subtitle={`Conv: ${digitalTotals.leads > 0 ? ((digitalTotals.ventas / digitalTotals.leads)*100).toFixed(1) : 0}%`} accent="#f472b6" trend="up" />
-                        <KPICard icon="✉️" title="Mensajes"   value={fmtNum(digitalTotals.mensajes)} subtitle="Envíos totales"            accent="#fbbf24" />
+                        <KPICard icon="✅" title="Ventas Creadas"  value={digitalTotals.ventas}           subtitle={`Conv: ${digitalTotals.leads > 0 ? ((digitalTotals.ventas / digitalTotals.leads)*100).toFixed(1) : 0}%`} accent="#f472b6" trend="up" />
+                        <KPICard icon="🟢" title="Ventas Activas" value={totals.ventasActivasDigital}  subtitle="Activadas este mes"          accent="#63ebaf" trend="up" />
+                        <KPICard icon="✉️" title="Mensajes"       value={fmtNum(digitalTotals.mensajes)} subtitle="Envíos totales"            accent="#fbbf24" />
                       </div>
 
                       {/* Gráficos Digital */}
