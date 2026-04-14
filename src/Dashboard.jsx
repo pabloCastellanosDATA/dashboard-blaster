@@ -85,7 +85,38 @@ function parseExcelFile(workbook) {
       diasTranscurridos,
     };
 
-    return { dailyData, providerData, totals };
+    // Hoja: digital → datos diarios Digital Best
+    const TICKET_DIGITAL = 135264;
+    const wsDigital = workbook.Sheets['digital'];
+    let digitalData = [];
+    if (wsDigital) {
+      const rawDigital = XLSX.utils.sheet_to_json(wsDigital, { header: 1 });
+      digitalData = rawDigital
+        .slice(2)
+        .filter(r => r[0] && typeof r[0] === 'number' && r[0] > 40000)
+        .map(r => {
+          const date = excelDateToJS(r[0]);
+          const ventas    = Math.round(r[4] || 0);
+          const inversion = r[9] || 0;
+          const ingreso   = ventas * TICKET_DIGITAL;
+          const roi       = inversion > 0 ? parseFloat((ingreso / inversion).toFixed(2)) : 0;
+          return {
+            fecha:      date.toISOString().split('T')[0],
+            fechaShort: formatFechaShort(date),
+            inversion,
+            mensajes:   Math.round(r[8] || 0),
+            leads:      Math.round(r[3] || 0),
+            ventas,
+            ingreso,
+            roi,
+            cpl:        Math.round(r[10] || 0),
+            metaLeads:  Math.round(r[2] || 0),
+            agentes:    Math.round(r[1] || 0),
+          };
+        });
+    }
+
+    return { dailyData, providerData, totals, digitalData };
   } catch (err) {
     console.error('Error al parsear Excel:', err);
     return null;
@@ -176,13 +207,15 @@ function ProgressBar({ current, target, label, color }) {
 const EMPTY_TOTALS = { consumo: 0, ingreso: 0, leads: 0, ventas: 0, roi: 0, costoLead: 0, proyInversion: 0, proyConsumo: 0, diasLaborales: 25, diasTranscurridos: 0, agentes: 0, fte: 0, efectividad: 0, facturaxFTE: 0 };
 
 export default function Dashboard() {
-  const [activeView, setActiveView]     = useState("general");
-  const [dailyData, setDailyData]       = useState([]);
-  const [providerData, setProviderData] = useState([]);
-  const [totals, setTotals]             = useState(EMPTY_TOTALS);
-  const [fileName, setFileName]         = useState(null);
-  const [uploadError, setUploadError]   = useState(null);
-  const [saving, setSaving]             = useState(false);
+  const [activeView, setActiveView]       = useState("general");
+  const [activeCampaign, setActiveCampaign] = useState("blaster");
+  const [dailyData, setDailyData]         = useState([]);
+  const [providerData, setProviderData]   = useState([]);
+  const [totals, setTotals]               = useState(EMPTY_TOTALS);
+  const [digitalData, setDigitalData]     = useState([]);
+  const [fileName, setFileName]           = useState(null);
+  const [uploadError, setUploadError]     = useState(null);
+  const [saving, setSaving]               = useState(false);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -193,6 +226,7 @@ export default function Dashboard() {
           setDailyData(data.dailyData);
           setProviderData(data.providerData);
           setTotals(data.totals);
+          setDigitalData(data.digitalData || []);
           setFileName(data.fileName);
         }
       })
@@ -211,12 +245,13 @@ export default function Dashboard() {
           setDailyData(parsed.dailyData);
           setProviderData(parsed.providerData);
           setTotals(parsed.totals);
+          setDigitalData(parsed.digitalData || []);
           setFileName(file.name);
           setSaving(true);
           const res = await fetch('/api/save-data', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ dailyData: parsed.dailyData, providerData: parsed.providerData, totals: parsed.totals, fileName: file.name }),
+            body: JSON.stringify({ dailyData: parsed.dailyData, providerData: parsed.providerData, totals: parsed.totals, digitalData: parsed.digitalData || [], fileName: file.name }),
           });
           if (!res.ok) {
             const err = await res.json();
@@ -243,6 +278,18 @@ export default function Dashboard() {
       { name: "Chock",      value: ch, color: "#818cf8" },
     ];
   }, [providerData]);
+
+  const digitalTotals = useMemo(() => {
+    if (!digitalData.length) return { inversion: 0, ingreso: 0, roi: 0, leads: 0, ventas: 0, cpl: 0, mensajes: 0 };
+    const inversion = digitalData.reduce((s, d) => s + (d.inversion || 0), 0);
+    const ingreso   = digitalData.reduce((s, d) => s + (d.ingreso   || 0), 0);
+    const leads     = digitalData.reduce((s, d) => s + (d.leads     || 0), 0);
+    const ventas    = digitalData.reduce((s, d) => s + (d.ventas    || 0), 0);
+    const mensajes  = digitalData.reduce((s, d) => s + (d.mensajes  || 0), 0);
+    const roi       = inversion > 0 ? parseFloat((ingreso / inversion).toFixed(2)) : 0;
+    const cpl       = leads > 0 ? Math.round(inversion / leads) : 0;
+    return { inversion, ingreso, roi, leads, ventas, cpl, mensajes };
+  }, [digitalData]);
 
   const tabs = [
     { id: "general",    label: "General",    icon: "◉" },
@@ -414,8 +461,8 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* Gráficos: General / Operativo */}
-          {(activeView === "general" || activeView === "operativo") && (
+          {/* Gráficos: General — Blaster operativo (sin sub-nav) */}
+          {activeView === "general" && (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 16, marginBottom: 20 }}>
               <div style={{ background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%)", border: "1px solid rgba(56, 189, 248, 0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
                 <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}>
@@ -464,6 +511,221 @@ export default function Dashboard() {
                   </ComposedChart>
                 </ResponsiveContainer>
               </div>
+            </div>
+          )}
+
+          {/* Gráficos: Operativo — con sub-navegación Blaster / Digital */}
+          {activeView === "operativo" && (
+            <div style={{ marginBottom: 20 }}>
+              {/* Sub-nav */}
+              <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
+                {[{ id: "blaster", label: "◆ Blaster", accent: "#38bdf8" }, { id: "digital", label: "◈ Digital", accent: "#f472b6" }].map(c => (
+                  <button key={c.id} onClick={() => setActiveCampaign(c.id)} style={{
+                    padding: "8px 20px", borderRadius: 8, border: `1px solid ${activeCampaign === c.id ? c.accent + "88" : "rgba(100,116,139,0.2)"}`,
+                    background: activeCampaign === c.id ? `${c.accent}15` : "transparent",
+                    color: activeCampaign === c.id ? c.accent : "#64748b",
+                    fontSize: 12, fontWeight: 700, cursor: "pointer", transition: "all 0.2s",
+                  }}>{c.label}</button>
+                ))}
+              </div>
+
+              {/* ── BLASTER ── */}
+              {activeCampaign === "blaster" && (
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 16 }}>
+                  <div style={{ background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%)", border: "1px solid rgba(56, 189, 248, 0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}>
+                      <span style={{ color: "#38bdf8" }}>◆</span> Costo por Proveedor (Diario)
+                    </div>
+                    <ResponsiveContainer width="100%" height={240}>
+                      <BarChart data={providerData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(100,116,139,0.15)" />
+                        <XAxis dataKey="fecha" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
+                        <YAxis tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} tickFormatter={v => fmt(v)} />
+                        <Tooltip content={<CustomTooltip />} />
+                        <Bar dataKey="bestvoiper" name="Bestvoiper" stackId="a" fill="#63ebaf" />
+                        <Bar dataKey="chock"      name="Chock"      stackId="a" fill="#818cf8" radius={[6, 6, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                    <div style={{ display: "flex", gap: 20, justifyContent: "center", marginTop: 8 }}>
+                      {providerTotals.map(p => (
+                        <span key={p.name} style={{ fontSize: 11, display: "flex", alignItems: "center", gap: 5 }}>
+                          <span style={{ width: 10, height: 10, borderRadius: 3, background: p.color, display: "inline-block" }} />
+                          <span style={{ color: "#94a3b8" }}>{p.name}:</span>
+                          <span style={{ color: p.color, fontWeight: 700, fontFamily: "'JetBrains Mono', monospace" }}>{fmt(p.value)}</span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div style={{ background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%)", border: "1px solid rgba(244, 114, 182, 0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}>
+                      <span style={{ color: "#f472b6" }}>◉</span> Leads vs Ventas (Diario)
+                    </div>
+                    <ResponsiveContainer width="100%" height={240}>
+                      <ComposedChart data={dailyData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                        <defs>
+                          <linearGradient id="gradLeadsOp" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#38bdf8" stopOpacity={0.25} />
+                            <stop offset="100%" stopColor="#38bdf8" stopOpacity={0.02} />
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(100,116,139,0.15)" />
+                        <XAxis dataKey="fechaShort" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
+                        <YAxis yAxisId="left"  tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
+                        <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
+                        <Tooltip content={<CustomTooltip />} />
+                        <Area yAxisId="left"  type="monotone" dataKey="leads"  name="Leads"  fill="url(#gradLeadsOp)" stroke="#38bdf8" strokeWidth={2} />
+                        <Bar  yAxisId="right"                 dataKey="ventas" name="Ventas" fill="#f472b6" radius={[4, 4, 0, 0]} barSize={24} fillOpacity={0.85} />
+                      </ComposedChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              )}
+
+              {/* ── DIGITAL ── */}
+              {activeCampaign === "digital" && (
+                <div>
+                  {digitalData.length === 0 ? (
+                    <div style={{ textAlign: "center", padding: "40px 20px", color: "#475569", fontSize: 13 }}>
+                      No hay datos digitales — cargá un Excel con la hoja <strong style={{ color: "#f472b688" }}>digital</strong>
+                    </div>
+                  ) : (
+                    <>
+                      {/* KPI cards Digital */}
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 20 }}>
+                        <KPICard icon="💸" title="Inversión"  value={fmt(digitalTotals.inversion)} subtitle="Costo campañas Meta"        accent="#f472b6" />
+                        <KPICard icon="💰" title="Ingreso"    value={fmt(digitalTotals.ingreso)}   subtitle="Ventas × ticket"             accent="#818cf8" trend="up" />
+                        <KPICard icon="🎯" title="ROI"        value={`${digitalTotals.roi}x`}      subtitle="Ingreso / Inversión"         accent={digitalTotals.roi >= 2 ? "#63ebaf" : "#fbbf24"} trend="up" />
+                        <KPICard icon="📲" title="Leads"      value={fmtNum(digitalTotals.leads)}  subtitle={`CPL: ${fmt(digitalTotals.cpl)}`} accent="#38bdf8" />
+                        <KPICard icon="✅" title="Ventas"     value={digitalTotals.ventas}          subtitle={`Conv: ${digitalTotals.leads > 0 ? ((digitalTotals.ventas / digitalTotals.leads)*100).toFixed(1) : 0}%`} accent="#f472b6" trend="up" />
+                        <KPICard icon="✉️" title="Mensajes"   value={fmtNum(digitalTotals.mensajes)} subtitle="Envíos totales"            accent="#fbbf24" />
+                      </div>
+
+                      {/* Gráficos Digital */}
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 16, marginBottom: 16 }}>
+                        {/* Inversión vs Ingreso */}
+                        <div style={{ background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%)", border: "1px solid rgba(244, 114, 182, 0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}>
+                            <span style={{ color: "#f472b6" }}>◈</span> Inversión vs Ingreso Diario
+                          </div>
+                          <ResponsiveContainer width="100%" height={240}>
+                            <ComposedChart data={digitalData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                              <defs>
+                                <linearGradient id="gradInv" x1="0" y1="0" x2="0" y2="1">
+                                  <stop offset="0%" stopColor="#f472b6" stopOpacity={0.3} />
+                                  <stop offset="100%" stopColor="#f472b6" stopOpacity={0.02} />
+                                </linearGradient>
+                              </defs>
+                              <CartesianGrid strokeDasharray="3 3" stroke="rgba(100,116,139,0.15)" />
+                              <XAxis dataKey="fechaShort" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
+                              <YAxis tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} tickFormatter={v => fmt(v)} />
+                              <Tooltip content={<CustomTooltip />} />
+                              <Area type="monotone" dataKey="inversion" name="Inversión" fill="url(#gradInv)" stroke="#f472b6" strokeWidth={2} />
+                              <Line type="monotone" dataKey="ingreso"   name="Ingreso"   stroke="#818cf8" strokeWidth={2.5} dot={{ fill: "#818cf8", r: 3 }} />
+                            </ComposedChart>
+                          </ResponsiveContainer>
+                        </div>
+
+                        {/* ROI diario Digital */}
+                        <div style={{ background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%)", border: "1px solid rgba(129, 140, 248, 0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}>
+                            <span style={{ color: "#818cf8" }}>◈</span> ROI Diario Digital
+                          </div>
+                          <ResponsiveContainer width="100%" height={240}>
+                            <ComposedChart data={digitalData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                              <CartesianGrid strokeDasharray="3 3" stroke="rgba(100,116,139,0.15)" />
+                              <XAxis dataKey="fechaShort" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
+                              <YAxis tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} domain={[0, "auto"]} />
+                              <Tooltip content={<CustomTooltip />} />
+                              <Bar dataKey="roi" name="ROI" radius={[6, 6, 0, 0]} barSize={32}>
+                                {digitalData.map((entry, i) => (
+                                  <Cell key={i} fill={entry.roi >= 2 ? "#63ebaf" : entry.roi >= 1 ? "#fbbf24" : "#f87171"} />
+                                ))}
+                              </Bar>
+                              <Line type="monotone" dataKey={() => 1} name="Punto equilibrio" stroke="#f8717188" strokeDasharray="6 4" strokeWidth={1.5} dot={false} />
+                            </ComposedChart>
+                          </ResponsiveContainer>
+                          <div style={{ display: "flex", gap: 16, justifyContent: "center", marginTop: 8 }}>
+                            {[{ c: "#63ebaf", l: "≥ 2x" }, { c: "#fbbf24", l: "1–2x" }, { c: "#f87171", l: "< 1x" }].map(({ c, l }) => (
+                              <span key={l} style={{ fontSize: 10, color: "#64748b", display: "flex", alignItems: "center", gap: 4 }}>
+                                <span style={{ width: 8, height: 8, borderRadius: 2, background: c, display: "inline-block" }} /> {l}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Leads vs Ventas Digital */}
+                        <div style={{ background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%)", border: "1px solid rgba(56, 189, 248, 0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}>
+                            <span style={{ color: "#38bdf8" }}>◉</span> Leads vs Ventas Digital
+                          </div>
+                          <ResponsiveContainer width="100%" height={240}>
+                            <ComposedChart data={digitalData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                              <defs>
+                                <linearGradient id="gradLeadsDig" x1="0" y1="0" x2="0" y2="1">
+                                  <stop offset="0%" stopColor="#38bdf8" stopOpacity={0.25} />
+                                  <stop offset="100%" stopColor="#38bdf8" stopOpacity={0.02} />
+                                </linearGradient>
+                              </defs>
+                              <CartesianGrid strokeDasharray="3 3" stroke="rgba(100,116,139,0.15)" />
+                              <XAxis dataKey="fechaShort" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
+                              <YAxis yAxisId="left"  tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
+                              <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
+                              <Tooltip content={<CustomTooltip />} />
+                              <Area yAxisId="left"  type="monotone" dataKey="leads"  name="Leads"  fill="url(#gradLeadsDig)" stroke="#38bdf8" strokeWidth={2} />
+                              <Bar  yAxisId="right"                 dataKey="ventas" name="Ventas" fill="#f472b6" radius={[4, 4, 0, 0]} barSize={24} fillOpacity={0.85} />
+                            </ComposedChart>
+                          </ResponsiveContainer>
+                        </div>
+                      </div>
+
+                      {/* Tabla detalle Digital */}
+                      <div style={{ background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%)", border: "1px solid rgba(244, 114, 182, 0.1)", borderRadius: 16, padding: "20px 16px", overflow: "auto" }}>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 12 }}>
+                          <span style={{ color: "#f472b6" }}>◆</span> Detalle Diario — Digital
+                        </div>
+                        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
+                          <thead>
+                            <tr>
+                              {["Fecha", "Inversión", "Ingreso", "ROI", "Leads", "Ventas", "CPL", "Mensajes"].map(h => (
+                                <th key={h} style={{
+                                  textAlign: h === "Fecha" ? "left" : "right",
+                                  padding: "8px 6px", borderBottom: "1px solid rgba(244,114,182,0.15)",
+                                  color: "#f472b6", fontWeight: 600, fontSize: 10, letterSpacing: 0.5,
+                                }}>{h}</th>
+                              ))}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {digitalData.map((d, i) => (
+                              <tr key={i} style={{ background: i % 2 === 0 ? "transparent" : "rgba(244,114,182,0.03)" }}>
+                                <td style={{ padding: "7px 6px", color: "#94a3b8", fontWeight: 500 }}>{d.fechaShort}</td>
+                                <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#f472b6" }}>{fmt(d.inversion)}</td>
+                                <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8" }}>{fmt(d.ingreso)}</td>
+                                <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: d.roi >= 2 ? "#63ebaf" : d.roi >= 1 ? "#fbbf24" : "#f87171", fontWeight: 700 }}>{d.roi}x</td>
+                                <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#38bdf8" }}>{fmtNum(d.leads)}</td>
+                                <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#f472b6", fontWeight: 700 }}>{d.ventas}</td>
+                                <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#fbbf24" }}>{fmt(d.cpl)}</td>
+                                <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#64748b" }}>{fmtNum(d.mensajes)}</td>
+                              </tr>
+                            ))}
+                            <tr style={{ borderTop: "2px solid rgba(244,114,182,0.2)" }}>
+                              <td style={{ padding: "9px 6px", color: "#f472b6", fontWeight: 800 }}>TOTAL</td>
+                              <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#f472b6", fontWeight: 800 }}>{fmt(digitalTotals.inversion)}</td>
+                              <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8", fontWeight: 800 }}>{fmt(digitalTotals.ingreso)}</td>
+                              <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{digitalTotals.roi}x</td>
+                              <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#38bdf8", fontWeight: 800 }}>{fmtNum(digitalTotals.leads)}</td>
+                              <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#f472b6", fontWeight: 800 }}>{digitalTotals.ventas}</td>
+                              <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#fbbf24", fontWeight: 800 }}>{fmt(digitalTotals.cpl)}</td>
+                              <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#64748b", fontWeight: 800 }}>{fmtNum(digitalTotals.mensajes)}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
             </div>
           )}
 
