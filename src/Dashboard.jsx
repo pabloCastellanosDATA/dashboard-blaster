@@ -248,7 +248,7 @@ export default function Dashboard() {
         if (data.dailyData?.length > 0) {
           setDailyData(data.dailyData);
           setProviderData(data.providerData);
-          setTotals(data.totals);
+          setTotals({ ...EMPTY_TOTALS, ...data.totals });
           setDigitalData(data.digitalData || []);
           setFileName(data.fileName);
         }
