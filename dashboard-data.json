@@ -182,7 +182,9 @@
     "efectividad": 7.38,
     "proyConsumo": 61685356.81818182,
     "diasLaborales": 25,
-    "diasTranscurridos": 11
+    "diasTranscurridos": 11,
+    "ventasActivasBlaster": 1240,
+    "ventasActivasDigital": 464
   },
   "digitalData": [
     {
