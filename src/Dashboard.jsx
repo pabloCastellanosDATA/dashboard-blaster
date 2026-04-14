@@ -468,7 +468,7 @@ export default function Dashboard() {
           {/* KPI Cards */}
           {activeView === "operativo" && activeCampaign === "digital" ? (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 12, marginBottom: 24 }}>
-              <KPICard icon="💸" title="Inversión"  value={fmt(digitalTotals.inversion)}  subtitle="Costo campañas Meta"                                                                            accent="#f472b6" />
+              <KPICard icon="💸" title="Inversión"  value={fmt(digitalTotals.inversion)}  subtitle="Costo mensajería digital"                                                                            accent="#f472b6" />
               <KPICard icon="💰" title="Ingreso"    value={fmt(digitalTotals.ingreso)}    subtitle="Ventas × ticket"                                                                                accent="#818cf8" trend="up" />
               <KPICard icon="🎯" title="ROI Global" value={`${digitalTotals.roi}x`}       subtitle="Ingreso / Inversión"                                                                            accent={digitalTotals.roi >= 2 ? "#63ebaf" : "#fbbf24"} trend="up" />
               <KPICard icon="📲" title="Leads"      value={fmtNum(digitalTotals.leads)}   subtitle={`CPL: ${fmt(digitalTotals.cpl)}`}                                                              accent="#38bdf8" />
@@ -638,7 +638,7 @@ export default function Dashboard() {
                     <>
                       {/* KPI cards Digital */}
                       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 20 }}>
-                        <KPICard icon="💸" title="Inversión"  value={fmt(digitalTotals.inversion)} subtitle="Costo campañas Meta"        accent="#f472b6" />
+                        <KPICard icon="💸" title="Inversión"  value={fmt(digitalTotals.inversion)} subtitle="Costo mensajería digital"        accent="#f472b6" />
                         <KPICard icon="💰" title="Ingreso"    value={fmt(digitalTotals.ingreso)}   subtitle="Ventas × ticket"             accent="#818cf8" trend="up" />
                         <KPICard icon="🎯" title="ROI"        value={`${digitalTotals.roi}x`}      subtitle="Ingreso / Inversión"         accent={digitalTotals.roi >= 2 ? "#63ebaf" : "#fbbf24"} trend="up" />
                         <KPICard icon="📲" title="Leads"      value={fmtNum(digitalTotals.leads)}  subtitle={`CPL: ${fmt(digitalTotals.cpl)}`} accent="#38bdf8" />
