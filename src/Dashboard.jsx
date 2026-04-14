@@ -117,6 +117,7 @@ function parseExcelFile(workbook) {
     }
 
     // Hoja: Consulta1 → ventas activas por campaña (fecha_cierre = mes en curso)
+    const COL_ESTADO  = 21;
     const COL_ORIGEN  = 22;
     const COL_CIERRE  = 30;
     const BLASTER_OR  = ['Blaster', 'Freelance', 'Part Time'];
@@ -131,6 +132,7 @@ function parseExcelFile(workbook) {
       const rawC = XLSX.utils.sheet_to_json(wsConsulta, { header: 1 });
       rawC.slice(1).forEach(r => {
         if (r[COL_CIERRE] !== mesKey) return;
+        if (r[COL_ESTADO] !== 'ACTIVO') return;
         const origen = r[COL_ORIGEN];
         if (BLASTER_OR.includes(origen)) ventasActivasBlaster++;
         else if (DIGITAL_OR.includes(origen)) ventasActivasDigital++;
