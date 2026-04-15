@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import * as XLSX from "xlsx";
-import { BarChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ComposedChart, Area, PieChart, Pie, Cell } from "recharts";
+import { BarChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ComposedChart, Area, Cell } from "recharts";
 
 const MESES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 
@@ -388,19 +388,15 @@ export default function Dashboard() {
   const consolidadoData = useMemo(() => {
     const map = {};
     dailyData.forEach(d => {
-      map[d.fechaShort] = { fechaShort: d.fechaShort, blasterCosto: d.consumo, blasterIngreso: d.ingreso, blasterRoi: d.roi, digitalCosto: 0, digitalIngreso: 0, digitalRoi: 0 };
+      map[d.fecha] = { fecha: d.fecha, fechaShort: d.fechaShort, blasterCosto: d.consumo, blasterIngreso: d.ingreso, blasterRoi: d.roi, digitalCosto: 0, digitalIngreso: 0, digitalRoi: 0 };
     });
     digitalData.forEach(d => {
-      if (!map[d.fechaShort]) map[d.fechaShort] = { fechaShort: d.fechaShort, blasterCosto: 0, blasterIngreso: 0, blasterRoi: 0 };
-      map[d.fechaShort].digitalCosto   = d.inversion;
-      map[d.fechaShort].digitalIngreso = d.ingreso;
-      map[d.fechaShort].digitalRoi     = d.roi;
+      if (!map[d.fecha]) map[d.fecha] = { fecha: d.fecha, fechaShort: d.fechaShort, blasterCosto: 0, blasterIngreso: 0, blasterRoi: 0, digitalCosto: 0, digitalIngreso: 0, digitalRoi: 0 };
+      map[d.fecha].digitalCosto   = d.inversion;
+      map[d.fecha].digitalIngreso = d.ingreso;
+      map[d.fecha].digitalRoi     = d.roi;
     });
-    return Object.values(map).sort((a, b) => {
-      const ia = dailyData.findIndex(d => d.fechaShort === a.fechaShort);
-      const ib = dailyData.findIndex(d => d.fechaShort === b.fechaShort);
-      return ia - ib;
-    });
+    return Object.values(map).sort((a, b) => a.fecha.localeCompare(b.fecha));
   }, [dailyData, digitalData]);
 
   const tabs = [
