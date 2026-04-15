@@ -199,23 +199,23 @@
     "proyConsumo": 61787377.083333336,
     "diasLaborales": 25,
     "diasTranscurridos": 12,
-    "ventasActivasBlaster": 899,
-    "ventasActivasDigital": 357,
+    "ventasActivasBlaster": 929,
+    "ventasActivasDigital": 364,
     "tiposActivasBlaster": {
       "Migracion": 308,
-      "Portabilidad": 590
+      "Portabilidad": 620
     },
     "tiposActivasDigital": {
       "Migracion": 41,
-      "Portabilidad": 316
+      "Portabilidad": 323
     },
     "tiposCreadasBlaster": {
-      "Migracion": 291,
-      "Portabilidad": 967
+      "Migracion": 292,
+      "Portabilidad": 1000
     },
     "tiposCreadasDigital": {
-      "Migracion": 38,
-      "Portabilidad": 488
+      "Migracion": 39,
+      "Portabilidad": 503
     }
   },
   "digitalData": [
