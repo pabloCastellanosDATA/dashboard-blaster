@@ -291,8 +291,9 @@ function ProgressBar({ current, target, label, color }) {
 const EMPTY_TOTALS = { consumo: 0, ingreso: 0, leads: 0, ventas: 0, roi: 0, costoLead: 0, proyInversion: 0, proyConsumo: 0, diasLaborales: 25, diasTranscurridos: 0, agentes: 0, fte: 0, efectividad: 0, facturaxFTE: 0, ventasActivasBlaster: 0, ventasActivasDigital: 0, tiposActivasBlaster: { Migracion: 0, Portabilidad: 0 }, tiposActivasDigital: { Migracion: 0, Portabilidad: 0 }, tiposCreadasBlaster: { Migracion: 0, Portabilidad: 0 }, tiposCreadasDigital: { Migracion: 0, Portabilidad: 0 } };
 
 export default function Dashboard() {
-  const [activeView, setActiveView]       = useState("operativo");
+  const [activeView, setActiveView]         = useState("operativo");
   const [activeCampaign, setActiveCampaign] = useState("blaster");
+  const [activeFinanciero, setActiveFinanciero] = useState("consolidado");
   const [dailyData, setDailyData]         = useState([]);
   const [providerData, setProviderData]   = useState([]);
   const [totals, setTotals]               = useState(EMPTY_TOTALS);
@@ -374,6 +375,33 @@ export default function Dashboard() {
     const cpl       = leads > 0 ? Math.round(inversion / leads) : 0;
     return { inversion, ingreso, roi, leads, ventas, cpl, mensajes };
   }, [digitalData]);
+
+  const consolidadoTotals = useMemo(() => {
+    const inversion = totals.consumo + (digitalTotals.inversion || 0);
+    const ingreso   = totals.ingreso  + (digitalTotals.ingreso  || 0);
+    const margen    = ingreso - inversion;
+    const roi       = inversion > 0 ? parseFloat((ingreso / inversion).toFixed(2)) : 0;
+    const ventasActivas = (totals.ventasActivasBlaster || 0) + (totals.ventasActivasDigital || 0);
+    return { inversion, ingreso, margen, roi, ventasActivas };
+  }, [totals, digitalTotals]);
+
+  const consolidadoData = useMemo(() => {
+    const map = {};
+    dailyData.forEach(d => {
+      map[d.fechaShort] = { fechaShort: d.fechaShort, blasterCosto: d.consumo, blasterIngreso: d.ingreso, blasterRoi: d.roi, digitalCosto: 0, digitalIngreso: 0, digitalRoi: 0 };
+    });
+    digitalData.forEach(d => {
+      if (!map[d.fechaShort]) map[d.fechaShort] = { fechaShort: d.fechaShort, blasterCosto: 0, blasterIngreso: 0, blasterRoi: 0 };
+      map[d.fechaShort].digitalCosto   = d.inversion;
+      map[d.fechaShort].digitalIngreso = d.ingreso;
+      map[d.fechaShort].digitalRoi     = d.roi;
+    });
+    return Object.values(map).sort((a, b) => {
+      const ia = dailyData.findIndex(d => d.fechaShort === a.fechaShort);
+      const ib = dailyData.findIndex(d => d.fechaShort === b.fechaShort);
+      return ia - ib;
+    });
+  }, [dailyData, digitalData]);
 
   const tabs = [
     { id: "operativo",  label: "Operativo",  icon: "◆" },
@@ -468,28 +496,47 @@ export default function Dashboard() {
           {/* KPI Cards */}
           {activeView === "operativo" && activeCampaign === "digital" ? (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 12, marginBottom: 24 }}>
-              <KPICard icon="💸" title="Inversión"  value={fmt(digitalTotals.inversion)}  subtitle="Costo mensajería digital"                                                                            accent="#f472b6" />
-              <KPICard icon="💰" title="Ingreso"    value={fmt(digitalTotals.ingreso)}    subtitle="Ventas × ticket"                                                                                accent="#818cf8" trend="up" />
-              <KPICard icon="🎯" title="ROI Global" value={`${digitalTotals.roi}x`}       subtitle="Ingreso / Inversión"                                                                            accent={digitalTotals.roi >= 2 ? "#63ebaf" : "#fbbf24"} trend="up" />
-              <KPICard icon="📲" title="Leads"      value={fmtNum(digitalTotals.leads)}   subtitle={`CPL: ${fmt(digitalTotals.cpl)}`}                                                              accent="#38bdf8" />
-              <KPICard icon="✅" title="Ventas Creadas"   value={digitalTotals.ventas}        subtitle={`Conv: ${digitalTotals.leads > 0 ? ((digitalTotals.ventas / digitalTotals.leads)*100).toFixed(1) : 0}%`} accent="#f472b6" trend="up" tooltipLines={["Por tipo de plan", `Migración: ${totals.tiposCreadasDigital?.Migracion ?? 0}`, `Portabilidad: ${totals.tiposCreadasDigital?.Portabilidad ?? 0}`]} />
-              <KPICard icon="🟢" title="Ventas Activas"  value={totals.ventasActivasDigital} subtitle="Activadas este mes"  accent="#63ebaf" trend="up" tooltipLines={["Por tipo de plan", `Migración: ${totals.tiposActivasDigital?.Migracion ?? 0}`, `Portabilidad: ${totals.tiposActivasDigital?.Portabilidad ?? 0}`]} />
-              <KPICard icon="✉️" title="Mensajes"         value={fmtNum(digitalTotals.mensajes)} subtitle="Envíos totales"                                                                          accent="#fbbf24" />
+              <KPICard icon="💸" title="Inversión"      value={fmt(digitalTotals.inversion)}      subtitle="Costo mensajería digital"  accent="#f472b6" />
+              <KPICard icon="💰" title="Ingreso"        value={fmt(digitalTotals.ingreso)}        subtitle="Ventas × ticket"           accent="#818cf8" trend="up" />
+              <KPICard icon="🎯" title="ROI Global"     value={`${digitalTotals.roi}x`}           subtitle="Ingreso / Inversión"       accent={digitalTotals.roi >= 2 ? "#63ebaf" : "#fbbf24"} trend="up" />
+              <KPICard icon="📲" title="Leads"          value={fmtNum(digitalTotals.leads)}       subtitle={`CPL: ${fmt(digitalTotals.cpl)}`} accent="#38bdf8" />
+              <KPICard icon="✅" title="Ventas Creadas" value={digitalTotals.ventas}              subtitle={`Conv: ${digitalTotals.leads > 0 ? ((digitalTotals.ventas / digitalTotals.leads)*100).toFixed(1) : 0}%`} accent="#f472b6" trend="up" tooltipLines={["Por tipo de plan", `Migración: ${totals.tiposCreadasDigital?.Migracion ?? 0}`, `Portabilidad: ${totals.tiposCreadasDigital?.Portabilidad ?? 0}`]} />
+              <KPICard icon="🟢" title="Ventas Activas" value={totals.ventasActivasDigital}       subtitle="Activadas este mes"        accent="#63ebaf" trend="up" tooltipLines={["Por tipo de plan", `Migración: ${totals.tiposActivasDigital?.Migracion ?? 0}`, `Portabilidad: ${totals.tiposActivasDigital?.Portabilidad ?? 0}`]} />
+              <KPICard icon="✉️" title="Mensajes"        value={fmtNum(digitalTotals.mensajes)}   subtitle="Envíos totales"            accent="#fbbf24" />
+            </div>
+          ) : activeView === "financiero" && activeFinanciero === "consolidado" ? (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 12, marginBottom: 24 }}>
+              <KPICard icon="💰" title="Inversión Total"   value={fmt(consolidadoTotals.inversion)} subtitle="Blaster + Digital"                                       accent="#63ebaf" trend="up" />
+              <KPICard icon="📊" title="Ingreso Total"     value={fmt(consolidadoTotals.ingreso)}   subtitle="Blaster + Digital"                                       accent="#818cf8" trend="up" />
+              <KPICard icon="📈" title="Margen Neto"       value={fmt(consolidadoTotals.margen)}    subtitle="Ingreso − Inversión"                                     accent={consolidadoTotals.margen >= 0 ? "#63ebaf" : "#f87171"} trend={consolidadoTotals.margen >= 0 ? "up" : "down"} />
+              <KPICard icon="🎯" title="ROI Consolidado"   value={`${consolidadoTotals.roi}x`}      subtitle="Ingreso / Inversión"                                     accent={consolidadoTotals.roi >= 1.5 ? "#63ebaf" : "#fbbf24"} trend="up" />
+              <KPICard icon="🟢" title="Ventas Activas"    value={consolidadoTotals.ventasActivas}  subtitle="Blaster + Digital"                                       accent="#f472b6" trend="up" />
+              <KPICard icon="👥" title="Agentes / FTE"     value={`${totals.agentes} / ${totals.fte}`} subtitle={`Fact/FTE: ${fmt(totals.facturaxFTE)}`}              accent="#fbbf24" />
+            </div>
+          ) : activeView === "financiero" && activeFinanciero === "digital" ? (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 12, marginBottom: 24 }}>
+              <KPICard icon="💸" title="Inversión"      value={fmt(digitalTotals.inversion)}    subtitle="Costo mensajería digital"  accent="#f472b6" />
+              <KPICard icon="💰" title="Ingreso"        value={fmt(digitalTotals.ingreso)}      subtitle="Ventas × ticket"           accent="#818cf8" trend="up" />
+              <KPICard icon="📈" title="Margen"         value={fmt(digitalTotals.ingreso - digitalTotals.inversion)} subtitle="Ingreso − Inversión" accent={digitalTotals.ingreso >= digitalTotals.inversion ? "#63ebaf" : "#f87171"} trend="up" />
+              <KPICard icon="🎯" title="ROI"            value={`${digitalTotals.roi}x`}         subtitle="Ingreso / Inversión"       accent={digitalTotals.roi >= 2 ? "#63ebaf" : "#fbbf24"} trend="up" />
+              <KPICard icon="🟢" title="Ventas Activas" value={totals.ventasActivasDigital}     subtitle="Activadas este mes"        accent="#63ebaf" trend="up" tooltipLines={["Por tipo de plan", `Migración: ${totals.tiposActivasDigital?.Migracion ?? 0}`, `Portabilidad: ${totals.tiposActivasDigital?.Portabilidad ?? 0}`]} />
+              <KPICard icon="✉️" title="Mensajes"        value={fmtNum(digitalTotals.mensajes)} subtitle="Envíos totales"            accent="#fbbf24" />
             </div>
           ) : (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 12, marginBottom: 24 }}>
-              <KPICard icon="💰" title="Inversión Total"   value={fmt(totals.consumo)}  subtitle={`Proy: ${fmt(totals.proyInversion)}`}                      accent="#63ebaf" trend="up" />
+              <KPICard icon="💰" title="Inversión Total"   value={fmt(totals.consumo)}  subtitle={`Proy: ${fmt(totals.proyInversion)}`}               accent="#63ebaf" trend="up" />
               <KPICard icon="📊" title="Ingreso Facturado" value={fmt(totals.ingreso)}  subtitle={`${totals.diasTranscurridos}/${totals.diasLaborales} días`} accent="#818cf8" trend="up" />
-              <KPICard icon="🎯" title="ROI Global"        value={`${totals.roi}x`}     subtitle="Ingreso / Inversión"                                        accent={totals.roi >= 1.5 ? "#63ebaf" : "#fbbf24"} trend="up" />
-              <KPICard icon="📞" title="Leads Totales"     value={fmtNum(totals.leads)} subtitle={`Costo/Lead: ${fmt(totals.costoLead)}`}                     accent="#38bdf8" />
-              <KPICard icon="✅" title="Ventas Creadas"  value={totals.ventas}               subtitle={`Efectividad: ${totals.efectividad}%`}  accent="#f472b6" trend="up" tooltipLines={["Por tipo de plan", `Migración: ${totals.tiposCreadasBlaster?.Migracion ?? 0}`, `Portabilidad: ${totals.tiposCreadasBlaster?.Portabilidad ?? 0}`]} />
-              <KPICard icon="🟢" title="Ventas Activas" value={totals.ventasActivasBlaster} subtitle="Activadas este mes"                    accent="#63ebaf" trend="up" tooltipLines={["Por tipo de plan", `Migración: ${totals.tiposActivasBlaster?.Migracion ?? 0}`, `Portabilidad: ${totals.tiposActivasBlaster?.Portabilidad ?? 0}`]} />
-              <KPICard icon="👥" title="Agentes / FTE"  value={`${totals.agentes} / ${totals.fte}`} subtitle={`Fact/FTE: ${fmt(totals.facturaxFTE)}`} accent="#fbbf24" />
+              <KPICard icon="📈" title="Margen"            value={fmt(totals.ingreso - totals.consumo)} subtitle="Ingreso − Inversión" accent={totals.ingreso >= totals.consumo ? "#63ebaf" : "#f87171"} trend="up" />
+              <KPICard icon="🎯" title="ROI Global"        value={`${totals.roi}x`}     subtitle="Ingreso / Inversión"               accent={totals.roi >= 1.5 ? "#63ebaf" : "#fbbf24"} trend="up" />
+              <KPICard icon="📞" title="Leads Totales"     value={fmtNum(totals.leads)} subtitle={`Costo/Lead: ${fmt(totals.costoLead)}`}              accent="#38bdf8" />
+              <KPICard icon="✅" title="Ventas Creadas"    value={totals.ventas}        subtitle={`Efectividad: ${totals.efectividad}%`}               accent="#f472b6" trend="up" tooltipLines={["Por tipo de plan", `Migración: ${totals.tiposCreadasBlaster?.Migracion ?? 0}`, `Portabilidad: ${totals.tiposCreadasBlaster?.Portabilidad ?? 0}`]} />
+              <KPICard icon="🟢" title="Ventas Activas"    value={totals.ventasActivasBlaster} subtitle="Activadas este mes"         accent="#63ebaf" trend="up" tooltipLines={["Por tipo de plan", `Migración: ${totals.tiposActivasBlaster?.Migracion ?? 0}`, `Portabilidad: ${totals.tiposActivasBlaster?.Portabilidad ?? 0}`]} />
+              <KPICard icon="👥" title="Agentes / FTE"     value={`${totals.agentes} / ${totals.fte}`} subtitle={`Fact/FTE: ${fmt(totals.facturaxFTE)}`} accent="#fbbf24" />
             </div>
           )}
 
-          {/* Progreso del mes — solo Blaster */}
-          {!(activeView === "operativo" && activeCampaign === "digital") && (
+          {/* Progreso del mes — Blaster/Consolidado, no en Digital */}
+          {!(activeView === "operativo" && activeCampaign === "digital") && !(activeView === "financiero" && activeFinanciero === "digital") && (
             <div style={{
               background: "linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%)",
               border: "1px solid rgba(99, 235, 175, 0.12)", borderRadius: 16, padding: "20px 24px", marginBottom: 24,
@@ -507,55 +554,277 @@ export default function Dashboard() {
 
           {/* Gráficos: Financiero */}
           {activeView === "financiero" && (
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 16, marginBottom: 20 }}>
-              <div style={{ background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%)", border: "1px solid rgba(99, 235, 175, 0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}>
-                  <span style={{ color: "#63ebaf" }}>◉</span> Consumo vs Ingreso Diario
-                </div>
-                <ResponsiveContainer width="100%" height={240}>
-                  <ComposedChart data={dailyData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
-                    <defs>
-                      <linearGradient id="gradConsumo" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#63ebaf" stopOpacity={0.3} />
-                        <stop offset="100%" stopColor="#63ebaf" stopOpacity={0.02} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(100,116,139,0.15)" />
-                    <XAxis dataKey="fechaShort" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
-                    <YAxis tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} tickFormatter={v => fmt(v)} />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Area type="monotone" dataKey="consumo" name="Consumo" fill="url(#gradConsumo)" stroke="#63ebaf" strokeWidth={2} />
-                    <Line type="monotone" dataKey="ingreso" name="Ingreso" stroke="#818cf8" strokeWidth={2.5} dot={{ fill: "#818cf8", r: 3 }} />
-                  </ComposedChart>
-                </ResponsiveContainer>
+            <div style={{ marginBottom: 20 }}>
+              {/* Sub-nav Financiero */}
+              <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
+                {[{ id: "consolidado", label: "◉ Consolidado", accent: "#63ebaf" }, { id: "blaster", label: "◆ Blaster", accent: "#38bdf8" }, { id: "digital", label: "◈ Digital", accent: "#f472b6" }].map(v => (
+                  <button key={v.id} onClick={() => setActiveFinanciero(v.id)} style={{
+                    padding: "8px 20px", borderRadius: 8, border: `1px solid ${activeFinanciero === v.id ? v.accent + "88" : "rgba(100,116,139,0.2)"}`,
+                    background: activeFinanciero === v.id ? `${v.accent}15` : "transparent",
+                    color: activeFinanciero === v.id ? v.accent : "#64748b",
+                    fontSize: 12, fontWeight: 700, cursor: "pointer", transition: "all 0.2s",
+                  }}>{v.label}</button>
+                ))}
               </div>
 
-              <div style={{ background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%)", border: "1px solid rgba(129, 140, 248, 0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}>
-                  <span style={{ color: "#818cf8" }}>◈</span> ROI Diario
+              {/* ── CONSOLIDADO ── */}
+              {activeFinanciero === "consolidado" && (
+                <div>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 16, marginBottom: 16 }}>
+                    {/* Ingreso vs Costo total */}
+                    <div style={{ background: "linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.6) 100%)", border: "1px solid rgba(99,235,175,0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}><span style={{ color: "#63ebaf" }}>◉</span> Ingreso vs Costo — Consolidado</div>
+                      <ResponsiveContainer width="100%" height={240}>
+                        <ComposedChart data={consolidadoData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                          <defs>
+                            <linearGradient id="gradCostoConsl" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="0%" stopColor="#63ebaf" stopOpacity={0.25} />
+                              <stop offset="100%" stopColor="#63ebaf" stopOpacity={0.02} />
+                            </linearGradient>
+                          </defs>
+                          <CartesianGrid strokeDasharray="3 3" stroke="rgba(100,116,139,0.15)" />
+                          <XAxis dataKey="fechaShort" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
+                          <YAxis tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} tickFormatter={v => fmt(v)} />
+                          <Tooltip content={<CustomTooltip />} />
+                          <Area type="monotone" dataKey="blasterCosto"   name="Costo Blaster"   fill="url(#gradCostoConsl)" stroke="#63ebaf" strokeWidth={2} />
+                          <Area type="monotone" dataKey="digitalCosto"   name="Costo Digital"   fill="none" stroke="#f472b6" strokeWidth={1.5} strokeDasharray="4 3" />
+                          <Line type="monotone" dataKey="blasterIngreso" name="Ingreso Blaster"  stroke="#818cf8" strokeWidth={2.5} dot={{ fill: "#818cf8", r: 3 }} />
+                          <Line type="monotone" dataKey="digitalIngreso" name="Ingreso Digital"  stroke="#fbbf24" strokeWidth={2} dot={{ fill: "#fbbf24", r: 3 }} />
+                        </ComposedChart>
+                      </ResponsiveContainer>
+                    </div>
+
+                    {/* ROI por campaña */}
+                    <div style={{ background: "linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.6) 100%)", border: "1px solid rgba(129,140,248,0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}><span style={{ color: "#818cf8" }}>◈</span> Evolución ROI por Campaña</div>
+                      <ResponsiveContainer width="100%" height={240}>
+                        <ComposedChart data={consolidadoData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="rgba(100,116,139,0.15)" />
+                          <XAxis dataKey="fechaShort" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
+                          <YAxis tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} domain={[0, "auto"]} />
+                          <Tooltip content={<CustomTooltip />} />
+                          <Line type="monotone" dataKey="blasterRoi" name="ROI Blaster" stroke="#38bdf8" strokeWidth={2.5} dot={{ fill: "#38bdf8", r: 3 }} />
+                          <Line type="monotone" dataKey="digitalRoi" name="ROI Digital" stroke="#f472b6" strokeWidth={2.5} dot={{ fill: "#f472b6", r: 3 }} />
+                          <Line type="monotone" dataKey={() => 1} name="Punto equilibrio" stroke="#f8717166" strokeDasharray="6 4" strokeWidth={1.5} dot={false} />
+                        </ComposedChart>
+                      </ResponsiveContainer>
+                      <div style={{ display: "flex", gap: 20, justifyContent: "center", marginTop: 8 }}>
+                        {[{ c: "#38bdf8", l: "Blaster" }, { c: "#f472b6", l: "Digital" }].map(({ c, l }) => (
+                          <span key={l} style={{ fontSize: 10, color: "#64748b", display: "flex", alignItems: "center", gap: 4 }}>
+                            <span style={{ width: 10, height: 3, background: c, display: "inline-block", borderRadius: 2 }} /> {l}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Tabla consolidada */}
+                  <div style={{ background: "linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.6) 100%)", border: "1px solid rgba(99,235,175,0.1)", borderRadius: 16, padding: "20px 16px", overflow: "auto" }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 12 }}><span style={{ color: "#63ebaf" }}>◆</span> Detalle Diario — Consolidado</div>
+                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
+                      <thead>
+                        <tr>
+                          {["Fecha", "Costo Blaster", "Ingreso Blaster", "ROI B", "Costo Digital", "Ingreso Digital", "ROI D", "Ingreso Total", "Margen"].map(h => (
+                            <th key={h} style={{ textAlign: h === "Fecha" ? "left" : "right", padding: "8px 6px", borderBottom: "1px solid rgba(99,235,175,0.15)", color: "#63ebaf", fontWeight: 600, fontSize: 10, letterSpacing: 0.5 }}>{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {consolidadoData.map((d, i) => {
+                          const ingresoTotal = (d.blasterIngreso || 0) + (d.digitalIngreso || 0);
+                          const costoTotal   = (d.blasterCosto  || 0) + (d.digitalCosto   || 0);
+                          const margen       = ingresoTotal - costoTotal;
+                          return (
+                            <tr key={i} style={{ background: i % 2 === 0 ? "transparent" : "rgba(99,235,175,0.03)" }}>
+                              <td style={{ padding: "7px 6px", color: "#94a3b8", fontWeight: 500 }}>{d.fechaShort}</td>
+                              <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf" }}>{fmt(d.blasterCosto)}</td>
+                              <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8" }}>{fmt(d.blasterIngreso)}</td>
+                              <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: d.blasterRoi >= 1.5 ? "#63ebaf" : d.blasterRoi >= 1 ? "#fbbf24" : "#f87171", fontWeight: 700 }}>{d.blasterRoi}x</td>
+                              <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#f472b6" }}>{fmt(d.digitalCosto)}</td>
+                              <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8" }}>{fmt(d.digitalIngreso)}</td>
+                              <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: d.digitalRoi >= 2 ? "#63ebaf" : d.digitalRoi >= 1 ? "#fbbf24" : "#f87171", fontWeight: 700 }}>{d.digitalRoi > 0 ? `${d.digitalRoi}x` : "—"}</td>
+                              <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#e2e8f0", fontWeight: 700 }}>{fmt(ingresoTotal)}</td>
+                              <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: margen >= 0 ? "#63ebaf" : "#f87171", fontWeight: 700 }}>{fmt(margen)}</td>
+                            </tr>
+                          );
+                        })}
+                        <tr style={{ borderTop: "2px solid rgba(99,235,175,0.2)" }}>
+                          <td style={{ padding: "9px 6px", color: "#63ebaf", fontWeight: 800 }}>TOTAL</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{fmt(totals.consumo)}</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8", fontWeight: 800 }}>{fmt(totals.ingreso)}</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{totals.roi}x</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#f472b6", fontWeight: 800 }}>{fmt(digitalTotals.inversion)}</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8", fontWeight: 800 }}>{fmt(digitalTotals.ingreso)}</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{digitalTotals.roi}x</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#e2e8f0", fontWeight: 800 }}>{fmt(consolidadoTotals.ingreso)}</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: consolidadoTotals.margen >= 0 ? "#63ebaf" : "#f87171", fontWeight: 800 }}>{fmt(consolidadoTotals.margen)}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-                <ResponsiveContainer width="100%" height={240}>
-                  <ComposedChart data={dailyData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(100,116,139,0.15)" />
-                    <XAxis dataKey="fechaShort" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
-                    <YAxis tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} domain={[0, "auto"]} />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Bar dataKey="roi" name="ROI" radius={[6, 6, 0, 0]} fill="#818cf8" barSize={32}>
-                      {dailyData.map((entry, i) => (
-                        <Cell key={i} fill={entry.roi >= 1.5 ? "#63ebaf" : entry.roi >= 1 ? "#fbbf24" : "#f87171"} />
-                      ))}
-                    </Bar>
-                    <Line type="monotone" dataKey={() => 1} name="Punto equilibrio" stroke="#f8717188" strokeDasharray="6 4" strokeWidth={1.5} dot={false} />
-                  </ComposedChart>
-                </ResponsiveContainer>
-                <div style={{ display: "flex", gap: 16, justifyContent: "center", marginTop: 8 }}>
-                  {[{ c: "#63ebaf", l: "≥ 1.5x" }, { c: "#fbbf24", l: "1.0–1.5x" }, { c: "#f87171", l: "< 1.0x" }].map(({ c, l }) => (
-                    <span key={l} style={{ fontSize: 10, color: "#64748b", display: "flex", alignItems: "center", gap: 4 }}>
-                      <span style={{ width: 8, height: 8, borderRadius: 2, background: c, display: "inline-block" }} /> {l}
-                    </span>
-                  ))}
+              )}
+
+              {/* ── BLASTER ── */}
+              {activeFinanciero === "blaster" && (
+                <div>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 16, marginBottom: 16 }}>
+                    <div style={{ background: "linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.6) 100%)", border: "1px solid rgba(99,235,175,0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}><span style={{ color: "#63ebaf" }}>◉</span> Consumo vs Ingreso Diario</div>
+                      <ResponsiveContainer width="100%" height={240}>
+                        <ComposedChart data={dailyData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                          <defs>
+                            <linearGradient id="gradConsumo" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="0%" stopColor="#63ebaf" stopOpacity={0.3} />
+                              <stop offset="100%" stopColor="#63ebaf" stopOpacity={0.02} />
+                            </linearGradient>
+                          </defs>
+                          <CartesianGrid strokeDasharray="3 3" stroke="rgba(100,116,139,0.15)" />
+                          <XAxis dataKey="fechaShort" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
+                          <YAxis tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} tickFormatter={v => fmt(v)} />
+                          <Tooltip content={<CustomTooltip />} />
+                          <Area type="monotone" dataKey="consumo" name="Consumo" fill="url(#gradConsumo)" stroke="#63ebaf" strokeWidth={2} />
+                          <Line type="monotone" dataKey="ingreso" name="Ingreso" stroke="#818cf8" strokeWidth={2.5} dot={{ fill: "#818cf8", r: 3 }} />
+                        </ComposedChart>
+                      </ResponsiveContainer>
+                    </div>
+                    <div style={{ background: "linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.6) 100%)", border: "1px solid rgba(129,140,248,0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}><span style={{ color: "#818cf8" }}>◈</span> ROI Diario</div>
+                      <ResponsiveContainer width="100%" height={240}>
+                        <ComposedChart data={dailyData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="rgba(100,116,139,0.15)" />
+                          <XAxis dataKey="fechaShort" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
+                          <YAxis tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} domain={[0, "auto"]} />
+                          <Tooltip content={<CustomTooltip />} />
+                          <Bar dataKey="roi" name="ROI" radius={[6, 6, 0, 0]} barSize={32}>
+                            {dailyData.map((entry, i) => (
+                              <Cell key={i} fill={entry.roi >= 1.5 ? "#63ebaf" : entry.roi >= 1 ? "#fbbf24" : "#f87171"} />
+                            ))}
+                          </Bar>
+                          <Line type="monotone" dataKey={() => 1} name="Punto equilibrio" stroke="#f8717188" strokeDasharray="6 4" strokeWidth={1.5} dot={false} />
+                        </ComposedChart>
+                      </ResponsiveContainer>
+                      <div style={{ display: "flex", gap: 16, justifyContent: "center", marginTop: 8 }}>
+                        {[{ c: "#63ebaf", l: "≥ 1.5x" }, { c: "#fbbf24", l: "1–1.5x" }, { c: "#f87171", l: "< 1x" }].map(({ c, l }) => (
+                          <span key={l} style={{ fontSize: 10, color: "#64748b", display: "flex", alignItems: "center", gap: 4 }}>
+                            <span style={{ width: 8, height: 8, borderRadius: 2, background: c, display: "inline-block" }} /> {l}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  {/* Tabla Blaster */}
+                  <div style={{ background: "linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.6) 100%)", border: "1px solid rgba(56,189,248,0.1)", borderRadius: 16, padding: "20px 16px", overflow: "auto" }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 12 }}><span style={{ color: "#38bdf8" }}>◆</span> Detalle Diario — Blaster</div>
+                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
+                      <thead>
+                        <tr>
+                          {["Fecha", "Consumo", "Ingreso", "Margen", "ROI", "Ventas Activas"].map(h => (
+                            <th key={h} style={{ textAlign: h === "Fecha" ? "left" : "right", padding: "8px 6px", borderBottom: "1px solid rgba(56,189,248,0.15)", color: "#38bdf8", fontWeight: 600, fontSize: 10, letterSpacing: 0.5 }}>{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {dailyData.map((d, i) => (
+                          <tr key={i} style={{ background: i % 2 === 0 ? "transparent" : "rgba(56,189,248,0.03)" }}>
+                            <td style={{ padding: "7px 6px", color: "#94a3b8", fontWeight: 500 }}>{d.fechaShort}</td>
+                            <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf" }}>{fmt(d.consumo)}</td>
+                            <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8" }}>{fmt(d.ingreso)}</td>
+                            <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: d.ingreso >= d.consumo ? "#63ebaf" : "#f87171", fontWeight: 700 }}>{fmt(d.ingreso - d.consumo)}</td>
+                            <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: d.roi >= 1.5 ? "#63ebaf" : d.roi >= 1 ? "#fbbf24" : "#f87171", fontWeight: 700 }}>{d.roi}x</td>
+                            <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf" }}>—</td>
+                          </tr>
+                        ))}
+                        <tr style={{ borderTop: "2px solid rgba(56,189,248,0.2)" }}>
+                          <td style={{ padding: "9px 6px", color: "#38bdf8", fontWeight: 800 }}>TOTAL</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{fmt(totals.consumo)}</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8", fontWeight: 800 }}>{fmt(totals.ingreso)}</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{fmt(totals.ingreso - totals.consumo)}</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{totals.roi}x</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{totals.ventasActivasBlaster}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-              </div>
+              )}
+
+              {/* ── DIGITAL ── */}
+              {activeFinanciero === "digital" && (
+                <div>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 16, marginBottom: 16 }}>
+                    <div style={{ background: "linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.6) 100%)", border: "1px solid rgba(244,114,182,0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}><span style={{ color: "#f472b6" }}>◈</span> Inversión vs Ingreso Diario</div>
+                      <ResponsiveContainer width="100%" height={240}>
+                        <ComposedChart data={digitalData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                          <defs>
+                            <linearGradient id="gradInvFin" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="0%" stopColor="#f472b6" stopOpacity={0.3} />
+                              <stop offset="100%" stopColor="#f472b6" stopOpacity={0.02} />
+                            </linearGradient>
+                          </defs>
+                          <CartesianGrid strokeDasharray="3 3" stroke="rgba(100,116,139,0.15)" />
+                          <XAxis dataKey="fechaShort" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
+                          <YAxis tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} tickFormatter={v => fmt(v)} />
+                          <Tooltip content={<CustomTooltip />} />
+                          <Area type="monotone" dataKey="inversion" name="Inversión" fill="url(#gradInvFin)" stroke="#f472b6" strokeWidth={2} />
+                          <Line type="monotone" dataKey="ingreso"   name="Ingreso"   stroke="#818cf8" strokeWidth={2.5} dot={{ fill: "#818cf8", r: 3 }} />
+                        </ComposedChart>
+                      </ResponsiveContainer>
+                    </div>
+                    <div style={{ background: "linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.6) 100%)", border: "1px solid rgba(129,140,248,0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}><span style={{ color: "#818cf8" }}>◈</span> ROI Diario Digital</div>
+                      <ResponsiveContainer width="100%" height={240}>
+                        <ComposedChart data={digitalData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="rgba(100,116,139,0.15)" />
+                          <XAxis dataKey="fechaShort" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
+                          <YAxis tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} domain={[0, "auto"]} />
+                          <Tooltip content={<CustomTooltip />} />
+                          <Bar dataKey="roi" name="ROI" radius={[6, 6, 0, 0]} barSize={32}>
+                            {digitalData.map((entry, i) => (
+                              <Cell key={i} fill={entry.roi >= 2 ? "#63ebaf" : entry.roi >= 1 ? "#fbbf24" : "#f87171"} />
+                            ))}
+                          </Bar>
+                          <Line type="monotone" dataKey={() => 1} name="Punto equilibrio" stroke="#f8717188" strokeDasharray="6 4" strokeWidth={1.5} dot={false} />
+                        </ComposedChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                  {/* Tabla Digital */}
+                  <div style={{ background: "linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.6) 100%)", border: "1px solid rgba(244,114,182,0.1)", borderRadius: 16, padding: "20px 16px", overflow: "auto" }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 12 }}><span style={{ color: "#f472b6" }}>◆</span> Detalle Diario — Digital</div>
+                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
+                      <thead>
+                        <tr>
+                          {["Fecha", "Inversión", "Ingreso", "Margen", "ROI", "Ventas Activas"].map(h => (
+                            <th key={h} style={{ textAlign: h === "Fecha" ? "left" : "right", padding: "8px 6px", borderBottom: "1px solid rgba(244,114,182,0.15)", color: "#f472b6", fontWeight: 600, fontSize: 10, letterSpacing: 0.5 }}>{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {digitalData.map((d, i) => (
+                          <tr key={i} style={{ background: i % 2 === 0 ? "transparent" : "rgba(244,114,182,0.03)" }}>
+                            <td style={{ padding: "7px 6px", color: "#94a3b8", fontWeight: 500 }}>{d.fechaShort}</td>
+                            <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#f472b6" }}>{fmt(d.inversion)}</td>
+                            <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8" }}>{fmt(d.ingreso)}</td>
+                            <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: d.ingreso >= d.inversion ? "#63ebaf" : "#f87171", fontWeight: 700 }}>{fmt(d.ingreso - d.inversion)}</td>
+                            <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: d.roi >= 2 ? "#63ebaf" : d.roi >= 1 ? "#fbbf24" : "#f87171", fontWeight: 700 }}>{d.roi}x</td>
+                            <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf" }}>—</td>
+                          </tr>
+                        ))}
+                        <tr style={{ borderTop: "2px solid rgba(244,114,182,0.2)" }}>
+                          <td style={{ padding: "9px 6px", color: "#f472b6", fontWeight: 800 }}>TOTAL</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#f472b6", fontWeight: 800 }}>{fmt(digitalTotals.inversion)}</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8", fontWeight: 800 }}>{fmt(digitalTotals.ingreso)}</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{fmt(digitalTotals.ingreso - digitalTotals.inversion)}</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{digitalTotals.roi}x</td>
+                          <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{totals.ventasActivasDigital}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
@@ -775,81 +1044,6 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* Distribución + Tabla */}
-          {activeView === "financiero" && (
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 16, marginBottom: 20 }}>
-              <div style={{ background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%)", border: "1px solid rgba(99, 235, 175, 0.1)", borderRadius: 16, padding: "20px 16px" }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 12 }}>
-                  <span style={{ color: "#63ebaf" }}>◈</span> Distribución de Costos por Proveedor
-                </div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <ResponsiveContainer width="100%" height={220}>
-                    <PieChart>
-                      <Pie data={providerTotals} cx="50%" cy="50%" innerRadius={55} outerRadius={85}
-                        dataKey="value" nameKey="name" stroke="none" paddingAngle={4}>
-                        {providerTotals.map((entry, i) => <Cell key={i} fill={entry.color} />)}
-                      </Pie>
-                      <Tooltip formatter={(val) => fmt(val)} contentStyle={{
-                        background: "rgba(15, 23, 42, 0.95)", border: "1px solid rgba(99,235,175,0.3)",
-                        borderRadius: 8, fontSize: 12, color: "#e2e8f0",
-                      }} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-                <div style={{ display: "flex", gap: 20, justifyContent: "center" }}>
-                  {providerTotals.map(p => {
-                    const pct = totals.consumo > 0 ? ((p.value / totals.consumo) * 100).toFixed(1) : "0.0";
-                    return (
-                      <div key={p.name} style={{ textAlign: "center" }}>
-                        <div style={{ fontSize: 22, fontWeight: 800, color: p.color, fontFamily: "'JetBrains Mono', monospace" }}>{pct}%</div>
-                        <div style={{ fontSize: 11, color: "#94a3b8" }}>{p.name}</div>
-                        <div style={{ fontSize: 10, color: "#475569" }}>{fmt(p.value)}</div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div style={{ background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%)", border: "1px solid rgba(129, 140, 248, 0.1)", borderRadius: 16, padding: "20px 16px", overflow: "auto" }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 12 }}>
-                  <span style={{ color: "#818cf8" }}>◆</span> Detalle Diario
-                </div>
-                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
-                  <thead>
-                    <tr>
-                      {["Fecha", "Consumo", "Ingreso", "ROI", "Leads", "Ventas"].map(h => (
-                        <th key={h} style={{
-                          textAlign: h === "Fecha" ? "left" : "right",
-                          padding: "8px 6px", borderBottom: "1px solid rgba(99,235,175,0.15)",
-                          color: "#63ebaf", fontWeight: 600, fontSize: 10, letterSpacing: 0.5,
-                        }}>{h}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {dailyData.map((d, i) => (
-                      <tr key={i} style={{ background: i % 2 === 0 ? "transparent" : "rgba(99,235,175,0.03)" }}>
-                        <td style={{ padding: "7px 6px", color: "#94a3b8", fontWeight: 500 }}>{d.fechaShort}</td>
-                        <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#e2e8f0" }}>{fmt(d.consumo)}</td>
-                        <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8" }}>{fmt(d.ingreso)}</td>
-                        <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: d.roi >= 1.5 ? "#63ebaf" : d.roi >= 1 ? "#fbbf24" : "#f87171", fontWeight: 700 }}>{d.roi}x</td>
-                        <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#38bdf8" }}>{fmtNum(d.leads)}</td>
-                        <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#f472b6", fontWeight: 700 }}>{d.ventas}</td>
-                      </tr>
-                    ))}
-                    <tr style={{ borderTop: "2px solid rgba(99,235,175,0.2)" }}>
-                      <td style={{ padding: "9px 6px", color: "#63ebaf", fontWeight: 800 }}>TOTAL</td>
-                      <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{fmt(totals.consumo)}</td>
-                      <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8", fontWeight: 800 }}>{fmt(totals.ingreso)}</td>
-                      <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{totals.roi}x</td>
-                      <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#38bdf8", fontWeight: 800 }}>{fmtNum(totals.leads)}</td>
-                      <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#f472b6", fontWeight: 800 }}>{totals.ventas}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
         </>
       )}
 
