@@ -841,6 +841,7 @@ export default function Dashboard() {
 
               {/* ── BLASTER ── */}
               {activeCampaign === "blaster" && (
+                <>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 16 }}>
                   <div style={{ background: "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%)", border: "1px solid rgba(56, 189, 248, 0.1)", borderRadius: 16, padding: "20px 16px 12px" }}>
                     <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 16 }}>
@@ -890,6 +891,47 @@ export default function Dashboard() {
                     </ResponsiveContainer>
                   </div>
                 </div>
+
+                {/* Tabla detalle diario Blaster */}
+                <div style={{ background: "linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.6) 100%)", border: "1px solid rgba(56,189,248,0.1)", borderRadius: 16, padding: "20px 16px", overflow: "auto", marginTop: 16 }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 12 }}>
+                    <span style={{ color: "#38bdf8" }}>◆</span> Detalle Diario — Blaster
+                  </div>
+                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
+                    <thead>
+                      <tr>
+                        {["Fecha", "Consumo", "Minutos", "Costo/Min", "Leads", "Ventas", "Ingreso", "ROI"].map(h => (
+                          <th key={h} style={{ textAlign: h === "Fecha" ? "left" : "right", padding: "8px 6px", borderBottom: "1px solid rgba(56,189,248,0.15)", color: "#38bdf8", fontWeight: 600, fontSize: 10, letterSpacing: 0.5 }}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {dailyData.map((d, i) => (
+                        <tr key={i} style={{ background: i % 2 === 0 ? "transparent" : "rgba(56,189,248,0.03)" }}>
+                          <td style={{ padding: "7px 6px", color: "#94a3b8", fontWeight: 500 }}>{d.fechaShort}</td>
+                          <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf" }}>{fmt(d.consumo)}</td>
+                          <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#e2e8f0" }}>{Math.round(d.minutos).toLocaleString()}</td>
+                          <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#fbbf24" }}>{fmt(d.costoMin)}</td>
+                          <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#38bdf8" }}>{d.leads.toLocaleString()}</td>
+                          <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#f472b6", fontWeight: 700 }}>{d.ventas}</td>
+                          <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8" }}>{fmt(d.ingreso)}</td>
+                          <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: d.roi >= 1.5 ? "#63ebaf" : d.roi >= 1 ? "#fbbf24" : "#f87171", fontWeight: 700 }}>{d.roi}x</td>
+                        </tr>
+                      ))}
+                      <tr style={{ borderTop: "2px solid rgba(56,189,248,0.2)" }}>
+                        <td style={{ padding: "9px 6px", color: "#38bdf8", fontWeight: 800 }}>TOTAL</td>
+                        <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{fmt(totals.consumo)}</td>
+                        <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#e2e8f0", fontWeight: 800 }}>{Math.round(dailyData.reduce((s,d) => s + (d.minutos||0), 0)).toLocaleString()}</td>
+                        <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#fbbf24", fontWeight: 800 }}>—</td>
+                        <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#38bdf8", fontWeight: 800 }}>{totals.leads.toLocaleString()}</td>
+                        <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#f472b6", fontWeight: 800 }}>{totals.ventas}</td>
+                        <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8", fontWeight: 800 }}>{fmt(totals.ingreso)}</td>
+                        <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{totals.roi}x</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                </>
               )}
 
               {/* ── DIGITAL ── */}
