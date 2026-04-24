@@ -3,13 +3,13 @@
     {
       "fecha": "2026-04-01",
       "fechaShort": "01 Abr",
-      "consumo": 2915487,
-      "minutos": 132522.13636363635,
+      "consumo": 3035798,
+      "minutos": 137990.81818181818,
       "leads": 1651,
       "ventas": 125,
       "ingreso": 16908000,
-      "roi": 5.8,
-      "costoMin": 1766
+      "roi": 5.57,
+      "costoMin": 1839
     },
     {
       "fecha": "2026-04-02",
@@ -25,145 +25,145 @@
     {
       "fecha": "2026-04-04",
       "fechaShort": "04 Abr",
-      "consumo": 479578,
-      "minutos": 21799,
+      "consumo": 603688,
+      "minutos": 27440.363636363636,
       "leads": 287,
       "ventas": 4,
       "ingreso": 541056,
-      "roi": 1.13,
-      "costoMin": 1671
+      "roi": 0.9,
+      "costoMin": 2103
     },
     {
       "fecha": "2026-04-06",
       "fechaShort": "06 Abr",
-      "consumo": 3262680,
-      "minutos": 148303.63636363635,
+      "consumo": 3321856,
+      "minutos": 150993.45454545453,
       "leads": 1890,
       "ventas": 129,
       "ingreso": 17449056,
-      "roi": 5.35,
-      "costoMin": 1726
+      "roi": 5.25,
+      "costoMin": 1758
     },
     {
       "fecha": "2026-04-07",
       "fechaShort": "07 Abr",
-      "consumo": 3293473,
-      "minutos": 149703.31818181818,
+      "consumo": 3299778,
+      "minutos": 149989.9090909091,
       "leads": 1792,
       "ventas": 120,
       "ingreso": 16231680,
-      "roi": 4.93,
-      "costoMin": 1838
+      "roi": 4.92,
+      "costoMin": 1841
     },
     {
       "fecha": "2026-04-08",
       "fechaShort": "08 Abr",
-      "consumo": 3416538,
-      "minutos": 155297.18181818182,
+      "consumo": 3423556,
+      "minutos": 155616.18181818182,
       "leads": 1740,
       "ventas": 127,
       "ingreso": 17178528,
-      "roi": 5.03,
-      "costoMin": 1964
+      "roi": 5.02,
+      "costoMin": 1968
     },
     {
       "fecha": "2026-04-09",
       "fechaShort": "09 Abr",
-      "consumo": 3133346,
-      "minutos": 142424.81818181818,
+      "consumo": 3139207,
+      "minutos": 142691.22727272726,
       "leads": 1749,
       "ventas": 137,
       "ingreso": 18531168,
-      "roi": 5.91,
-      "costoMin": 1792
+      "roi": 5.9,
+      "costoMin": 1795
     },
     {
       "fecha": "2026-04-10",
       "fechaShort": "10 Abr",
-      "consumo": 3309864,
-      "minutos": 150448.36363636365,
+      "consumo": 3426209,
+      "minutos": 155736.77272727274,
       "leads": 1695,
       "ventas": 137,
       "ingreso": 18531168,
-      "roi": 5.6,
-      "costoMin": 1953
+      "roi": 5.41,
+      "costoMin": 2021
     },
     {
       "fecha": "2026-04-11",
       "fechaShort": "11 Abr",
-      "consumo": 2529892,
-      "minutos": 114995.09090909091,
+      "consumo": 2657501,
+      "minutos": 120795.5,
       "leads": 1304,
       "ventas": 113,
       "ingreso": 15284832,
-      "roi": 6.04,
-      "costoMin": 1940
+      "roi": 5.75,
+      "costoMin": 2038
     },
     {
       "fecha": "2026-04-13",
       "fechaShort": "13 Abr",
-      "consumo": 2758840,
-      "minutos": 125401.81818181818,
+      "consumo": 2984884,
+      "minutos": 135676.54545454547,
       "leads": 1550,
       "ventas": 115,
       "ingreso": 15555360,
-      "roi": 5.64,
-      "costoMin": 1780
+      "roi": 5.21,
+      "costoMin": 1926
     },
     {
       "fecha": "2026-04-14",
       "fechaShort": "14 Abr",
-      "consumo": 2516384,
-      "minutos": 114381.09090909091,
+      "consumo": 2525746,
+      "minutos": 114806.63636363637,
       "leads": 1412,
       "ventas": 130,
       "ingreso": 17584320,
-      "roi": 6.99,
-      "costoMin": 1782
+      "roi": 6.96,
+      "costoMin": 1789
     },
     {
       "fecha": "2026-04-15",
       "fechaShort": "15 Abr",
-      "consumo": 2194397,
-      "minutos": 99745.31818181818,
+      "consumo": 2196046,
+      "minutos": 99820.27272727274,
       "leads": 1576,
       "ventas": 126,
       "ingreso": 17043264,
-      "roi": 7.77,
-      "costoMin": 1392
+      "roi": 7.76,
+      "costoMin": 1393
     },
     {
       "fecha": "2026-04-16",
       "fechaShort": "16 Abr",
-      "consumo": 2388544,
-      "minutos": 108570.18181818182,
+      "consumo": 2390505,
+      "minutos": 108659.31818181818,
       "leads": 1531,
       "ventas": 135,
       "ingreso": 18260640,
-      "roi": 7.65,
-      "costoMin": 1560
+      "roi": 7.64,
+      "costoMin": 1561
     },
     {
       "fecha": "2026-04-17",
       "fechaShort": "17 Abr",
-      "consumo": 2419184,
-      "minutos": 109962.90909090909,
+      "consumo": 2421528,
+      "minutos": 110069.45454545454,
       "leads": 1435,
       "ventas": 106,
       "ingreso": 14337984,
-      "roi": 5.93,
-      "costoMin": 1686
+      "roi": 5.92,
+      "costoMin": 1687
     },
     {
       "fecha": "2026-04-18",
       "fechaShort": "18 Abr",
-      "consumo": 1726138,
-      "minutos": 78460.81818181818,
+      "consumo": 1729210,
+      "minutos": 78600.45454545454,
       "leads": 1065,
       "ventas": 109,
       "ingreso": 14743776,
-      "roi": 8.54,
-      "costoMin": 1621
+      "roi": 8.53,
+      "costoMin": 1624
     },
     {
       "fecha": "2026-04-19",
@@ -179,19 +179,19 @@
     {
       "fecha": "2026-04-20",
       "fechaShort": "20 Abr",
-      "consumo": 2391117,
-      "minutos": 108687.13636363635,
+      "consumo": 2392097,
+      "minutos": 108731.68181818182,
       "leads": 1576,
       "ventas": 124,
       "ingreso": 16772736,
       "roi": 7.01,
-      "costoMin": 1517
+      "costoMin": 1518
     },
     {
       "fecha": "2026-04-21",
       "fechaShort": "21 Abr",
-      "consumo": 2493233,
-      "minutos": 113328.77272727274,
+      "consumo": 2493812,
+      "minutos": 113355.09090909091,
       "leads": 1580,
       "ventas": 120,
       "ingreso": 16231680,
@@ -201,13 +201,24 @@
     {
       "fecha": "2026-04-22",
       "fechaShort": "22 Abr",
-      "consumo": 2647199,
-      "minutos": 120327.22727272726,
+      "consumo": 2648832,
+      "minutos": 120401.45454545454,
       "leads": 1576,
       "ventas": 116,
       "ingreso": 15690624,
-      "roi": 5.93,
-      "costoMin": 1680
+      "roi": 5.92,
+      "costoMin": 1681
+    },
+    {
+      "fecha": "2026-04-23",
+      "fechaShort": "23 Abr",
+      "consumo": 2522827,
+      "minutos": 114673.95454545454,
+      "leads": 1565,
+      "ventas": 105,
+      "ingreso": 14202720,
+      "roi": 5.63,
+      "costoMin": 1612
     }
   ],
   "providerData": [
@@ -218,7 +229,7 @@
     },
     {
       "fecha": "01 Abr",
-      "bestvoiper": 1208859,
+      "bestvoiper": 1329170,
       "chock": 1706628
     },
     {
@@ -228,67 +239,67 @@
     },
     {
       "fecha": "04 Abr",
-      "bestvoiper": 384912,
+      "bestvoiper": 509022,
       "chock": 94666
     },
     {
       "fecha": "06 Abr",
-      "bestvoiper": 1189972,
+      "bestvoiper": 1249148,
       "chock": 2072708
     },
     {
       "fecha": "07 Abr",
-      "bestvoiper": 985937,
+      "bestvoiper": 992242,
       "chock": 2307536
     },
     {
       "fecha": "08 Abr",
-      "bestvoiper": 907218,
+      "bestvoiper": 914236,
       "chock": 2509320
     },
     {
       "fecha": "09 Abr",
-      "bestvoiper": 807242,
+      "bestvoiper": 813103,
       "chock": 2326104
     },
     {
       "fecha": "10 Abr",
-      "bestvoiper": 749262,
+      "bestvoiper": 865607,
       "chock": 2560602
     },
     {
       "fecha": "11 Abr",
-      "bestvoiper": 620996,
+      "bestvoiper": 748605,
       "chock": 1908896
     },
     {
       "fecha": "13 Abr",
-      "bestvoiper": 556134,
+      "bestvoiper": 782178,
       "chock": 2202706
     },
     {
       "fecha": "14 Abr",
-      "bestvoiper": 526264,
+      "bestvoiper": 535626,
       "chock": 1990120
     },
     {
       "fecha": "15 Abr",
-      "bestvoiper": 477935,
+      "bestvoiper": 479584,
       "chock": 1716462
     },
     {
       "fecha": "16 Abr",
-      "bestvoiper": 805270,
+      "bestvoiper": 807231,
       "chock": 1583274
     },
     {
       "fecha": "17 Abr",
-      "bestvoiper": 1028036,
+      "bestvoiper": 1030380,
       "chock": 1391148
     },
     {
       "fecha": "18 Abr",
-      "bestvoiper": 805790,
+      "bestvoiper": 808862,
       "chock": 920348
     },
     {
@@ -298,52 +309,57 @@
     },
     {
       "fecha": "20 Abr",
-      "bestvoiper": 1049931,
+      "bestvoiper": 1050911,
       "chock": 1341186
     },
     {
       "fecha": "21 Abr",
-      "bestvoiper": 707295,
+      "bestvoiper": 707874,
       "chock": 1785938
     },
     {
       "fecha": "22 Abr",
-      "bestvoiper": 759621,
+      "bestvoiper": 761254,
       "chock": 1887578
+    },
+    {
+      "fecha": "23 Abr",
+      "bestvoiper": 779701,
+      "chock": 1743126
     }
   ],
   "totals": {
-    "consumo": 47095442,
-    "proyInversion": 58869302.5,
-    "leads": 27257,
-    "costoLead": 1728,
-    "ventas": 2149,
-    "ingreso": 290682336,
+    "consumo": 50432628,
+    "proyInversion": 60038842.85714285,
+    "leads": 28822,
+    "costoLead": 1750,
+    "ventas": 2254,
+    "ingreso": 304885056,
     "agentes": 36,
     "fte": 29.74,
-    "facturaxFTE": 9774406.03508772,
-    "roi": 6.17,
-    "efectividad": 7.88,
-    "proyConsumo": 58869302.5,
+    "facturaxFTE": 10251982.877192982,
+    "roi": 6.05,
+    "efectividad": 7.82,
+    "proyConsumo": 60038842.85714285,
     "diasLaborales": 25,
-    "diasTranscurridos": 20,
-    "ventasActivasBlaster": 1428,
-    "ventasActivasDigital": 579,
+    "diasTranscurridos": 21,
+    "ventasActivasBlaster": 1471,
+    "ventasActivasDigital": 586,
     "tiposActivasBlaster": {
-      "Migracion": 456,
-      "Portabilidad": 971
+      "Migracion": 483,
+      "Portabilidad": 987
     },
     "tiposActivasDigital": {
-      "Migracion": 63,
+      "Migracion": 70,
       "Portabilidad": 516
     },
     "tiposCreadasBlaster": {
-      "Migracion": 448,
-      "Portabilidad": 1813
+      "Migracion": 451,
+      "Portabilidad": 1922
     },
     "tiposCreadasDigital": {
-      "Migracion": 62,
-      "Portabilidad": 896
+      "Migracion": 68,
+      "Portabilidad": 941
     }
   },
   "digitalData": [
@@ -597,15 +613,15 @@
     {
       "fecha": "2026-04-23",
       "fechaShort": "23 Abr",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 850260,
+      "mensajes": 212565,
+      "leads": 246,
+      "ventas": 51,
+      "ingreso": 6898464,
+      "roi": 8.11,
+      "cpl": 3456,
+      "metaLeads": 225,
+      "agentes": 9
     },
     {
       "fecha": "2026-04-24",
