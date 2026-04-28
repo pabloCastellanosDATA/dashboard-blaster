@@ -245,13 +245,13 @@
     {
       "fecha": "2026-04-27",
       "fechaShort": "27 Abr",
-      "consumo": 1999819,
+      "consumo": 2156239,
       "minutos": 90900.86363636365,
       "leads": 1484,
       "ventas": 114,
       "ingreso": 15420096,
-      "roi": 7.71,
-      "costoMin": 1348
+      "roi": 7.15,
+      "costoMin": 1453
     }
   ],
   "providerData": [
@@ -373,12 +373,12 @@
     {
       "fecha": "27 Abr",
       "bestvoiper": 1038837,
-      "chock": 960982
+      "chock": 1117402
     }
   ],
   "totals": {
     "consumo": 55114075,
-    "proyInversion": 59493639.583333336,
+    "proyInversion": 59656577.083333336,
     "leads": 33149,
     "costoLead": 1663,
     "ventas": 2574,
@@ -388,7 +388,7 @@
     "facturaxFTE": 11707455.157894736,
     "roi": 6.32,
     "efectividad": 7.76,
-    "proyConsumo": 59493639.583333336,
+    "proyConsumo": 59656577.083333336,
     "diasLaborales": 25,
     "diasTranscurridos": 24,
     "ventasActivasBlaster": 1767,
