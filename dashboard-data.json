@@ -410,7 +410,7 @@
   ],
   "totals": {
     "consumo": 61339935,
-    "proyInversion": 58980706.730769224,
+    "proyInversion": 63793532.4,
     "leads": 36016,
     "costoLead": 1703,
     "ventas": 2823,
@@ -420,9 +420,9 @@
     "facturaxFTE": 12839994.52631579,
     "roi": 6.23,
     "efectividad": 7.84,
-    "proyConsumo": 58980706.730769224,
-    "diasLaborales": 25,
-    "diasTranscurridos": 26,
+    "proyConsumo": 63793532.4,
+    "diasLaborales": 26,
+    "diasTranscurridos": 25,
     "ventasActivasBlaster": 1950,
     "ventasActivasDigital": 816,
     "tiposActivasBlaster": {
