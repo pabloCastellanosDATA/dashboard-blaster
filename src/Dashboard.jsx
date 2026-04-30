@@ -301,6 +301,12 @@ export default function Dashboard() {
   const [fileName, setFileName]           = useState(null);
   const [uploadError, setUploadError]     = useState(null);
   const [saving, setSaving]               = useState(false);
+  const [historyIndex, setHistoryIndex]           = useState([]);
+  const [selectedMonth, setSelectedMonth]         = useState(null);
+  const [selectedMonthData, setSelectedMonthData] = useState(null);
+  const [loadingHistory, setLoadingHistory]       = useState(false);
+  const [savingHistory, setSavingHistory]         = useState(false);
+  const [historyError, setHistoryError]           = useState(null);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -317,6 +323,16 @@ export default function Dashboard() {
       })
       .catch(() => {});
   }, []);
+
+  useEffect(() => {
+    if (activeView !== 'historico' || historyIndex.length > 0) return;
+    setLoadingHistory(true);
+    fetch('/api/get-history')
+      .then(r => r.json())
+      .then(data => setHistoryIndex(Array.isArray(data) ? data : []))
+      .catch(() => {})
+      .finally(() => setLoadingHistory(false));
+  }, [activeView]);
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -353,6 +369,51 @@ export default function Dashboard() {
     };
     reader.readAsBinaryString(file);
     e.target.value = '';
+  };
+
+  const handleCerrarMes = async () => {
+    if (!dailyData.length) return;
+    const [year, month] = dailyData[0].fecha.split('-');
+    const key   = `${year}-${month}`;
+    const label = `${MESES[parseInt(month, 10) - 1]} ${year}`;
+    setSavingHistory(true);
+    setHistoryError(null);
+    try {
+      const snapshot = {
+        key, label,
+        closedAt: new Date().toISOString(),
+        totals, digitalTotals, consolidadoTotals,
+        dailyData, digitalData, providerData,
+      };
+      const res = await fetch('/api/save-history', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(snapshot),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        setHistoryError('No se pudo guardar el histórico: ' + err.error);
+      } else {
+        setHistoryIndex([]);
+      }
+    } catch (err) {
+      setHistoryError('Error al cerrar el mes: ' + err.message);
+    }
+    setSavingHistory(false);
+  };
+
+  const loadHistoryMonth = async (key) => {
+    setLoadingHistory(true);
+    setSelectedMonth(key);
+    setSelectedMonthData(null);
+    try {
+      const res  = await fetch(`/api/get-history?month=${key}`);
+      const data = await res.json();
+      setSelectedMonthData(data);
+    } catch (err) {
+      setHistoryError('Error al cargar detalle: ' + err.message);
+    }
+    setLoadingHistory(false);
   };
 
   const providerTotals = useMemo(() => {
@@ -402,6 +463,7 @@ export default function Dashboard() {
   const tabs = [
     { id: "operativo",  label: "Operativo",  icon: "◆" },
     { id: "financiero", label: "Financiero", icon: "◈" },
+    { id: "historico",  label: "Histórico",  icon: "◎" },
   ];
 
   const lastDate = dailyData.length > 0 ? dailyData[dailyData.length - 1].fecha : null;
@@ -453,6 +515,20 @@ export default function Dashboard() {
           >
             {saving ? "⏳ Guardando..." : "📂 Cargar Excel"}
           </button>
+          {dailyData.length > 0 && (
+            <button
+              onClick={() => !savingHistory && handleCerrarMes()}
+              style={{
+                padding: "8px 16px", borderRadius: 8, cursor: savingHistory ? "default" : "pointer",
+                border: `1px solid ${savingHistory ? "rgba(251,191,36,0.4)" : "rgba(244,114,182,0.4)"}`,
+                background: savingHistory ? "rgba(251,191,36,0.08)" : "rgba(244,114,182,0.08)",
+                color: savingHistory ? "#fbbf24" : "#f472b6", fontSize: 12, fontWeight: 600,
+                display: "flex", alignItems: "center", gap: 6, transition: "all 0.2s",
+              }}
+            >
+              {savingHistory ? "⏳ Guardando..." : "🗓 Cerrar Mes"}
+            </button>
+          )}
           <div style={{ display: "flex", gap: 4, background: "rgba(15, 23, 42, 0.7)", borderRadius: 10, padding: 3, border: "1px solid rgba(99, 235, 175, 0.15)" }}>
             {tabs.map(t => (
               <button key={t.id} onClick={() => setActiveView(t.id)} style={{
@@ -478,7 +554,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      {dailyData.length === 0 && (
+      {dailyData.length === 0 && activeView !== "historico" && (
         <div style={{
           textAlign: "center", padding: "60px 20px",
           color: "#475569", fontSize: 14,
@@ -487,7 +563,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      {dailyData.length > 0 && (
+      {dailyData.length > 0 && activeView !== "historico" && (
         <>
           {/* KPI Cards */}
           {activeView === "operativo" && activeCampaign === "digital" ? (
@@ -1083,6 +1159,168 @@ export default function Dashboard() {
           )}
 
         </>
+      )}
+
+      {/* ── HISTÓRICO ── */}
+      {activeView === "historico" && (
+        <div>
+          {historyError && (
+            <div style={{ background: "rgba(248,113,113,0.1)", border: "1px solid rgba(248,113,113,0.3)", borderRadius: 10, padding: "12px 16px", marginBottom: 16, color: "#f87171", fontSize: 12 }}>
+              ⚠ {historyError}
+            </div>
+          )}
+
+          {!selectedMonth ? (
+            loadingHistory ? (
+              <div style={{ textAlign: "center", padding: "60px 20px", color: "#64748b", fontSize: 14 }}>
+                Cargando histórico...
+              </div>
+            ) : historyIndex.length === 0 ? (
+              <div style={{ textAlign: "center", padding: "60px 20px", color: "#475569", fontSize: 14 }}>
+                No hay meses cerrados todavía.<br />
+                <span style={{ color: "#64748b", fontSize: 12 }}>Cargá el Excel del último día del mes y presioná "Cerrar Mes".</span>
+              </div>
+            ) : (
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16 }}>
+                {historyIndex.map(m => {
+                  const ct = m.consolidadoTotals || {};
+                  const margenColor = (ct.margen || 0) >= 0 ? "#63ebaf" : "#f87171";
+                  const roiColor    = (ct.roi    || 0) >= 1.5 ? "#63ebaf" : "#fbbf24";
+                  return (
+                    <div
+                      key={m.key}
+                      onClick={() => loadHistoryMonth(m.key)}
+                      style={{
+                        background: "linear-gradient(135deg, rgba(15,23,42,0.9) 0%, rgba(30,41,59,0.8) 100%)",
+                        border: "1px solid rgba(99,235,175,0.2)", borderRadius: 16, padding: "20px 22px",
+                        cursor: "pointer", transition: "border-color 0.2s",
+                      }}
+                    >
+                      <div style={{ fontSize: 11, color: "#63ebaf", fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", marginBottom: 12 }}>
+                        {m.label}
+                      </div>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                        <div>
+                          <div style={{ fontSize: 10, color: "#64748b", marginBottom: 2 }}>Inversión</div>
+                          <div style={{ fontSize: 16, fontWeight: 700, color: "#63ebaf", fontFamily: "'JetBrains Mono', monospace" }}>{fmt(ct.inversion || 0)}</div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 10, color: "#64748b", marginBottom: 2 }}>Ingreso</div>
+                          <div style={{ fontSize: 16, fontWeight: 700, color: "#818cf8", fontFamily: "'JetBrains Mono', monospace" }}>{fmt(ct.ingreso || 0)}</div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 10, color: "#64748b", marginBottom: 2 }}>Margen</div>
+                          <div style={{ fontSize: 16, fontWeight: 700, color: margenColor, fontFamily: "'JetBrains Mono', monospace" }}>{fmt(ct.margen || 0)}</div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 10, color: "#64748b", marginBottom: 2 }}>ROI</div>
+                          <div style={{ fontSize: 16, fontWeight: 700, color: roiColor, fontFamily: "'JetBrains Mono', monospace" }}>{ct.roi || 0}x</div>
+                        </div>
+                      </div>
+                      <div style={{ marginTop: 14, fontSize: 10, color: "#475569", display: "flex", justifyContent: "space-between" }}>
+                        <span>Ventas activas: {ct.ventasActivas || ((m.totals?.ventasActivasBlaster || 0) + (m.totals?.ventasActivasDigital || 0))}</span>
+                        <span style={{ color: "#63ebaf88" }}>Ver detalle →</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )
+          ) : (
+            <div>
+              <button
+                onClick={() => { setSelectedMonth(null); setSelectedMonthData(null); setHistoryError(null); }}
+                style={{ marginBottom: 20, padding: "8px 16px", borderRadius: 8, border: "1px solid rgba(99,235,175,0.25)", background: "transparent", color: "#63ebaf", fontSize: 12, fontWeight: 600, cursor: "pointer" }}
+              >
+                ← Volver al histórico
+              </button>
+
+              {loadingHistory ? (
+                <div style={{ textAlign: "center", padding: "60px 20px", color: "#64748b", fontSize: 14 }}>Cargando detalle...</div>
+              ) : selectedMonthData ? (() => {
+                const md  = selectedMonthData;
+                const ct  = md.consolidadoTotals || {};
+                const dt  = md.digitalTotals     || {};
+                const t   = md.totals             || {};
+                const daily   = md.dailyData   || [];
+                const digital = md.digitalData || [];
+
+                const consolidadoMap = {};
+                daily.forEach(d => {
+                  consolidadoMap[d.fecha] = { fecha: d.fecha, fechaShort: d.fechaShort, blasterCosto: d.consumo, blasterIngreso: d.ingreso, blasterRoi: d.roi, digitalCosto: 0, digitalIngreso: 0, digitalRoi: 0 };
+                });
+                digital.forEach(d => {
+                  if (!consolidadoMap[d.fecha]) consolidadoMap[d.fecha] = { fecha: d.fecha, fechaShort: d.fechaShort, blasterCosto: 0, blasterIngreso: 0, blasterRoi: 0, digitalCosto: 0, digitalIngreso: 0, digitalRoi: 0 };
+                  consolidadoMap[d.fecha].digitalCosto   = d.inversion;
+                  consolidadoMap[d.fecha].digitalIngreso = d.ingreso;
+                  consolidadoMap[d.fecha].digitalRoi     = d.roi;
+                });
+                const rows = Object.values(consolidadoMap).sort((a, b) => a.fecha.localeCompare(b.fecha));
+
+                return (
+                  <div>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: "#e2e8f0", marginBottom: 20 }}>
+                      {md.label} <span style={{ fontSize: 12, color: "#64748b", fontWeight: 400 }}>— Cierre de mes</span>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 12, marginBottom: 24 }}>
+                      <KPICard icon="💰" title="Inversión Total"  value={fmt(ct.inversion || 0)}   subtitle="Blaster + Digital"    accent="#63ebaf" />
+                      <KPICard icon="📊" title="Ingreso Total"    value={fmt(ct.ingreso || 0)}     subtitle="Blaster + Digital"    accent="#818cf8" trend="up" />
+                      <KPICard icon="📈" title="Margen Neto"      value={fmt(ct.margen || 0)}      subtitle="Ingreso − Inversión"  accent={(ct.margen || 0) >= 0 ? "#63ebaf" : "#f87171"} trend={(ct.margen || 0) >= 0 ? "up" : "down"} />
+                      <KPICard icon="🎯" title="ROI Consolidado"  value={`${ct.roi || 0}x`}        subtitle="Ingreso / Inversión"  accent={(ct.roi || 0) >= 1.5 ? "#63ebaf" : "#fbbf24"} trend="up" />
+                      <KPICard icon="🟢" title="Ventas Activas"   value={ct.ventasActivas || 0}    subtitle="Blaster + Digital"    accent="#f472b6" trend="up" />
+                      <KPICard icon="👥" title="Agentes / FTE"    value={`${t.agentes || 0} / ${t.fte || 0}`} subtitle={`Fact/FTE: ${fmt(t.facturaxFTE || 0)}`} accent="#fbbf24" />
+                    </div>
+
+                    <div style={{ background: "linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.6) 100%)", border: "1px solid rgba(99,235,175,0.1)", borderRadius: 16, padding: "20px 16px", overflow: "auto" }}>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", marginBottom: 12 }}><span style={{ color: "#63ebaf" }}>◆</span> Detalle Diario — Consolidado</div>
+                      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
+                        <thead>
+                          <tr>
+                            {["Fecha", "Costo Blaster", "Ingreso Blaster", "ROI B", "Costo Digital", "Ingreso Digital", "ROI D", "Ingreso Total", "Margen"].map(h => (
+                              <th key={h} style={{ textAlign: h === "Fecha" ? "left" : "right", padding: "8px 6px", borderBottom: "1px solid rgba(99,235,175,0.15)", color: "#63ebaf", fontWeight: 600, fontSize: 10, letterSpacing: 0.5 }}>{h}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {rows.map((d, i) => {
+                            const ingresoTotal = (d.blasterIngreso || 0) + (d.digitalIngreso || 0);
+                            const costoTotal   = (d.blasterCosto  || 0) + (d.digitalCosto   || 0);
+                            const margen       = ingresoTotal - costoTotal;
+                            return (
+                              <tr key={i} style={{ background: i % 2 === 0 ? "transparent" : "rgba(99,235,175,0.03)" }}>
+                                <td style={{ padding: "7px 6px", color: "#94a3b8", fontWeight: 500 }}>{d.fechaShort}</td>
+                                <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf" }}>{fmt(d.blasterCosto || 0)}</td>
+                                <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8" }}>{fmt(d.blasterIngreso || 0)}</td>
+                                <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: (d.blasterRoi || 0) >= 1.5 ? "#63ebaf" : (d.blasterRoi || 0) >= 1 ? "#fbbf24" : "#f87171", fontWeight: 700 }}>{d.blasterRoi || 0}x</td>
+                                <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#f472b6" }}>{fmt(d.digitalCosto || 0)}</td>
+                                <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8" }}>{fmt(d.digitalIngreso || 0)}</td>
+                                <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: (d.digitalRoi || 0) >= 2 ? "#63ebaf" : (d.digitalRoi || 0) >= 1 ? "#fbbf24" : "#f87171", fontWeight: 700 }}>{(d.digitalRoi || 0) > 0 ? `${d.digitalRoi}x` : "—"}</td>
+                                <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#e2e8f0", fontWeight: 700 }}>{fmt(ingresoTotal)}</td>
+                                <td style={{ padding: "7px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: margen >= 0 ? "#63ebaf" : "#f87171", fontWeight: 700 }}>{fmt(margen)}</td>
+                              </tr>
+                            );
+                          })}
+                          <tr style={{ borderTop: "2px solid rgba(99,235,175,0.2)" }}>
+                            <td style={{ padding: "9px 6px", color: "#63ebaf", fontWeight: 800 }}>TOTAL</td>
+                            <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{fmt(t.consumo || 0)}</td>
+                            <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8", fontWeight: 800 }}>{fmt(t.ingreso || 0)}</td>
+                            <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{t.roi || 0}x</td>
+                            <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#f472b6", fontWeight: 800 }}>{fmt(dt.inversion || 0)}</td>
+                            <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#818cf8", fontWeight: 800 }}>{fmt(dt.ingreso || 0)}</td>
+                            <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#63ebaf", fontWeight: 800 }}>{dt.roi || 0}x</td>
+                            <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: "#e2e8f0", fontWeight: 800 }}>{fmt(ct.ingreso || 0)}</td>
+                            <td style={{ padding: "9px 6px", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", color: (ct.margen || 0) >= 0 ? "#63ebaf" : "#f87171", fontWeight: 800 }}>{fmt(ct.margen || 0)}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                );
+              })() : null}
+            </div>
+          )}
+        </div>
       )}
 
       {/* Footer */}
