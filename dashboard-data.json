@@ -84,8 +84,8 @@
       "agentes": 12
     },
     {
-      "fecha": "2026-05-03",
-      "fechaShort": "03 May",
+      "fecha": "2026-05-04",
+      "fechaShort": "04 May",
       "inversion": 746808,
       "mensajes": 186702,
       "leads": 1321,
@@ -95,19 +95,6 @@
       "cpl": 565,
       "metaLeads": 800,
       "agentes": 32
-    },
-    {
-      "fecha": "2026-05-04",
-      "fechaShort": "04 May",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
     },
     {
       "fecha": "2026-05-05",
