@@ -43,6 +43,17 @@
       "ingreso": 16637472,
       "roi": 8.78,
       "costoMin": 1444
+    },
+    {
+      "fecha": "2026-05-07",
+      "fechaShort": "07 May",
+      "consumo": 1152294,
+      "minutos": 52377,
+      "leads": 1286,
+      "ventas": 106,
+      "ingreso": 14337984,
+      "roi": 12.44,
+      "costoMin": 896
     }
   ],
   "providerData": [
@@ -65,23 +76,28 @@
       "fecha": "06 May",
       "bestvoiper": 319684,
       "chock": 1574562
+    },
+    {
+      "fecha": "07 May",
+      "bestvoiper": 0,
+      "chock": 1152294
     }
   ],
   "totals": {
-    "consumo": 8085834,
-    "proyInversion": 50536462.5,
-    "leads": 5128,
-    "costoLead": 1577,
-    "ventas": 452,
-    "ingreso": 61139328,
+    "consumo": 9238128,
+    "proyInversion": 46190640,
+    "leads": 6414,
+    "costoLead": 1440,
+    "ventas": 558,
+    "ingreso": 75477312,
     "agentes": 36,
     "fte": 29.74,
-    "facturaxFTE": 2055854.596491228,
-    "roi": 7.56,
-    "efectividad": 8.81,
-    "proyConsumo": 50536462.5,
+    "facturaxFTE": 2537979.789473684,
+    "roi": 8.17,
+    "efectividad": 8.7,
+    "proyConsumo": 46190640,
     "diasLaborales": 25,
-    "diasTranscurridos": 4,
+    "diasTranscurridos": 5,
     "ventasActivasBlaster": 325,
     "ventasActivasDigital": 140,
     "tiposActivasBlaster": {
@@ -93,12 +109,12 @@
       "Portabilidad": 115
     },
     "tiposCreadasBlaster": {
-      "Migracion": 25,
-      "Portabilidad": 434
+      "Migracion": 32,
+      "Portabilidad": 537
     },
     "tiposCreadasDigital": {
-      "Migracion": 17,
-      "Portabilidad": 302
+      "Migracion": 19,
+      "Portabilidad": 360
     }
   },
   "digitalData": [
@@ -157,15 +173,15 @@
     {
       "fecha": "2026-05-07",
       "fechaShort": "07 May",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 745456,
+      "mensajes": 186364,
+      "leads": 404,
+      "ventas": 58,
+      "ingreso": 7845312,
+      "roi": 10.52,
+      "cpl": 1845,
+      "metaLeads": 300,
+      "agentes": 12
     },
     {
       "fecha": "2026-05-08",
