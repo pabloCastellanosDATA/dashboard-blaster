@@ -153,6 +153,17 @@
       "ingreso": 10280064,
       "roi": 7.52,
       "costoMin": 1679
+    },
+    {
+      "fecha": "2026-05-19",
+      "fechaShort": "19 May",
+      "consumo": 2357601,
+      "minutos": 107163.68181818182,
+      "leads": 1572,
+      "ventas": 94,
+      "ingreso": 12714816,
+      "roi": 5.39,
+      "costoMin": 1500
     }
   ],
   "providerData": [
@@ -225,40 +236,45 @@
       "fecha": "18 May",
       "bestvoiper": 1345246,
       "chock": 21648
+    },
+    {
+      "fecha": "19 May",
+      "bestvoiper": 2224391,
+      "chock": 133210
     }
   ],
   "totals": {
-    "consumo": 29052943,
-    "proyInversion": 51880255.35714286,
-    "leads": 17766,
-    "costoLead": 1635,
-    "ventas": 1484,
-    "ingreso": 200731776,
-    "agentes": 33,
-    "fte": 27.26,
-    "facturaxFTE": 7363366.583732057,
-    "roi": 6.91,
-    "efectividad": 8.35,
-    "proyConsumo": 51880255.35714286,
+    "consumo": 31410544,
+    "proyInversion": 52350906.666666664,
+    "leads": 19338,
+    "costoLead": 1624,
+    "ventas": 1578,
+    "ingreso": 213446592,
+    "agentes": 34,
+    "fte": 28.09,
+    "facturaxFTE": 7599491.665634675,
+    "roi": 6.8,
+    "efectividad": 8.16,
+    "proyConsumo": 52350906.666666664,
     "diasLaborales": 25,
-    "diasTranscurridos": 14,
-    "ventasActivasBlaster": 902,
-    "ventasActivasDigital": 482,
+    "diasTranscurridos": 15,
+    "ventasActivasBlaster": 1267,
+    "ventasActivasDigital": 707,
     "tiposActivasBlaster": {
-      "Migracion": 103,
-      "Portabilidad": 799
+      "Migracion": 135,
+      "Portabilidad": 1132
     },
     "tiposActivasDigital": {
-      "Migracion": 53,
-      "Portabilidad": 429
+      "Migracion": 61,
+      "Portabilidad": 646
     },
     "tiposCreadasBlaster": {
-      "Migracion": 78,
-      "Portabilidad": 1427
+      "Migracion": 102,
+      "Portabilidad": 1493
     },
     "tiposCreadasDigital": {
-      "Migracion": 42,
-      "Portabilidad": 870
+      "Migracion": 45,
+      "Portabilidad": 920
     }
   },
   "digitalData": [
@@ -447,15 +463,15 @@
     {
       "fecha": "2026-05-19",
       "fechaShort": "19 May",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 1273528,
+      "mensajes": 318382,
+      "leads": 378,
+      "ventas": 53,
+      "ingreso": 7168992,
+      "roi": 5.63,
+      "cpl": 3369,
+      "metaLeads": 275,
+      "agentes": 11
     },
     {
       "fecha": "2026-05-20",
