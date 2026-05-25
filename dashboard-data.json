@@ -175,6 +175,39 @@
       "ingreso": 12173760,
       "roi": 6.17,
       "costoMin": 1662
+    },
+    {
+      "fecha": "2026-05-21",
+      "fechaShort": "21 May",
+      "consumo": 2107607,
+      "minutos": 95800.31818181818,
+      "leads": 1243,
+      "ventas": 93,
+      "ingreso": 12579552,
+      "roi": 5.97,
+      "costoMin": 1696
+    },
+    {
+      "fecha": "2026-05-22",
+      "fechaShort": "22 May",
+      "consumo": 2444524,
+      "minutos": 111114.72727272728,
+      "leads": 1269,
+      "ventas": 108,
+      "ingreso": 14608512,
+      "roi": 5.98,
+      "costoMin": 1926
+    },
+    {
+      "fecha": "2026-05-23",
+      "fechaShort": "23 May",
+      "consumo": 2389837,
+      "minutos": 108628.95454545454,
+      "leads": 932,
+      "ventas": 72,
+      "ingreso": 9739008,
+      "roi": 4.08,
+      "costoMin": 2564
     }
   ],
   "providerData": [
@@ -257,40 +290,55 @@
       "fecha": "20 May",
       "bestvoiper": 1604831,
       "chock": 367642
+    },
+    {
+      "fecha": "21 May",
+      "bestvoiper": 1770325,
+      "chock": 337282
+    },
+    {
+      "fecha": "22 May",
+      "bestvoiper": 2318816,
+      "chock": 125708
+    },
+    {
+      "fecha": "23 May",
+      "bestvoiper": 802735,
+      "chock": 1587102
     }
   ],
   "totals": {
-    "consumo": 33383017,
-    "proyInversion": 52160964.0625,
-    "leads": 20525,
-    "costoLead": 1626,
-    "ventas": 1668,
-    "ingreso": 225620352,
+    "consumo": 37935148,
+    "proyInversion": 53059190.78947368,
+    "leads": 23969,
+    "costoLead": 1583,
+    "ventas": 1941,
+    "ingreso": 262547424,
     "agentes": 34,
     "fte": 28.09,
-    "facturaxFTE": 8032922.749226007,
-    "roi": 6.76,
-    "efectividad": 8.13,
-    "proyConsumo": 52160964.0625,
+    "facturaxFTE": 9347663.702786379,
+    "roi": 6.92,
+    "efectividad": 8.1,
+    "proyConsumo": 53059190.78947368,
     "diasLaborales": 25,
-    "diasTranscurridos": 16,
-    "ventasActivasBlaster": 1261,
-    "ventasActivasDigital": 706,
+    "diasTranscurridos": 19,
+    "ventasActivasBlaster": 1325,
+    "ventasActivasDigital": 748,
     "tiposActivasBlaster": {
-      "Migracion": 129,
-      "Portabilidad": 1132
+      "Migracion": 142,
+      "Portabilidad": 1183
     },
     "tiposActivasDigital": {
-      "Migracion": 60,
-      "Portabilidad": 646
+      "Migracion": 66,
+      "Portabilidad": 682
     },
     "tiposCreadasBlaster": {
-      "Migracion": 109,
-      "Portabilidad": 1577
+      "Migracion": 126,
+      "Portabilidad": 1833
     },
     "tiposCreadasDigital": {
-      "Migracion": 47,
-      "Portabilidad": 950
+      "Migracion": 58,
+      "Portabilidad": 1110
     }
   },
   "digitalData": [
@@ -505,41 +553,41 @@
     {
       "fecha": "2026-05-21",
       "fechaShort": "21 May",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 706584,
+      "mensajes": 176646,
+      "leads": 343,
+      "ventas": 64,
+      "ingreso": 8656896,
+      "roi": 12.25,
+      "cpl": 2060,
+      "metaLeads": 325,
+      "agentes": 13
     },
     {
       "fecha": "2026-05-22",
       "fechaShort": "22 May",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 1154472,
+      "mensajes": 288618,
+      "leads": 330,
+      "ventas": 66,
+      "ingreso": 8927424,
+      "roi": 7.73,
+      "cpl": 3498,
+      "metaLeads": 400,
+      "agentes": 16
     },
     {
       "fecha": "2026-05-23",
       "fechaShort": "23 May",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 1533904,
+      "mensajes": 383476,
+      "leads": 252,
+      "ventas": 40,
+      "ingreso": 5410560,
+      "roi": 3.53,
+      "cpl": 6087,
+      "metaLeads": 350,
+      "agentes": 14
     },
     {
       "fecha": "2026-05-24",
