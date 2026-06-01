@@ -241,6 +241,39 @@
       "ingreso": 16502208,
       "roi": 7.42,
       "costoMin": 1362
+    },
+    {
+      "fecha": "2026-05-28",
+      "fechaShort": "28 May",
+      "consumo": 2242226,
+      "minutos": 101919.36363636363,
+      "leads": 1408,
+      "ventas": 138,
+      "ingreso": 18666432,
+      "roi": 8.32,
+      "costoMin": 1592
+    },
+    {
+      "fecha": "2026-05-29",
+      "fechaShort": "29 May",
+      "consumo": 1556618,
+      "minutos": 70755.36363636365,
+      "leads": 1604,
+      "ventas": 133,
+      "ingreso": 17990112,
+      "roi": 11.56,
+      "costoMin": 970
+    },
+    {
+      "fecha": "2026-05-30",
+      "fechaShort": "30 May",
+      "consumo": 1321035,
+      "minutos": 60047.045454545456,
+      "leads": 1240,
+      "ventas": 132,
+      "ingreso": 17854848,
+      "roi": 13.52,
+      "costoMin": 1065
     }
   ],
   "providerData": [
@@ -353,40 +386,55 @@
       "fecha": "27 May",
       "bestvoiper": 1953164,
       "chock": 270974
+    },
+    {
+      "fecha": "28 May",
+      "bestvoiper": 2092780,
+      "chock": 149446
+    },
+    {
+      "fecha": "29 May",
+      "bestvoiper": 1331448,
+      "chock": 225170
+    },
+    {
+      "fecha": "30 May",
+      "bestvoiper": 1182567,
+      "chock": 138468
     }
   ],
   "totals": {
     "consumo": 37935148,
-    "proyInversion": 53939011.36363637,
-    "leads": 28126,
-    "costoLead": 1349,
-    "ventas": 2242,
-    "ingreso": 303261888,
+    "proyInversion": 52586209,
+    "leads": 32378,
+    "costoLead": 1172,
+    "ventas": 2645,
+    "ingreso": 357773280,
     "agentes": 34,
     "fte": 28.09,
-    "facturaxFTE": 10797249.882352943,
-    "roi": 7.99,
-    "efectividad": 7.97,
-    "proyConsumo": 53939011.36363637,
+    "facturaxFTE": 12738057.956656348,
+    "roi": 9.43,
+    "efectividad": 8.17,
+    "proyConsumo": 52586209,
     "diasLaborales": 25,
-    "diasTranscurridos": 22,
-    "ventasActivasBlaster": 1733,
-    "ventasActivasDigital": 959,
+    "diasTranscurridos": 25,
+    "ventasActivasBlaster": 1823,
+    "ventasActivasDigital": 1001,
     "tiposActivasBlaster": {
-      "Migracion": 167,
-      "Portabilidad": 1566
+      "Migracion": 166,
+      "Portabilidad": 1657
     },
     "tiposActivasDigital": {
-      "Migracion": 84,
-      "Portabilidad": 875
+      "Migracion": 82,
+      "Portabilidad": 919
     },
     "tiposCreadasBlaster": {
-      "Migracion": 141,
-      "Portabilidad": 2133
+      "Migracion": 157,
+      "Portabilidad": 2525
     },
     "tiposCreadasDigital": {
-      "Migracion": 70,
-      "Portabilidad": 1302
+      "Migracion": 77,
+      "Portabilidad": 1514
     }
   },
   "digitalData": [
@@ -679,54 +727,41 @@
     {
       "fecha": "2026-05-28",
       "fechaShort": "28 May",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 1183288,
+      "mensajes": 295822,
+      "leads": 383,
+      "ventas": 79,
+      "ingreso": 10685856,
+      "roi": 9.03,
+      "cpl": 3090,
+      "metaLeads": 375,
+      "agentes": 15
     },
     {
       "fecha": "2026-05-29",
       "fechaShort": "29 May",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 1285972,
+      "mensajes": 321493,
+      "leads": 331,
+      "ventas": 80,
+      "ingreso": 10821120,
+      "roi": 8.41,
+      "cpl": 3885,
+      "metaLeads": 325,
+      "agentes": 13
     },
     {
       "fecha": "2026-05-30",
       "fechaShort": "30 May",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
-    },
-    {
-      "fecha": "2026-05-31",
-      "fechaShort": "31 May",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 993888,
+      "mensajes": 248472,
+      "leads": 306,
+      "ventas": 60,
+      "ingreso": 8115840,
+      "roi": 8.17,
+      "cpl": 3248,
+      "metaLeads": 275,
+      "agentes": 11
     }
   ],
   "fileName": "consumo troncales blaster mayo.xlsx"
