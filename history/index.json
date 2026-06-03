@@ -2,56 +2,56 @@
   {
     "key": "2026-05",
     "label": "May 2026",
-    "closedAt": "2026-05-22T16:14:40.340Z",
+    "closedAt": "2026-06-03T13:40:41.147Z",
     "totals": {
-      "consumo": 33383017,
-      "ingreso": 225620352,
-      "leads": 20525,
-      "ventas": 1668,
-      "roi": 6.76,
-      "costoLead": 1626,
-      "proyInversion": 52160964.0625,
-      "proyConsumo": 52160964.0625,
+      "consumo": 52586209,
+      "proyInversion": 52586209,
+      "leads": 32378,
+      "costoLead": 1624,
+      "ventas": 2657,
+      "ingreso": 359396448,
+      "agentes": 37,
+      "fte": 30.57,
+      "facturaxFTE": 11758347.516358463,
+      "roi": 6.83,
+      "efectividad": 8.21,
+      "proyConsumo": 52586209,
       "diasLaborales": 25,
-      "diasTranscurridos": 16,
-      "agentes": 34,
-      "fte": 28.09,
-      "efectividad": 8.13,
-      "facturaxFTE": 8032922.749226007,
-      "ventasActivasBlaster": 1261,
-      "ventasActivasDigital": 706,
+      "diasTranscurridos": 25,
+      "ventasActivasBlaster": 2081,
+      "ventasActivasDigital": 1119,
       "tiposActivasBlaster": {
-        "Migracion": 129,
-        "Portabilidad": 1132
+        "Migracion": 182,
+        "Portabilidad": 1899
       },
       "tiposActivasDigital": {
-        "Migracion": 60,
-        "Portabilidad": 646
+        "Migracion": 87,
+        "Portabilidad": 1032
       },
       "tiposCreadasBlaster": {
-        "Migracion": 109,
-        "Portabilidad": 1577
+        "Migracion": 157,
+        "Portabilidad": 2531
       },
       "tiposCreadasDigital": {
-        "Migracion": 47,
-        "Portabilidad": 950
+        "Migracion": 77,
+        "Portabilidad": 1514
       }
     },
     "digitalTotals": {
-      "inversion": 15527236,
-      "ingreso": 131747136,
-      "roi": 8.48,
-      "leads": 6518,
-      "ventas": 974,
-      "cpl": 2382,
-      "mensajes": 3881809
+      "inversion": 25751020,
+      "ingreso": 211958688,
+      "roi": 8.23,
+      "leads": 9501,
+      "ventas": 1567,
+      "cpl": 2710,
+      "mensajes": 6437755
     },
     "consolidadoTotals": {
-      "inversion": 48910253,
-      "ingreso": 357367488,
-      "margen": 308457235,
-      "roi": 7.31,
-      "ventasActivas": 1967
+      "inversion": 78337229,
+      "ingreso": 571355136,
+      "margen": 493017907,
+      "roi": 7.29,
+      "ventasActivas": 3200
     }
   },
   {
