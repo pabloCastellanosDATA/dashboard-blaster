@@ -6,9 +6,9 @@
       "consumo": 1700956,
       "minutos": 77316.18181818182,
       "leads": 1132,
-      "ventas": 115,
-      "ingreso": 15555360,
-      "roi": 9.15,
+      "ventas": 119,
+      "ingreso": 16096416,
+      "roi": 9.46,
       "costoMin": 1503
     },
     {
@@ -17,9 +17,9 @@
       "consumo": 1932931,
       "minutos": 87860.5,
       "leads": 1299,
-      "ventas": 104,
-      "ingreso": 14067456,
-      "roi": 7.28,
+      "ventas": 109,
+      "ingreso": 14743776,
+      "roi": 7.63,
       "costoMin": 1488
     },
     {
@@ -28,9 +28,9 @@
       "consumo": 2568267,
       "minutos": 116739.40909090909,
       "leads": 1385,
-      "ventas": 110,
-      "ingreso": 14879040,
-      "roi": 5.79,
+      "ventas": 116,
+      "ingreso": 15690624,
+      "roi": 6.11,
       "costoMin": 1854
     },
     {
@@ -50,9 +50,9 @@
       "consumo": 1152294,
       "minutos": 52377,
       "leads": 1286,
-      "ventas": 106,
-      "ingreso": 14337984,
-      "roi": 12.44,
+      "ventas": 108,
+      "ingreso": 14608512,
+      "roi": 12.68,
       "costoMin": 896
     },
     {
@@ -61,9 +61,9 @@
       "consumo": 1561743,
       "minutos": 70988.31818181818,
       "leads": 1271,
-      "ventas": 116,
-      "ingreso": 15690624,
-      "roi": 10.05,
+      "ventas": 115,
+      "ingreso": 15555360,
+      "roi": 9.96,
       "costoMin": 1229
     },
     {
@@ -94,9 +94,9 @@
       "consumo": 2680292,
       "minutos": 121831.45454545454,
       "leads": 1372,
-      "ventas": 114,
-      "ingreso": 15420096,
-      "roi": 5.75,
+      "ventas": 118,
+      "ingreso": 15961152,
+      "roi": 5.96,
       "costoMin": 1954
     },
     {
@@ -105,9 +105,9 @@
       "consumo": 2746034,
       "minutos": 124819.72727272726,
       "leads": 1313,
-      "ventas": 123,
-      "ingreso": 16637472,
-      "roi": 6.06,
+      "ventas": 129,
+      "ingreso": 17449056,
+      "roi": 6.35,
       "costoMin": 2091
     },
     {
@@ -116,9 +116,9 @@
       "consumo": 2383175,
       "minutos": 108326.13636363637,
       "leads": 1502,
-      "ventas": 108,
-      "ingreso": 14608512,
-      "roi": 6.13,
+      "ventas": 95,
+      "ingreso": 12850080,
+      "roi": 5.39,
       "costoMin": 1587
     },
     {
@@ -182,9 +182,9 @@
       "consumo": 2107607,
       "minutos": 95800.31818181818,
       "leads": 1243,
-      "ventas": 93,
-      "ingreso": 12579552,
-      "roi": 5.97,
+      "ventas": 92,
+      "ingreso": 12444288,
+      "roi": 5.9,
       "costoMin": 1696
     },
     {
@@ -408,29 +408,29 @@
     "proyInversion": 52586209,
     "leads": 32378,
     "costoLead": 1624,
-    "ventas": 2645,
-    "ingreso": 357773280,
-    "agentes": 34,
-    "fte": 28.09,
-    "facturaxFTE": 12738057.956656348,
-    "roi": 6.8,
-    "efectividad": 8.17,
+    "ventas": 2657,
+    "ingreso": 359396448,
+    "agentes": 37,
+    "fte": 30.57,
+    "facturaxFTE": 11758347.516358463,
+    "roi": 6.83,
+    "efectividad": 8.21,
     "proyConsumo": 52586209,
     "diasLaborales": 25,
     "diasTranscurridos": 25,
-    "ventasActivasBlaster": 1823,
-    "ventasActivasDigital": 1001,
+    "ventasActivasBlaster": 2081,
+    "ventasActivasDigital": 1119,
     "tiposActivasBlaster": {
-      "Migracion": 166,
-      "Portabilidad": 1657
+      "Migracion": 182,
+      "Portabilidad": 1899
     },
     "tiposActivasDigital": {
-      "Migracion": 82,
-      "Portabilidad": 919
+      "Migracion": 87,
+      "Portabilidad": 1032
     },
     "tiposCreadasBlaster": {
       "Migracion": 157,
-      "Portabilidad": 2525
+      "Portabilidad": 2531
     },
     "tiposCreadasDigital": {
       "Migracion": 77,
