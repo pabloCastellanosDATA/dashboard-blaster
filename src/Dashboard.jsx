@@ -68,9 +68,13 @@ function parseExcelFile(workbook) {
     const wsHoja1 = workbook.Sheets['Hoja1'];
     if (!wsHoja1) throw new Error('No se encontró la hoja "Hoja1"');
     const k = (XLSX.utils.sheet_to_json(wsHoja1, { header: 1 })[1]) || [];
+    const consumoAcumulado = k[2] || 0;
+    const proyInversion = diasTranscurridos > 0
+      ? Math.round((consumoAcumulado / diasTranscurridos) * diasLaborales)
+      : 0;
     const totals = {
-      consumo:          k[2]  || 0,
-      proyInversion:    proyConsumo,
+      consumo:          consumoAcumulado,
+      proyInversion,
       leads:            Math.round(k[4] || 0),
       costoLead:        Math.round(k[5] || 0),
       ventas:           Math.round(k[6] || 0),
