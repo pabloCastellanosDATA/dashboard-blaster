@@ -416,14 +416,21 @@ export default function Dashboard() {
     setLoadingHistory(false);
   };
 
-  const providerTotals = useMemo(() => {
-    const bv = providerData.reduce((s, d) => s + (d.bestvoiper || 0), 0);
-    const ch = providerData.reduce((s, d) => s + (d.chock || 0), 0);
-    return [
-      { name: "Bestvoiper", value: bv, color: "#63ebaf" },
-      { name: "Chock",      value: ch, color: "#818cf8" },
-    ];
+  const PROVIDER_COLORS = ["#63ebaf", "#818cf8", "#f472b6", "#fbbf24", "#38bdf8", "#fb923c"];
+
+  const providerKeys = useMemo(() => {
+    const keys = new Set();
+    providerData.forEach(d => Object.keys(d).forEach(k => { if (k !== 'fecha') keys.add(k); }));
+    return Array.from(keys);
   }, [providerData]);
+
+  const providerTotals = useMemo(() => {
+    return providerKeys.map((key, i) => ({
+      name: key.charAt(0).toUpperCase() + key.slice(1),
+      value: providerData.reduce((s, d) => s + (d[key] || 0), 0),
+      color: PROVIDER_COLORS[i % PROVIDER_COLORS.length],
+    }));
+  }, [providerData, providerKeys]);
 
   const digitalTotals = useMemo(() => {
     if (!digitalData.length) return { inversion: 0, ingreso: 0, roi: 0, leads: 0, ventas: 0, cpl: 0, mensajes: 0 };
@@ -929,8 +936,9 @@ export default function Dashboard() {
                         <XAxis dataKey="fecha" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} />
                         <YAxis tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} tickFormatter={v => fmt(v)} />
                         <Tooltip content={<CustomTooltip />} />
-                        <Bar dataKey="bestvoiper" name="Bestvoiper" stackId="a" fill="#63ebaf" />
-                        <Bar dataKey="chock"      name="Chock"      stackId="a" fill="#818cf8" radius={[6, 6, 0, 0]} />
+                        {providerKeys.map((key, i) => (
+                          <Bar key={key} dataKey={key} name={key.charAt(0).toUpperCase() + key.slice(1)} stackId="a" fill={PROVIDER_COLORS[i % PROVIDER_COLORS.length]} radius={i === providerKeys.length - 1 ? [6, 6, 0, 0] : [0, 0, 0, 0]} />
+                        ))}
                       </BarChart>
                     </ResponsiveContainer>
                     <div style={{ display: "flex", gap: 20, justifyContent: "center", marginTop: 8 }}>
