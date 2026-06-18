@@ -136,7 +136,7 @@
       "fecha": "2026-06-13",
       "fechaShort": "13 Jun",
       "consumo": 1738683,
-      "minutos": 79031.04545454546,
+      "minutos": 91814.12878787618,
       "leads": 1169,
       "ventas": 118,
       "ingreso": 15961152,
@@ -147,12 +147,34 @@
       "fecha": "2026-06-15",
       "fechaShort": "15 Jun",
       "consumo": 1138750,
-      "minutos": 51761.36363636364,
+      "minutos": 77814.8969697325,
       "leads": 742,
       "ventas": 81,
       "ingreso": 10956384,
       "roi": 9.62,
       "costoMin": 1535
+    },
+    {
+      "fecha": "2026-06-16",
+      "fechaShort": "16 Jun",
+      "consumo": 1892993,
+      "minutos": 137522.08636358578,
+      "leads": 1542,
+      "ventas": 166,
+      "ingreso": 22453824,
+      "roi": 11.86,
+      "costoMin": 1228
+    },
+    {
+      "fecha": "2026-06-17",
+      "fechaShort": "17 Jun",
+      "consumo": 2062333,
+      "minutos": 93742.40909090909,
+      "leads": 1195,
+      "ventas": 154,
+      "ingreso": 20830656,
+      "roi": 10.1,
+      "costoMin": 1726
     }
   ],
   "providerData": [
@@ -216,51 +238,65 @@
     {
       "fecha": "12 Jun",
       "bestvoiper": 536027,
-      "chock": 1636734
+      "chock": 1636734,
+      "meg": 0
     },
     {
       "fecha": "13 Jun",
       "bestvoiper": 363529,
-      "chock": 1375154
+      "chock": 1375154,
+      "meg": 281227.83333327586
     },
     {
       "fecha": "15 Jun",
       "bestvoiper": 26276,
-      "chock": 1112474
+      "chock": 1112474,
+      "meg": 573177.7333341147
+    },
+    {
+      "fecha": "16 Jun",
+      "bestvoiper": 556977,
+      "chock": 1336016,
+      "meg": 1132492.8999988872
+    },
+    {
+      "fecha": "17 Jun",
+      "bestvoiper": 673011,
+      "chock": 1389322
     }
   ],
   "totals": {
-    "consumo": 25755002,
-    "proyInversion": 10393936.666609092,
-    "leads": 17980,
-    "costoLead": 1432,
-    "ventas": 1724,
-    "ingreso": 233195136,
+    "consumo": 29710328,
+    "proyInversion": 46422388,
+    "leads": 20717,
+    "costoLead": 1434,
+    "ventas": 2044,
+    "ingreso": 276479616,
     "agentes": 38,
     "fte": 31.39,
-    "facturaxFTE": 7428653.916897507,
-    "roi": 9.05,
-    "efectividad": 9.59,
-    "proyConsumo": 10393936.666609092,
+    "facturaxFTE": 8807522.3933518,
+    "roi": 9.31,
+    "efectividad": 9.87,
+    "proyConsumo": 11743389.166645853,
     "diasLaborales": 25,
-    "diasTranscurridos": 14,
-    "ventasActivasBlaster": 705,
-    "ventasActivasDigital": 459,
+    "diasTranscurridos": 16,
+    "ventasActivasBlaster": 1086,
+    "ventasActivasDigital": 754,
     "tiposActivasBlaster": {
-      "Migracion": 42,
-      "Portabilidad": 663
+      "Migracion": 55,
+      "Portabilidad": 1031
     },
     "tiposActivasDigital": {
-      "Migracion": 30,
-      "Portabilidad": 429
+      "Migracion": 38,
+      "Portabilidad": 716
     },
     "tiposCreadasBlaster": {
-      "Migracion": 38,
-      "Portabilidad": 1424
+      "Migracion": 52,
+      "Portabilidad": 1700
     },
     "tiposCreadasDigital": {
-      "Migracion": 30,
-      "Portabilidad": 1047
+      "Migracion": 33,
+      "Portabilidad": 1173
     }
   },
   "digitalData": [
@@ -449,28 +485,28 @@
     {
       "fecha": "2026-06-16",
       "fechaShort": "16 Jun",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 1830576,
+      "mensajes": 457644,
+      "leads": 299,
+      "ventas": 62,
+      "ingreso": 8386368,
+      "roi": 4.58,
+      "cpl": 6122,
+      "metaLeads": 350,
+      "agentes": 14
     },
     {
       "fecha": "2026-06-17",
       "fechaShort": "17 Jun",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 2062532,
+      "mensajes": 515633,
+      "leads": 298,
+      "ventas": 65,
+      "ingreso": 8792160,
+      "roi": 4.26,
+      "cpl": 6921,
+      "metaLeads": 350,
+      "agentes": 14
     },
     {
       "fecha": "2026-06-18",
