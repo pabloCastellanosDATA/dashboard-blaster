@@ -252,6 +252,28 @@
       "ingreso": 17178528,
       "roi": 6.55,
       "costoMin": 1909
+    },
+    {
+      "fecha": "2026-06-26",
+      "fechaShort": "26 Jun",
+      "consumo": 2937014,
+      "minutos": 133500.63636363635,
+      "leads": 1397,
+      "ventas": 138,
+      "ingreso": 18666432,
+      "roi": 6.36,
+      "costoMin": 2102
+    },
+    {
+      "fecha": "2026-06-27",
+      "fechaShort": "27 Jun",
+      "consumo": 2183627,
+      "minutos": 99255.77272727272,
+      "leads": 1014,
+      "ventas": 113,
+      "ingreso": 15284832,
+      "roi": 7,
+      "costoMin": 2153
     }
   ],
   "providerData": [
@@ -378,27 +400,37 @@
       "fecha": "25 Jun",
       "bestvoiper": 1895092,
       "chock": 725934
+    },
+    {
+      "fecha": "26 Jun",
+      "bestvoiper": 1876394,
+      "chock": 1060620
+    },
+    {
+      "fecha": "27 Jun",
+      "bestvoiper": 1688759,
+      "chock": 494868
     }
   ],
   "totals": {
     "consumo": 46231770,
-    "proyInversion": 50251924,
-    "leads": 30082,
-    "costoLead": 1537,
-    "ventas": 2989,
-    "ingreso": 404304096,
+    "proyInversion": 46231770,
+    "leads": 32493,
+    "costoLead": 1423,
+    "ventas": 3240,
+    "ingreso": 438255360,
     "agentes": 40,
     "fte": 33.04,
-    "facturaxFTE": 12235518.694736844,
-    "roi": 8.75,
-    "efectividad": 9.94,
-    "proyConsumo": 3989404.6739092986,
+    "facturaxFTE": 13262991.157894738,
+    "roi": 9.48,
+    "efectividad": 9.97,
+    "proyConsumo": 3670252.2999965544,
     "diasLaborales": 25,
-    "diasTranscurridos": 23,
-    "ventasActivasBlaster": 1605,
+    "diasTranscurridos": 25,
+    "ventasActivasBlaster": 1606,
     "ventasActivasDigital": 1107,
     "tiposActivasBlaster": {
-      "Migracion": 88,
+      "Migracion": 89,
       "Portabilidad": 1517
     },
     "tiposActivasDigital": {
@@ -406,12 +438,12 @@
       "Portabilidad": 1053
     },
     "tiposCreadasBlaster": {
-      "Migracion": 78,
-      "Portabilidad": 2457
+      "Migracion": 85,
+      "Portabilidad": 2676
     },
     "tiposCreadasDigital": {
-      "Migracion": 49,
-      "Portabilidad": 1623
+      "Migracion": 53,
+      "Portabilidad": 1722
     }
   },
   "digitalData": [
@@ -713,6 +745,32 @@
       "cpl": 4908,
       "metaLeads": 325,
       "agentes": 13
+    },
+    {
+      "fecha": "2026-06-26",
+      "fechaShort": "26 Jun",
+      "inversion": 1395264,
+      "mensajes": 348816,
+      "leads": 302,
+      "ventas": 53,
+      "ingreso": 7168992,
+      "roi": 5.14,
+      "cpl": 4620,
+      "metaLeads": 325,
+      "agentes": 13
+    },
+    {
+      "fecha": "2026-06-27",
+      "fechaShort": "27 Jun",
+      "inversion": 1519088,
+      "mensajes": 379772,
+      "leads": 247,
+      "ventas": 50,
+      "ingreso": 6763200,
+      "roi": 4.45,
+      "cpl": 6150,
+      "metaLeads": 275,
+      "agentes": 11
     }
   ],
   "fileName": "consumo troncales blaster junio.xlsx"
