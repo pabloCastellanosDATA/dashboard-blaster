@@ -197,6 +197,105 @@
       "ingreso": 18260640,
       "roi": 4.94,
       "costoMin": 2629
+    },
+    {
+      "fecha": "2026-07-22",
+      "fechaShort": "22 Jul",
+      "consumo": 3714312,
+      "minutos": 168832.36363636365,
+      "leads": 1403,
+      "ventas": 108,
+      "ingreso": 14608512,
+      "roi": 3.93,
+      "costoMin": 2647
+    },
+    {
+      "fecha": "2026-07-23",
+      "fechaShort": "23 Jul",
+      "consumo": 3425051,
+      "minutos": 155684.13636363635,
+      "leads": 1532,
+      "ventas": 123,
+      "ingreso": 16637472,
+      "roi": 4.86,
+      "costoMin": 2236
+    },
+    {
+      "fecha": "2026-07-24",
+      "fechaShort": "24 Jul",
+      "consumo": 4678138,
+      "minutos": 212642.63636363635,
+      "leads": 1549,
+      "ventas": 144,
+      "ingreso": 19478016,
+      "roi": 4.16,
+      "costoMin": 3020
+    },
+    {
+      "fecha": "2026-07-25",
+      "fechaShort": "25 Jul",
+      "consumo": 2338120,
+      "minutos": 106278.18181818182,
+      "leads": 1216,
+      "ventas": 104,
+      "ingreso": 14067456,
+      "roi": 6.02,
+      "costoMin": 1923
+    },
+    {
+      "fecha": "2026-07-27",
+      "fechaShort": "27 Jul",
+      "consumo": 1023666,
+      "minutos": 46530.27272727273,
+      "leads": 1549,
+      "ventas": 132,
+      "ingreso": 17854848,
+      "roi": 17.44,
+      "costoMin": 661
+    },
+    {
+      "fecha": "2026-07-28",
+      "fechaShort": "28 Jul",
+      "consumo": 1098650,
+      "minutos": 49938.63636363636,
+      "leads": 1373,
+      "ventas": 123,
+      "ingreso": 16637472,
+      "roi": 15.14,
+      "costoMin": 800
+    },
+    {
+      "fecha": "2026-07-29",
+      "fechaShort": "29 Jul",
+      "consumo": 2336424,
+      "minutos": 106201.09090909091,
+      "leads": 1270,
+      "ventas": 123,
+      "ingreso": 16637472,
+      "roi": 7.12,
+      "costoMin": 1840
+    },
+    {
+      "fecha": "2026-07-30",
+      "fechaShort": "30 Jul",
+      "consumo": 1575679,
+      "minutos": 71621.77272727272,
+      "leads": 1254,
+      "ventas": 83,
+      "ingreso": 11226912,
+      "roi": 7.13,
+      "costoMin": 1257
+    },
+    {
+      "fecha": "2026-07-31",
+      "fechaShort": "31 Jul",
+      "consumo": 6832,
+      "minutos": 310.54545454545456,
+      "leads": 1321,
+      "ventas": 89,
+      "ingreso": 12038496,
+      "roi": 1762.07,
+      "costoMin": 5
     }
   ],
   "providerData": [
@@ -290,40 +389,84 @@
       "fecha": "21 Jul",
       "bestvoiper": 2691830,
       "chock": 1004212
+    },
+    {
+      "fecha": "22 Jul",
+      "bestvoiper": 2369826,
+      "chock": 1344486
+    },
+    {
+      "fecha": "23 Jul",
+      "bestvoiper": 2823219,
+      "chock": 601832
+    },
+    {
+      "fecha": "24 Jul",
+      "bestvoiper": 2820700,
+      "chock": 1857438
+    },
+    {
+      "fecha": "25 Jul",
+      "bestvoiper": 485302,
+      "chock": 1852818
+    },
+    {
+      "fecha": "27 Jul",
+      "bestvoiper": 5440,
+      "chock": 1018226
+    },
+    {
+      "fecha": "28 Jul",
+      "bestvoiper": 14930,
+      "chock": 1083720
+    },
+    {
+      "fecha": "29 Jul",
+      "bestvoiper": 32848,
+      "chock": 2303576
+    },
+    {
+      "fecha": "30 Jul",
+      "bestvoiper": 12359,
+      "chock": 1563320
+    },
+    {
+      "fecha": "31 Jul",
+      "bestvoiper": 6832
     }
   ],
   "totals": {
-    "consumo": 54763625,
-    "proyInversion": 76060590,
-    "leads": 23614,
-    "costoLead": 2319,
-    "ventas": 2445,
-    "ingreso": 330720480,
-    "agentes": 49,
-    "fte": 40.48,
-    "facturaxFTE": 8170323.35123523,
-    "roi": 6.04,
-    "efectividad": 10.35,
-    "proyConsumo": 2498.9351851851848,
+    "consumo": 68919246,
+    "proyInversion": 63814117,
+    "leads": 36081,
+    "costoLead": 1910,
+    "ventas": 3474,
+    "ingreso": 469907136,
+    "agentes": 46,
+    "fte": 38,
+    "facturaxFTE": 12365977.263157895,
+    "roi": 6.82,
+    "efectividad": 9.63,
+    "proyConsumo": 1665.9567901234564,
     "diasLaborales": 25,
-    "diasTranscurridos": 18,
-    "ventasActivasBlaster": 1246,
-    "ventasActivasDigital": 654,
+    "diasTranscurridos": 27,
+    "ventasActivasBlaster": 2012,
+    "ventasActivasDigital": 1059,
     "tiposActivasBlaster": {
-      "Migracion": 60,
-      "Portabilidad": 1185
+      "Migracion": 104,
+      "Portabilidad": 1907
     },
     "tiposActivasDigital": {
-      "Migracion": 39,
-      "Portabilidad": 615
+      "Migracion": 74,
+      "Portabilidad": 985
     },
     "tiposCreadasBlaster": {
-      "Migracion": 58,
-      "Portabilidad": 2136
+      "Migracion": 99,
+      "Portabilidad": 3032
     },
     "tiposCreadasDigital": {
-      "Migracion": 45,
-      "Portabilidad": 939
+      "Migracion": 78,
+      "Portabilidad": 1354
     }
   },
   "digitalData": [
@@ -577,54 +720,119 @@
     {
       "fecha": "2026-07-22",
       "fechaShort": "22 Jul",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 1186816,
+      "mensajes": 296704,
+      "leads": 196,
+      "ventas": 60,
+      "ingreso": 8115840,
+      "roi": 6.84,
+      "cpl": 6055,
+      "metaLeads": 450,
+      "agentes": 18
     },
     {
       "fecha": "2026-07-23",
       "fechaShort": "23 Jul",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 747496,
+      "mensajes": 186874,
+      "leads": 127,
+      "ventas": 63,
+      "ingreso": 8521632,
+      "roi": 11.4,
+      "cpl": 5886,
+      "metaLeads": 450,
+      "agentes": 18
     },
     {
       "fecha": "2026-07-24",
       "fechaShort": "24 Jul",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 752240,
+      "mensajes": 188060,
+      "leads": 158,
+      "ventas": 52,
+      "ingreso": 7033728,
+      "roi": 9.35,
+      "cpl": 4761,
+      "metaLeads": 325,
+      "agentes": 13
     },
     {
       "fecha": "2026-07-25",
       "fechaShort": "25 Jul",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 437380,
+      "mensajes": 109345,
+      "leads": 101,
+      "ventas": 41,
+      "ingreso": 5545824,
+      "roi": 12.68,
+      "cpl": 4330,
+      "metaLeads": 325,
+      "agentes": 13
+    },
+    {
+      "fecha": "2026-07-27",
+      "fechaShort": "27 Jul",
+      "inversion": 679956,
+      "mensajes": 169989,
+      "leads": 120,
+      "ventas": 48,
+      "ingreso": 6492672,
+      "roi": 9.55,
+      "cpl": 5666,
+      "metaLeads": 350,
+      "agentes": 14
+    },
+    {
+      "fecha": "2026-07-28",
+      "fechaShort": "28 Jul",
+      "inversion": 883504,
+      "mensajes": 220876,
+      "leads": 127,
+      "ventas": 40,
+      "ingreso": 5410560,
+      "roi": 6.12,
+      "cpl": 6957,
+      "metaLeads": 325,
+      "agentes": 13
+    },
+    {
+      "fecha": "2026-07-29",
+      "fechaShort": "29 Jul",
+      "inversion": 886180,
+      "mensajes": 221545,
+      "leads": 94,
+      "ventas": 43,
+      "ingreso": 5816352,
+      "roi": 6.56,
+      "cpl": 9427,
+      "metaLeads": 325,
+      "agentes": 13
+    },
+    {
+      "fecha": "2026-07-30",
+      "fechaShort": "30 Jul",
+      "inversion": 1226856,
+      "mensajes": 306714,
+      "leads": 144,
+      "ventas": 27,
+      "ingreso": 3652128,
+      "roi": 2.98,
+      "cpl": 8520,
+      "metaLeads": 250,
+      "agentes": 10
+    },
+    {
+      "fecha": "2026-07-31",
+      "fechaShort": "31 Jul",
+      "inversion": 1096340,
+      "mensajes": 274085,
+      "leads": 177,
+      "ventas": 40,
+      "ingreso": 5410560,
+      "roi": 4.94,
+      "cpl": 6194,
+      "metaLeads": 225,
+      "agentes": 9
     }
   ],
   "fileName": "consumo troncales blaster julio.xlsx"
