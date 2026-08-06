@@ -1,5 +1,60 @@
 [
   {
+    "key": "2026-07",
+    "label": "Jul 2026",
+    "closedAt": "2026-08-06T05:10:34.280Z",
+    "totals": {
+      "consumo": 68919246,
+      "proyInversion": 63814117,
+      "leads": 36081,
+      "costoLead": 1910,
+      "ventas": 3474,
+      "ingreso": 469907136,
+      "agentes": 46,
+      "fte": 38,
+      "facturaxFTE": 12365977.263157895,
+      "roi": 6.82,
+      "efectividad": 9.63,
+      "proyConsumo": 1665.9567901234564,
+      "diasLaborales": 25,
+      "diasTranscurridos": 27,
+      "ventasActivasBlaster": 2119,
+      "ventasActivasDigital": 1110,
+      "tiposActivasBlaster": {
+        "Migracion": 108,
+        "Portabilidad": 2011
+      },
+      "tiposActivasDigital": {
+        "Migracion": 78,
+        "Portabilidad": 1032
+      },
+      "tiposCreadasBlaster": {
+        "Migracion": 100,
+        "Portabilidad": 3033
+      },
+      "tiposCreadasDigital": {
+        "Migracion": 79,
+        "Portabilidad": 1353
+      }
+    },
+    "digitalTotals": {
+      "inversion": 30998452,
+      "ingreso": 182876928,
+      "roi": 5.9,
+      "leads": 6366,
+      "ventas": 1352,
+      "cpl": 4869,
+      "mensajes": 7749613
+    },
+    "consolidadoTotals": {
+      "inversion": 99917698,
+      "ingreso": 652784064,
+      "margen": 552866366,
+      "roi": 6.53,
+      "ventasActivas": 3229
+    }
+  },
+  {
     "key": "2026-06",
     "label": "Jun 2026",
     "closedAt": "2026-07-03T16:18:31.669Z",
