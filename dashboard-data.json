@@ -54,6 +54,28 @@
       "ingreso": 15014304,
       "roi": 7.02,
       "costoMin": 1829
+    },
+    {
+      "fecha": "2026-08-07",
+      "fechaShort": "07 Ago",
+      "consumo": 2137413,
+      "minutos": 104934.77272727274,
+      "leads": 895,
+      "ventas": 96,
+      "ingreso": 12985344,
+      "roi": 6.08,
+      "costoMin": 2388
+    },
+    {
+      "fecha": "2026-08-08",
+      "fechaShort": "08 Ago",
+      "consumo": 1876483,
+      "minutos": 92145.95454545454,
+      "leads": 812,
+      "ventas": 79,
+      "ingreso": 10685856,
+      "roi": 5.69,
+      "costoMin": 2311
     }
   ],
   "providerData": [
@@ -81,23 +103,33 @@
       "fecha": "06 Ago",
       "bestvoiper": 668968,
       "chock": 1470600
+    },
+    {
+      "fecha": "07 Ago",
+      "bestvoiper": 425893,
+      "chock": 1711520
+    },
+    {
+      "fecha": "08 Ago",
+      "bestvoiper": 369203,
+      "chock": 1507280
     }
   ],
   "totals": {
-    "consumo": 16138221,
-    "proyInversion": 83918749,
-    "leads": 6280,
-    "costoLead": 2570,
-    "ventas": 493,
-    "ingreso": 66685152,
-    "agentes": 41,
-    "fte": 33.87,
-    "facturaxFTE": 1968881.2528883184,
-    "roi": 4.13,
-    "efectividad": 7.85,
-    "proyConsumo": 83918749.2,
+    "consumo": 20152117,
+    "proyInversion": 74850720,
+    "leads": 7987,
+    "costoLead": 2523,
+    "ventas": 668,
+    "ingreso": 90356352,
+    "agentes": 35,
+    "fte": 28.91,
+    "facturaxFTE": 3125106.911278195,
+    "roi": 4.48,
+    "efectividad": 8.36,
+    "proyConsumo": 74850720.28571428,
     "diasLaborales": 26,
-    "diasTranscurridos": 5,
+    "diasTranscurridos": 7,
     "ventasActivasBlaster": 0,
     "ventasActivasDigital": 0,
     "tiposActivasBlaster": {
@@ -109,12 +141,12 @@
       "Portabilidad": 0
     },
     "tiposCreadasBlaster": {
-      "Migracion": 19,
-      "Portabilidad": 416
+      "Migracion": 24,
+      "Portabilidad": 568
     },
     "tiposCreadasDigital": {
-      "Migracion": 8,
-      "Portabilidad": 185
+      "Migracion": 11,
+      "Portabilidad": 263
     }
   },
   "digitalData": [
@@ -186,28 +218,28 @@
     {
       "fecha": "2026-08-07",
       "fechaShort": "07 Ago",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 1023012,
+      "mensajes": 255753,
+      "leads": 155,
+      "ventas": 45,
+      "ingreso": 6086880,
+      "roi": 5.95,
+      "cpl": 6600,
+      "metaLeads": 175,
+      "agentes": 7
     },
     {
       "fecha": "2026-08-08",
       "fechaShort": "08 Ago",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 658084,
+      "mensajes": 164521,
+      "leads": 168,
+      "ventas": 31,
+      "ingreso": 4193184,
+      "roi": 6.37,
+      "cpl": 3917,
+      "metaLeads": 175,
+      "agentes": 7
     },
     {
       "fecha": "2026-08-09",
