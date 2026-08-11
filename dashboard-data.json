@@ -76,6 +76,17 @@
       "ingreso": 10685856,
       "roi": 5.69,
       "costoMin": 2311
+    },
+    {
+      "fecha": "2026-08-10",
+      "fechaShort": "10 Ago",
+      "consumo": 2755730,
+      "minutos": 135709,
+      "leads": 1230,
+      "ventas": 85,
+      "ingreso": 11497440,
+      "roi": 4.17,
+      "costoMin": 2240
     }
   ],
   "providerData": [
@@ -113,40 +124,45 @@
       "fecha": "08 Ago",
       "bestvoiper": 369203,
       "chock": 1507280
+    },
+    {
+      "fecha": "10 Ago",
+      "bestvoiper": 457050,
+      "chock": 2298680
     }
   ],
   "totals": {
-    "consumo": 20152117,
-    "proyInversion": 74850720,
-    "leads": 7987,
-    "costoLead": 2523,
-    "ventas": 668,
-    "ingreso": 90356352,
+    "consumo": 22907847,
+    "proyInversion": 74450503,
+    "leads": 9217,
+    "costoLead": 2485,
+    "ventas": 753,
+    "ingreso": 101853792,
     "agentes": 35,
     "fte": 28.91,
-    "facturaxFTE": 3125106.911278195,
-    "roi": 4.48,
-    "efectividad": 8.36,
-    "proyConsumo": 74850720.28571428,
+    "facturaxFTE": 3522762.7308270675,
+    "roi": 4.45,
+    "efectividad": 8.17,
+    "proyConsumo": 74450502.75,
     "diasLaborales": 26,
-    "diasTranscurridos": 7,
-    "ventasActivasBlaster": 0,
-    "ventasActivasDigital": 0,
+    "diasTranscurridos": 8,
+    "ventasActivasBlaster": 587,
+    "ventasActivasDigital": 233,
     "tiposActivasBlaster": {
-      "Migracion": 0,
-      "Portabilidad": 0
+      "Migracion": 22,
+      "Portabilidad": 565
     },
     "tiposActivasDigital": {
-      "Migracion": 0,
-      "Portabilidad": 0
+      "Migracion": 12,
+      "Portabilidad": 221
     },
     "tiposCreadasBlaster": {
-      "Migracion": 24,
-      "Portabilidad": 568
+      "Migracion": 25,
+      "Portabilidad": 650
     },
     "tiposCreadasDigital": {
-      "Migracion": 11,
-      "Portabilidad": 263
+      "Migracion": 15,
+      "Portabilidad": 332
     }
   },
   "digitalData": [
@@ -244,15 +260,15 @@
     {
       "fecha": "2026-08-09",
       "fechaShort": "09 Ago",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 784252,
+      "mensajes": 196063,
+      "leads": 168,
+      "ventas": 68,
+      "ingreso": 9197952,
+      "roi": 11.73,
+      "cpl": 4668,
+      "metaLeads": 400,
+      "agentes": 16
     },
     {
       "fecha": "2026-08-10",
