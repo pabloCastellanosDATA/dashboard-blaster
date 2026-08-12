@@ -141,14 +141,17 @@ function parseExcelFile(workbook) {
       const msLast   = new Date(dailyData[dailyData.length - 1].fecha + 'T23:59:59Z').getTime();
       const rawC = XLSX.utils.sheet_to_json(wsConsulta, { header: 1 });
       rawC.slice(1).forEach(r => {
-        const origen = r[COL_ORIGEN];
-        const tipo   = r[COL_TIPO];
+        const origen = String(r[COL_ORIGEN] ?? '').trim();
+        const tipo   = String(r[COL_TIPO]   ?? '').trim();
         const esBlaster = BLASTER_OR.includes(origen);
         const esDigital = DIGITAL_OR.includes(origen);
         if (!esBlaster && !esDigital) return;
 
+        const cierreVal = String(r[COL_CIERRE] ?? '').trim();
+        const estadoVal = String(r[COL_ESTADO] ?? '').trim().toUpperCase();
+
         // Ventas Activas: fecha_cierre = mesKey + ACTIVO
-        if (r[COL_CIERRE] === mesKey && r[COL_ESTADO] === 'ACTIVO') {
+        if (cierreVal === mesKey && estadoVal === 'ACTIVO') {
           if (esBlaster) {
             ventasActivasBlaster++;
             if (tipo === 'Migracion')    tiposActivasBlaster.Migracion++;
