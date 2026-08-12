@@ -125,7 +125,7 @@ function parseExcelFile(workbook) {
     const COL_ESTADO  = 21;
     const COL_ORIGEN  = 22;
     const COL_CIERRE  = 30;
-    const BLASTER_OR  = ['Blaster', 'Freelance', 'Part Time'];
+    const BLASTER_OR  = ['Blaster', 'Freelance', 'Part Time', 'Ojt - Best', 'Recupero', 'WhatsApp'];
     const DIGITAL_OR  = ['Digital'];
     let ventasActivasBlaster = 0;
     let ventasActivasDigital = 0;
