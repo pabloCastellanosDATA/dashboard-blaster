@@ -109,6 +109,17 @@
       "ingreso": 13255872,
       "roi": 4.87,
       "costoMin": 2195
+    },
+    {
+      "fecha": "2026-08-13",
+      "fechaShort": "13 Ago",
+      "consumo": 2685769,
+      "minutos": 132354.4090909091,
+      "leads": 1204,
+      "ventas": 106,
+      "ingreso": 14337984,
+      "roi": 5.34,
+      "costoMin": 2231
     }
   ],
   "providerData": [
@@ -161,23 +172,28 @@
       "fecha": "12 Ago",
       "bestvoiper": 498659,
       "chock": 2223340
+    },
+    {
+      "fecha": "13 Ago",
+      "bestvoiper": 425489,
+      "chock": 2260280
     }
   ],
   "totals": {
-    "consumo": 27844139,
-    "proyInversion": 72394761,
-    "leads": 11620,
-    "costoLead": 2396,
-    "ventas": 950,
-    "ingreso": 128500800,
-    "agentes": 35,
-    "fte": 28.91,
-    "facturaxFTE": 4444388.571428571,
-    "roi": 4.62,
-    "efectividad": 8.18,
-    "proyConsumo": 72394761.39999999,
+    "consumo": 30529908,
+    "proyInversion": 72161601,
+    "leads": 12824,
+    "costoLead": 2381,
+    "ventas": 1056,
+    "ingreso": 142838784,
+    "agentes": 32,
+    "fte": 26.43,
+    "facturaxFTE": 5403440.842105263,
+    "roi": 4.68,
+    "efectividad": 8.23,
+    "proyConsumo": 72161600.72727272,
     "diasLaborales": 26,
-    "diasTranscurridos": 10,
+    "diasTranscurridos": 11,
     "ventasActivasBlaster": 862,
     "ventasActivasDigital": 291,
     "tiposActivasBlaster": {
@@ -190,11 +206,11 @@
     },
     "tiposCreadasBlaster": {
       "Migracion": 46,
-      "Portabilidad": 1025
+      "Portabilidad": 1038
     },
     "tiposCreadasDigital": {
-      "Migracion": 18,
-      "Portabilidad": 462
+      "Migracion": 20,
+      "Portabilidad": 487
     }
   },
   "digitalData": [
@@ -331,15 +347,15 @@
     {
       "fecha": "2026-08-13",
       "fechaShort": "13 Ago",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 745784,
+      "mensajes": 186446,
+      "leads": 195,
+      "ventas": 64,
+      "ingreso": 8656896,
+      "roi": 11.61,
+      "cpl": 3825,
+      "metaLeads": 400,
+      "agentes": 16
     },
     {
       "fecha": "2026-08-14",
