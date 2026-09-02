@@ -252,6 +252,39 @@
       "ingreso": 13932192,
       "roi": 5.09,
       "costoMin": 2162
+    },
+    {
+      "fecha": "2026-08-28",
+      "fechaShort": "28 Ago",
+      "consumo": 2976509,
+      "minutos": 145590.68181818182,
+      "leads": 1337,
+      "ventas": 126,
+      "ingreso": 17043264,
+      "roi": 5.73,
+      "costoMin": 2226
+    },
+    {
+      "fecha": "2026-08-29",
+      "fechaShort": "29 Ago",
+      "consumo": 2046372,
+      "minutos": 97460.90909090909,
+      "leads": 996,
+      "ventas": 88,
+      "ingreso": 11903232,
+      "roi": 5.82,
+      "costoMin": 2055
+    },
+    {
+      "fecha": "2026-08-31",
+      "fechaShort": "31 Ago",
+      "consumo": 1715869,
+      "minutos": 81552.04545454546,
+      "leads": 1274,
+      "ventas": 131,
+      "ingreso": 17719584,
+      "roi": 10.33,
+      "costoMin": 1347
     }
   ],
   "providerData": [
@@ -369,40 +402,55 @@
       "fecha": "27 Ago",
       "bestvoiper": 1538604,
       "chock": 1198480
+    },
+    {
+      "fecha": "28 Ago",
+      "bestvoiper": 711649,
+      "chock": 2264860
+    },
+    {
+      "fecha": "29 Ago",
+      "bestvoiper": 1068692,
+      "chock": 977680
+    },
+    {
+      "fecha": "31 Ago",
+      "bestvoiper": 933109,
+      "chock": 782760
     }
   ],
   "totals": {
     "consumo": 56523992,
     "proyInversion": 63896687,
-    "leads": 26779,
-    "costoLead": 2111,
-    "ventas": 2587,
-    "ingreso": 349927968,
-    "agentes": 35,
-    "fte": 28.91,
-    "facturaxFTE": 12102771.82556391,
-    "roi": 6.19,
-    "efectividad": 9.66,
-    "proyConsumo": 66990781.56521739,
+    "leads": 30386,
+    "costoLead": 1860,
+    "ventas": 2932,
+    "ingreso": 396594048,
+    "agentes": 36,
+    "fte": 29.74,
+    "facturaxFTE": 13335764.771929825,
+    "roi": 7.02,
+    "efectividad": 9.65,
+    "proyConsumo": 74608498.95652173,
     "diasLaborales": 26,
     "diasTranscurridos": 23,
-    "ventasActivasBlaster": 1877,
-    "ventasActivasDigital": 720,
+    "ventasActivasBlaster": 2376,
+    "ventasActivasDigital": 888,
     "tiposActivasBlaster": {
-      "Migracion": 90,
-      "Portabilidad": 1787
+      "Migracion": 110,
+      "Portabilidad": 2266
     },
     "tiposActivasDigital": {
-      "Migracion": 38,
-      "Portabilidad": 682
+      "Migracion": 42,
+      "Portabilidad": 846
     },
     "tiposCreadasBlaster": {
-      "Migracion": 101,
-      "Portabilidad": 2830
+      "Migracion": 116,
+      "Portabilidad": 3361
     },
     "tiposCreadasDigital": {
-      "Migracion": 40,
-      "Portabilidad": 1054
+      "Migracion": 44,
+      "Portabilidad": 1183
     }
   },
   "digitalData": [
@@ -704,6 +752,45 @@
       "cpl": 5859,
       "metaLeads": 250,
       "agentes": 10
+    },
+    {
+      "fecha": "2026-08-28",
+      "fechaShort": "28 Ago",
+      "inversion": 830664,
+      "mensajes": 207666,
+      "leads": 125,
+      "ventas": 45,
+      "ingreso": 6086880,
+      "roi": 7.33,
+      "cpl": 6645,
+      "metaLeads": 250,
+      "agentes": 10
+    },
+    {
+      "fecha": "2026-08-29",
+      "fechaShort": "29 Ago",
+      "inversion": 933168,
+      "mensajes": 233292,
+      "leads": 114,
+      "ventas": 36,
+      "ingreso": 4869504,
+      "roi": 5.22,
+      "cpl": 8186,
+      "metaLeads": 150,
+      "agentes": 6
+    },
+    {
+      "fecha": "2026-08-31",
+      "fechaShort": "31 Ago",
+      "inversion": 920000,
+      "mensajes": 230000,
+      "leads": 121,
+      "ventas": 49,
+      "ingreso": 6627936,
+      "roi": 7.2,
+      "cpl": 7603,
+      "metaLeads": 175,
+      "agentes": 7
     }
   ],
   "fileName": "consumo troncales blaster  agosto.xlsx"
