@@ -434,11 +434,11 @@
     "proyConsumo": 74608498.95652173,
     "diasLaborales": 26,
     "diasTranscurridos": 23,
-    "ventasActivasBlaster": 2375,
+    "ventasActivasBlaster": 2376,
     "ventasActivasDigital": 888,
     "tiposActivasBlaster": {
       "Migracion": 110,
-      "Portabilidad": 2265
+      "Portabilidad": 2266
     },
     "tiposActivasDigital": {
       "Migracion": 42,
@@ -793,5 +793,5 @@
       "agentes": 7
     }
   ],
-  "fileName": "consumo troncales blaster  agosto.xlsx"
+  "fileName": "consumo troncales blaster  sep.xlsx"
 }
