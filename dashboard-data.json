@@ -230,6 +230,39 @@
       "ingreso": 24888576,
       "roi": 7.29,
       "costoMin": 2648
+    },
+    {
+      "fecha": "2026-09-24",
+      "fechaShort": "24 Sep",
+      "consumo": 2259387,
+      "minutos": 110488.68181818182,
+      "leads": 1126,
+      "ventas": 155,
+      "ingreso": 20965920,
+      "roi": 9.28,
+      "costoMin": 2007
+    },
+    {
+      "fecha": "2026-09-25",
+      "fechaShort": "25 Sep",
+      "consumo": 2611966,
+      "minutos": 127739.45454545454,
+      "leads": 1247,
+      "ventas": 179,
+      "ingreso": 24212256,
+      "roi": 9.27,
+      "costoMin": 2095
+    },
+    {
+      "fecha": "2026-09-26",
+      "fechaShort": "26 Sep",
+      "consumo": 2106509,
+      "minutos": 102536.13636363637,
+      "leads": 1100,
+      "ventas": 110,
+      "ingreso": 14879040,
+      "roi": 7.06,
+      "costoMin": 1915
     }
   ],
   "providerData": [
@@ -337,40 +370,55 @@
       "fecha": "23 Sep",
       "bestvoiper": 412246,
       "chock": 3000940
+    },
+    {
+      "fecha": "24 Sep",
+      "bestvoiper": 545747,
+      "chock": 1713640
+    },
+    {
+      "fecha": "25 Sep",
+      "bestvoiper": 628946,
+      "chock": 1983020
+    },
+    {
+      "fecha": "26 Sep",
+      "bestvoiper": 613649,
+      "chock": 1492860
     }
   ],
   "totals": {
-    "consumo": 55125980,
-    "proyInversion": 68251213,
-    "leads": 25056,
-    "costoLead": 2200,
-    "ventas": 3459,
-    "ingreso": 467878176,
-    "agentes": 39,
-    "fte": 32.22,
-    "facturaxFTE": 14522534.477732792,
-    "roi": 8.49,
-    "efectividad": 13.81,
-    "proyConsumo": 68251213.33333333,
+    "consumo": 62103842,
+    "proyInversion": 67279162,
+    "leads": 28529,
+    "costoLead": 2177,
+    "ventas": 3903,
+    "ingreso": 527935392,
+    "agentes": 40,
+    "fte": 33.04,
+    "facturaxFTE": 15976992.126315791,
+    "roi": 8.5,
+    "efectividad": 13.68,
+    "proyConsumo": 67279162.16666667,
     "diasLaborales": 26,
-    "diasTranscurridos": 21,
-    "ventasActivasBlaster": 1968,
-    "ventasActivasDigital": 843,
+    "diasTranscurridos": 24,
+    "ventasActivasBlaster": 2100,
+    "ventasActivasDigital": 911,
     "tiposActivasBlaster": {
-      "Migracion": 97,
-      "Portabilidad": 1871
+      "Migracion": 109,
+      "Portabilidad": 1991
     },
     "tiposActivasDigital": {
-      "Migracion": 47,
-      "Portabilidad": 796
+      "Migracion": 48,
+      "Portabilidad": 863
     },
     "tiposCreadasBlaster": {
-      "Migracion": 110,
-      "Portabilidad": 3364
+      "Migracion": 127,
+      "Portabilidad": 3785
     },
     "tiposCreadasDigital": {
-      "Migracion": 50,
-      "Portabilidad": 1385
+      "Migracion": 60,
+      "Portabilidad": 1589
     }
   },
   "digitalData": [
@@ -663,41 +711,41 @@
     {
       "fecha": "2026-09-24",
       "fechaShort": "24 Sep",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 463480.5,
+      "mensajes": 132423,
+      "leads": 221,
+      "ventas": 66,
+      "ingreso": 8927424,
+      "roi": 19.26,
+      "cpl": 2097,
+      "metaLeads": 325,
+      "agentes": 13
     },
     {
       "fecha": "2026-09-25",
       "fechaShort": "25 Sep",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 465748.5,
+      "mensajes": 133071,
+      "leads": 233,
+      "ventas": 84,
+      "ingreso": 11362176,
+      "roi": 24.4,
+      "cpl": 1999,
+      "metaLeads": 300,
+      "agentes": 12
     },
     {
       "fecha": "2026-09-26",
       "fechaShort": "26 Sep",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 818251,
+      "mensajes": 233786,
+      "leads": 305,
+      "ventas": 80,
+      "ingreso": 10821120,
+      "roi": 13.22,
+      "cpl": 2683,
+      "metaLeads": 300,
+      "agentes": 12
     }
   ],
   "fileName": "consumo troncales blaster  sep.xlsx"
