@@ -274,6 +274,17 @@
       "ingreso": 16096416,
       "roi": 6.64,
       "costoMin": 1936
+    },
+    {
+      "fecha": "2026-09-29",
+      "fechaShort": "29 Sep",
+      "consumo": 2619157,
+      "minutos": 127673.86363636365,
+      "leads": 1283,
+      "ventas": 127,
+      "ingreso": 17178528,
+      "roi": 6.56,
+      "costoMin": 2041
     }
   ],
   "providerData": [
@@ -401,40 +412,45 @@
       "fecha": "28 Sep",
       "bestvoiper": 650096,
       "chock": 1775180
+    },
+    {
+      "fecha": "29 Sep",
+      "bestvoiper": 722477,
+      "chock": 1896680
     }
   ],
   "totals": {
     "consumo": 62103842,
-    "proyInversion": 64587996,
-    "leads": 29782,
-    "costoLead": 2085,
-    "ventas": 4022,
-    "ingreso": 544031808,
+    "proyInversion": 62103842,
+    "leads": 31065,
+    "costoLead": 1999,
+    "ventas": 4149,
+    "ingreso": 561210336,
     "agentes": 40,
     "fte": 33.04,
-    "facturaxFTE": 16464120.505263159,
-    "roi": 8.76,
-    "efectividad": 13.5,
-    "proyConsumo": 67110282.72,
+    "facturaxFTE": 16983997.010526318,
+    "roi": 9.04,
+    "efectividad": 13.36,
+    "proyConsumo": 67148275,
     "diasLaborales": 26,
-    "diasTranscurridos": 25,
-    "ventasActivasBlaster": 2699,
-    "ventasActivasDigital": 1247,
+    "diasTranscurridos": 26,
+    "ventasActivasBlaster": 2701,
+    "ventasActivasDigital": 1249,
     "tiposActivasBlaster": {
-      "Migracion": 129,
+      "Migracion": 131,
       "Portabilidad": 2570
     },
     "tiposActivasDigital": {
-      "Migracion": 59,
+      "Migracion": 61,
       "Portabilidad": 1188
     },
     "tiposCreadasBlaster": {
-      "Migracion": 135,
-      "Portabilidad": 3917
+      "Migracion": 138,
+      "Portabilidad": 4034
     },
     "tiposCreadasDigital": {
       "Migracion": 64,
-      "Portabilidad": 1645
+      "Portabilidad": 1698
     }
   },
   "digitalData": [
@@ -775,6 +791,19 @@
       "cpl": 2694,
       "metaLeads": 350,
       "agentes": 14
+    },
+    {
+      "fecha": "2026-09-29",
+      "fechaShort": "29 Sep",
+      "inversion": 330827,
+      "mensajes": 94522,
+      "leads": 186,
+      "ventas": 53,
+      "ingreso": 7168992,
+      "roi": 21.67,
+      "cpl": 1779,
+      "metaLeads": 300,
+      "agentes": 12
     }
   ],
   "fileName": "consumo troncales blaster  sep.xlsx"
