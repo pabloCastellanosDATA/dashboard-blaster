@@ -285,6 +285,17 @@
       "ingreso": 17178528,
       "roi": 6.56,
       "costoMin": 2041
+    },
+    {
+      "fecha": "2026-09-30",
+      "fechaShort": "30 Sep",
+      "consumo": 2364374,
+      "minutos": 114787.54545454546,
+      "leads": 1080,
+      "ventas": 167,
+      "ingreso": 22589088,
+      "roi": 9.55,
+      "costoMin": 2189
     }
   ],
   "providerData": [
@@ -417,21 +428,26 @@
       "fecha": "29 Sep",
       "bestvoiper": 722477,
       "chock": 1896680
+    },
+    {
+      "fecha": "30 Sep",
+      "bestvoiper": 754854,
+      "chock": 1609520
     }
   ],
   "totals": {
     "consumo": 67148275,
     "proyInversion": 67148275,
-    "leads": 31065,
-    "costoLead": 2162,
-    "ventas": 4149,
-    "ingreso": 561210336,
+    "leads": 32145,
+    "costoLead": 2089,
+    "ventas": 4316,
+    "ingreso": 583799424,
     "agentes": 40,
     "fte": 33.04,
-    "facturaxFTE": 16983997.010526318,
-    "roi": 8.36,
-    "efectividad": 13.36,
-    "proyConsumo": 67148275,
+    "facturaxFTE": 17667614.147368424,
+    "roi": 8.69,
+    "efectividad": 13.43,
+    "proyConsumo": 69512649,
     "diasLaborales": 26,
     "diasTranscurridos": 26,
     "ventasActivasBlaster": 2701,
@@ -445,12 +461,12 @@
       "Portabilidad": 1188
     },
     "tiposCreadasBlaster": {
-      "Migracion": 138,
-      "Portabilidad": 4034
+      "Migracion": 140,
+      "Portabilidad": 4192
     },
     "tiposCreadasDigital": {
-      "Migracion": 64,
-      "Portabilidad": 1698
+      "Migracion": 68,
+      "Portabilidad": 1764
     }
   },
   "digitalData": [
@@ -804,6 +820,19 @@
       "cpl": 1779,
       "metaLeads": 300,
       "agentes": 12
+    },
+    {
+      "fecha": "2026-09-30",
+      "fechaShort": "30 Sep",
+      "inversion": 543644.5,
+      "mensajes": 155327,
+      "leads": 213,
+      "ventas": 69,
+      "ingreso": 9333216,
+      "roi": 17.17,
+      "cpl": 2552,
+      "metaLeads": 325,
+      "agentes": 13
     }
   ],
   "fileName": "consumo troncales blaster  sep.xlsx"
