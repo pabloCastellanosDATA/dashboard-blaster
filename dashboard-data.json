@@ -120,6 +120,39 @@
       "ingreso": 14743776,
       "roi": 8.27,
       "costoMin": 1719
+    },
+    {
+      "fecha": "2026-10-16",
+      "fechaShort": "16 Oct",
+      "consumo": 1885682,
+      "minutos": 95864,
+      "leads": 1156,
+      "ventas": 92,
+      "ingreso": 12444288,
+      "roi": 6.6,
+      "costoMin": 1631
+    },
+    {
+      "fecha": "2026-10-17",
+      "fechaShort": "17 Oct",
+      "consumo": 1636378,
+      "minutos": 83232,
+      "leads": 917,
+      "ventas": 63,
+      "ingreso": 8521632,
+      "roi": 5.21,
+      "costoMin": 1784
+    },
+    {
+      "fecha": "2026-10-18",
+      "fechaShort": "18 Oct",
+      "consumo": 1486660,
+      "minutos": 75607,
+      "leads": 868,
+      "ventas": 100,
+      "ingreso": 13526400,
+      "roi": 9.1,
+      "costoMin": 1713
     }
   ],
   "providerData": [
@@ -177,40 +210,55 @@
       "fecha": "15 Oct",
       "bestvoiper": 789570,
       "chock": 992580
+    },
+    {
+      "fecha": "16 Oct",
+      "bestvoiper": 600562,
+      "chock": 1285120
+    },
+    {
+      "fecha": "17 Oct",
+      "bestvoiper": 536998,
+      "chock": 1099380
+    },
+    {
+      "fecha": "18 Oct",
+      "bestvoiper": 484240,
+      "chock": 1002420
     }
   ],
   "totals": {
-    "consumo": 19454539,
-    "proyInversion": 45983456,
-    "leads": 9609,
-    "costoLead": 2025,
-    "ventas": 848,
-    "ingreso": 114703872,
+    "consumo": 24463259,
+    "proyInversion": 45431767,
+    "leads": 12550,
+    "costoLead": 1949,
+    "ventas": 1103,
+    "ingreso": 149196192,
     "agentes": 40,
     "fte": 33.04,
-    "facturaxFTE": 3471301.3894736846,
-    "roi": 5.9,
-    "efectividad": 8.83,
-    "proyConsumo": 45983455.81818182,
+    "facturaxFTE": 4515147.915789474,
+    "roi": 6.1,
+    "efectividad": 8.79,
+    "proyConsumo": 45431766.71428572,
     "diasLaborales": 26,
-    "diasTranscurridos": 11,
-    "ventasActivasBlaster": 1026,
-    "ventasActivasDigital": 490,
+    "diasTranscurridos": 14,
+    "ventasActivasBlaster": 1074,
+    "ventasActivasDigital": 484,
     "tiposActivasBlaster": {
-      "Migracion": 21,
-      "Portabilidad": 1004
+      "Migracion": 23,
+      "Portabilidad": 1050
     },
     "tiposActivasDigital": {
-      "Migracion": 8,
-      "Portabilidad": 482
+      "Migracion": 9,
+      "Portabilidad": 475
     },
     "tiposCreadasBlaster": {
-      "Migracion": 45,
-      "Portabilidad": 1399
+      "Migracion": 49,
+      "Portabilidad": 1728
     },
     "tiposCreadasDigital": {
-      "Migracion": 13,
-      "Portabilidad": 627
+      "Migracion": 21,
+      "Portabilidad": 788
     }
   },
   "digitalData": [
@@ -412,41 +460,41 @@
     {
       "fecha": "2026-10-16",
       "fechaShort": "16 Oct",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 705659.5,
+      "mensajes": 201617,
+      "leads": 201,
+      "ventas": 94,
+      "ingreso": 12714816,
+      "roi": 18.02,
+      "cpl": 3511,
+      "metaLeads": 450,
+      "agentes": 18
     },
     {
       "fecha": "2026-10-17",
       "fechaShort": "17 Oct",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 691453,
+      "mensajes": 197558,
+      "leads": 170,
+      "ventas": 68,
+      "ingreso": 9197952,
+      "roi": 13.3,
+      "cpl": 4067,
+      "metaLeads": 300,
+      "agentes": 12
     },
     {
       "fecha": "2026-10-18",
       "fechaShort": "18 Oct",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 746424,
+      "mensajes": 213264,
+      "leads": 208,
+      "ventas": 64,
+      "ingreso": 8656896,
+      "roi": 11.6,
+      "cpl": 3589,
+      "metaLeads": 250,
+      "agentes": 10
     },
     {
       "fecha": "2026-10-19",
