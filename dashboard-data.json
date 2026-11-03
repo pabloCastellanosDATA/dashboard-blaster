@@ -252,6 +252,50 @@
       "ingreso": 19478016,
       "roi": 10.58,
       "costoMin": 1669
+    },
+    {
+      "fecha": "2026-10-28",
+      "fechaShort": "28 Oct",
+      "consumo": 1827573,
+      "minutos": 94009,
+      "leads": 1138,
+      "ventas": 147,
+      "ingreso": 19883808,
+      "roi": 10.88,
+      "costoMin": 1606
+    },
+    {
+      "fecha": "2026-10-29",
+      "fechaShort": "29 Oct",
+      "consumo": 1868660,
+      "minutos": 96408,
+      "leads": 1089,
+      "ventas": 138,
+      "ingreso": 18666432,
+      "roi": 9.99,
+      "costoMin": 1716
+    },
+    {
+      "fecha": "2026-10-30",
+      "fechaShort": "30 Oct",
+      "consumo": 1800460,
+      "minutos": 92381,
+      "leads": 1047,
+      "ventas": 122,
+      "ingreso": 16502208,
+      "roi": 9.17,
+      "costoMin": 1720
+    },
+    {
+      "fecha": "2026-10-31",
+      "fechaShort": "31 Oct",
+      "consumo": 1280547,
+      "minutos": 65959,
+      "leads": 672,
+      "ventas": 74,
+      "ingreso": 10009536,
+      "roi": 7.82,
+      "costoMin": 1906
     }
   ],
   "providerData": [
@@ -369,40 +413,60 @@
       "fecha": "27 Oct",
       "bestvoiper": 692752,
       "chock": 1148680
+    },
+    {
+      "fecha": "28 Oct",
+      "bestvoiper": 999833,
+      "chock": 827740
+    },
+    {
+      "fecha": "29 Oct",
+      "bestvoiper": 1130780,
+      "chock": 737880
+    },
+    {
+      "fecha": "30 Oct",
+      "bestvoiper": 896380,
+      "chock": 904080
+    },
+    {
+      "fecha": "31 Oct",
+      "bestvoiper": 734387,
+      "chock": 546160
     }
   ],
   "totals": {
-    "consumo": 45380850,
-    "proyInversion": 51300091,
-    "leads": 23373,
-    "costoLead": 1942,
-    "ventas": 2466,
-    "ingreso": 333561024,
+    "consumo": 52158090,
+    "proyInversion": 50226309,
+    "leads": 27319,
+    "costoLead": 1909,
+    "ventas": 2947,
+    "ingreso": 398623008,
     "agentes": 40,
     "fte": 40,
-    "facturaxFTE": 8339025.6,
-    "roi": 7.35,
-    "efectividad": 10.55,
-    "proyConsumo": 51300091.30434783,
+    "facturaxFTE": 9965575.2,
+    "roi": 7.64,
+    "efectividad": 10.79,
+    "proyConsumo": 50226308.88888889,
     "diasLaborales": 26,
-    "diasTranscurridos": 23,
-    "ventasActivasBlaster": 1827,
-    "ventasActivasDigital": 862,
+    "diasTranscurridos": 27,
+    "ventasActivasBlaster": 2281,
+    "ventasActivasDigital": 1083,
     "tiposActivasBlaster": {
-      "Migracion": 81,
-      "Portabilidad": 1746
+      "Migracion": 86,
+      "Portabilidad": 2195
     },
     "tiposActivasDigital": {
-      "Migracion": 33,
-      "Portabilidad": 829
+      "Migracion": 44,
+      "Portabilidad": 1039
     },
     "tiposCreadasBlaster": {
-      "Migracion": 108,
-      "Portabilidad": 3017
+      "Migracion": 120,
+      "Portabilidad": 3473
     },
     "tiposCreadasDigital": {
-      "Migracion": 43,
-      "Portabilidad": 1498
+      "Migracion": 50,
+      "Portabilidad": 1790
     }
   },
   "digitalData": [
@@ -760,15 +824,54 @@
     {
       "fecha": "2026-10-28",
       "fechaShort": "28 Oct",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 702877,
+      "mensajes": 200822,
+      "leads": 243,
+      "ventas": 77,
+      "ingreso": 10415328,
+      "roi": 14.82,
+      "cpl": 2892,
+      "metaLeads": 325,
+      "agentes": 13
+    },
+    {
+      "fecha": "2026-10-29",
+      "fechaShort": "29 Oct",
+      "inversion": 650184.5,
+      "mensajes": 185767,
+      "leads": 208,
+      "ventas": 87,
+      "ingreso": 11767968,
+      "roi": 18.1,
+      "cpl": 3126,
+      "metaLeads": 325,
+      "agentes": 13
+    },
+    {
+      "fecha": "2026-10-30",
+      "fechaShort": "30 Oct",
+      "inversion": 975047.5,
+      "mensajes": 278585,
+      "leads": 280,
+      "ventas": 84,
+      "ingreso": 11362176,
+      "roi": 11.65,
+      "cpl": 3482,
+      "metaLeads": 375,
+      "agentes": 15
+    },
+    {
+      "fecha": "2026-10-31",
+      "fechaShort": "31 Oct",
+      "inversion": 716891,
+      "mensajes": 204826,
+      "leads": 191,
+      "ventas": 53,
+      "ingreso": 7168992,
+      "roi": 10,
+      "cpl": 3753,
+      "metaLeads": 275,
+      "agentes": 11
     }
   ],
   "fileName": "consumo troncales blaster  oct.xlsx"
