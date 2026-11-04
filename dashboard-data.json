@@ -450,15 +450,15 @@
     "proyConsumo": 50226308.88888889,
     "diasLaborales": 26,
     "diasTranscurridos": 27,
-    "ventasActivasBlaster": 2281,
-    "ventasActivasDigital": 1083,
+    "ventasActivasBlaster": 2542,
+    "ventasActivasDigital": 1221,
     "tiposActivasBlaster": {
-      "Migracion": 86,
-      "Portabilidad": 2195
+      "Migracion": 96,
+      "Portabilidad": 2446
     },
     "tiposActivasDigital": {
-      "Migracion": 44,
-      "Portabilidad": 1039
+      "Migracion": 45,
+      "Portabilidad": 1176
     },
     "tiposCreadasBlaster": {
       "Migracion": 120,
