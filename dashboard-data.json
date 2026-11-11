@@ -54,6 +54,28 @@
       "ingreso": 18666432,
       "roi": 14.71,
       "costoMin": 1523
+    },
+    {
+      "fecha": "2026-11-09",
+      "fechaShort": "09 Nov",
+      "consumo": 1650218,
+      "minutos": 84141,
+      "leads": 1009,
+      "ventas": 193,
+      "ingreso": 26105952,
+      "roi": 15.82,
+      "costoMin": 1635
+    },
+    {
+      "fecha": "2026-11-10",
+      "fechaShort": "10 Nov",
+      "consumo": 1740447,
+      "minutos": 89141,
+      "leads": 1128,
+      "ventas": 183,
+      "ingreso": 24753312,
+      "roi": 14.22,
+      "costoMin": 1543
     }
   ],
   "providerData": [
@@ -81,40 +103,50 @@
       "fecha": "07 Nov",
       "bestvoiper": 528144,
       "chock": 740660
+    },
+    {
+      "fecha": "09 Nov",
+      "bestvoiper": 619498,
+      "chock": 1030720
+    },
+    {
+      "fecha": "10 Nov",
+      "bestvoiper": 805207,
+      "chock": 935240
     }
   ],
   "totals": {
-    "consumo": 9335008,
-    "proyInversion": 44808038,
-    "leads": 5321,
-    "costoLead": 1754,
-    "ventas": 801,
-    "ingreso": 108346464,
+    "consumo": 12725673,
+    "proyInversion": 43630879,
+    "leads": 7458,
+    "costoLead": 1706,
+    "ventas": 1177,
+    "ingreso": 159205728,
     "agentes": 40,
     "fte": 40,
-    "facturaxFTE": 2708661.6,
-    "roi": 11.61,
-    "efectividad": 15.05,
-    "proyConsumo": 44808038.400000006,
+    "facturaxFTE": 3980143.2,
+    "roi": 12.51,
+    "efectividad": 15.78,
+    "proyConsumo": 43630878.85714286,
     "diasLaborales": 24,
-    "diasTranscurridos": 5,
-    "ventasActivasBlaster": 313,
-    "ventasActivasDigital": 169,
+    "diasTranscurridos": 7,
+    "ventasActivasBlaster": 606,
+    "ventasActivasDigital": 343,
     "tiposActivasBlaster": {
-      "Migracion": 8,
-      "Portabilidad": 305
+      "Migracion": 18,
+      "Portabilidad": 588
     },
     "tiposActivasDigital": {
-      "Migracion": 8,
-      "Portabilidad": 161
+      "Migracion": 19,
+      "Portabilidad": 324
     },
     "tiposCreadasBlaster": {
-      "Migracion": 12,
-      "Portabilidad": 771
+      "Migracion": 19,
+      "Portabilidad": 1138
     },
     "tiposCreadasDigital": {
-      "Migracion": 17,
-      "Portabilidad": 342
+      "Migracion": 19,
+      "Portabilidad": 505
     }
   },
   "digitalData": [
@@ -184,43 +216,30 @@
       "agentes": 11
     },
     {
-      "fecha": "2026-11-08",
-      "fechaShort": "08 Nov",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
-    },
-    {
       "fecha": "2026-11-09",
       "fechaShort": "09 Nov",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 599634,
+      "mensajes": 171324,
+      "leads": 190,
+      "ventas": 91,
+      "ingreso": 12309024,
+      "roi": 20.53,
+      "cpl": 3156,
+      "metaLeads": 350,
+      "agentes": 14
     },
     {
       "fecha": "2026-11-10",
       "fechaShort": "10 Nov",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 600733,
+      "mensajes": 171638,
+      "leads": 189,
+      "ventas": 80,
+      "ingreso": 10821120,
+      "roi": 18.01,
+      "cpl": 3178,
+      "metaLeads": 300,
+      "agentes": 12
     },
     {
       "fecha": "2026-11-11",
