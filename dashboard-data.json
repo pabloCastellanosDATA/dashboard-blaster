@@ -76,6 +76,61 @@
       "ingreso": 24753312,
       "roi": 14.22,
       "costoMin": 1543
+    },
+    {
+      "fecha": "2026-11-11",
+      "fechaShort": "11 Nov",
+      "consumo": 1932873,
+      "minutos": 99294,
+      "leads": 973,
+      "ventas": 154,
+      "ingreso": 20830656,
+      "roi": 10.78,
+      "costoMin": 1987
+    },
+    {
+      "fecha": "2026-11-12",
+      "fechaShort": "12 Nov",
+      "consumo": 2033911,
+      "minutos": 104433,
+      "leads": 814,
+      "ventas": 90,
+      "ingreso": 12173760,
+      "roi": 5.99,
+      "costoMin": 2499
+    },
+    {
+      "fecha": "2026-11-13",
+      "fechaShort": "13 Nov",
+      "consumo": 1946220,
+      "minutos": 98962,
+      "leads": 1020,
+      "ventas": 163,
+      "ingreso": 22048032,
+      "roi": 11.33,
+      "costoMin": 1908
+    },
+    {
+      "fecha": "2026-11-14",
+      "fechaShort": "14 Nov",
+      "consumo": 1614537,
+      "minutos": 81980,
+      "leads": 869,
+      "ventas": 150,
+      "ingreso": 20289600,
+      "roi": 12.57,
+      "costoMin": 1858
+    },
+    {
+      "fecha": "2026-11-16",
+      "fechaShort": "16 Nov",
+      "consumo": 1514763,
+      "minutos": 76992,
+      "leads": 830,
+      "ventas": 134,
+      "ingreso": 18125376,
+      "roi": 11.97,
+      "costoMin": 1825
     }
   ],
   "providerData": [
@@ -113,40 +168,65 @@
       "fecha": "10 Nov",
       "bestvoiper": 805207,
       "chock": 935240
+    },
+    {
+      "fecha": "11 Nov",
+      "bestvoiper": 1007133,
+      "chock": 925740
+    },
+    {
+      "fecha": "12 Nov",
+      "bestvoiper": 1040231,
+      "chock": 993680
+    },
+    {
+      "fecha": "13 Nov",
+      "bestvoiper": 627720,
+      "chock": 1318500
+    },
+    {
+      "fecha": "14 Nov",
+      "bestvoiper": 476437,
+      "chock": 1138100
+    },
+    {
+      "fecha": "16 Nov",
+      "bestvoiper": 472663,
+      "chock": 1042100
     }
   ],
   "totals": {
-    "consumo": 12725673,
-    "proyInversion": 43630879,
-    "leads": 7458,
-    "costoLead": 1706,
-    "ventas": 1177,
-    "ingreso": 159205728,
+    "consumo": 21767977,
+    "proyInversion": 43535954,
+    "leads": 11964,
+    "costoLead": 1819,
+    "ventas": 1868,
+    "ingreso": 252673152,
     "agentes": 40,
     "fte": 40,
-    "facturaxFTE": 3980143.2,
-    "roi": 12.51,
-    "efectividad": 15.78,
-    "proyConsumo": 43630878.85714286,
+    "facturaxFTE": 6316828.8,
+    "roi": 11.61,
+    "efectividad": 15.61,
+    "proyConsumo": 43535954,
     "diasLaborales": 24,
-    "diasTranscurridos": 7,
-    "ventasActivasBlaster": 606,
-    "ventasActivasDigital": 343,
+    "diasTranscurridos": 12,
+    "ventasActivasBlaster": 1475,
+    "ventasActivasDigital": 762,
     "tiposActivasBlaster": {
-      "Migracion": 18,
-      "Portabilidad": 588
+      "Migracion": 35,
+      "Portabilidad": 1440
     },
     "tiposActivasDigital": {
-      "Migracion": 19,
-      "Portabilidad": 324
+      "Migracion": 29,
+      "Portabilidad": 733
     },
     "tiposCreadasBlaster": {
-      "Migracion": 19,
-      "Portabilidad": 1138
+      "Migracion": 34,
+      "Portabilidad": 1801
     },
     "tiposCreadasDigital": {
-      "Migracion": 19,
-      "Portabilidad": 505
+      "Migracion": 30,
+      "Portabilidad": 852
     }
   },
   "digitalData": [
@@ -244,67 +324,54 @@
     {
       "fecha": "2026-11-11",
       "fechaShort": "11 Nov",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 599837,
+      "mensajes": 171382,
+      "leads": 178,
+      "ventas": 89,
+      "ingreso": 12038496,
+      "roi": 20.07,
+      "cpl": 3370,
+      "metaLeads": 350,
+      "agentes": 14
     },
     {
       "fecha": "2026-11-12",
       "fechaShort": "12 Nov",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 651952,
+      "mensajes": 186272,
+      "leads": 209,
+      "ventas": 51,
+      "ingreso": 6898464,
+      "roi": 10.58,
+      "cpl": 3119,
+      "metaLeads": 400,
+      "agentes": 16
     },
     {
       "fecha": "2026-11-13",
       "fechaShort": "13 Nov",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 746900,
+      "mensajes": 213400,
+      "leads": 197,
+      "ventas": 73,
+      "ingreso": 9874272,
+      "roi": 13.22,
+      "cpl": 3791,
+      "metaLeads": 400,
+      "agentes": 16
     },
     {
       "fecha": "2026-11-14",
       "fechaShort": "14 Nov",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
-    },
-    {
-      "fecha": "2026-11-15",
-      "fechaShort": "15 Nov",
-      "inversion": 0,
-      "mensajes": 0,
-      "leads": 0,
-      "ventas": 0,
-      "ingreso": 0,
-      "roi": 0,
-      "cpl": 0,
-      "metaLeads": 0,
-      "agentes": 0
+      "inversion": 719281.5,
+      "mensajes": 205509,
+      "leads": 187,
+      "ventas": 78,
+      "ingreso": 10550592,
+      "roi": 14.67,
+      "cpl": 3846,
+      "metaLeads": 275,
+      "agentes": 11
     },
     {
       "fecha": "2026-11-16",
