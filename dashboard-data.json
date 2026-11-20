@@ -153,6 +153,17 @@
       "ingreso": 26105952,
       "roi": 12.72,
       "costoMin": 1794
+    },
+    {
+      "fecha": "2026-11-19",
+      "fechaShort": "19 Nov",
+      "consumo": 2043942,
+      "minutos": 103938,
+      "leads": 1168,
+      "ventas": 205,
+      "ingreso": 27729120,
+      "roi": 13.57,
+      "costoMin": 1750
     }
   ],
   "providerData": [
@@ -225,40 +236,45 @@
       "fecha": "18 Nov",
       "bestvoiper": 538618,
       "chock": 1513760
+    },
+    {
+      "fecha": "19 Nov",
+      "bestvoiper": 661682,
+      "chock": 1382260
     }
   ],
   "totals": {
-    "consumo": 26039392,
-    "proyInversion": 44638958,
-    "leads": 14206,
-    "costoLead": 1833,
-    "ventas": 2247,
-    "ingreso": 303938208,
+    "consumo": 28083334,
+    "proyInversion": 44933334,
+    "leads": 15374,
+    "costoLead": 1827,
+    "ventas": 2452,
+    "ingreso": 331667328,
     "agentes": 40,
     "fte": 40,
-    "facturaxFTE": 7598455.2,
-    "roi": 11.67,
-    "efectividad": 15.82,
-    "proyConsumo": 44638957.71428572,
+    "facturaxFTE": 8291683.2,
+    "roi": 11.81,
+    "efectividad": 15.95,
+    "proyConsumo": 44933334.4,
     "diasLaborales": 24,
-    "diasTranscurridos": 14,
-    "ventasActivasBlaster": 1477,
-    "ventasActivasDigital": 764,
+    "diasTranscurridos": 15,
+    "ventasActivasBlaster": 1643,
+    "ventasActivasDigital": 834,
     "tiposActivasBlaster": {
-      "Migracion": 38,
-      "Portabilidad": 1439
+      "Migracion": 40,
+      "Portabilidad": 1603
     },
     "tiposActivasDigital": {
-      "Migracion": 30,
-      "Portabilidad": 734
+      "Migracion": 34,
+      "Portabilidad": 800
     },
     "tiposCreadasBlaster": {
-      "Migracion": 40,
-      "Portabilidad": 2155
+      "Migracion": 41,
+      "Portabilidad": 2343
     },
     "tiposCreadasDigital": {
-      "Migracion": 37,
-      "Portabilidad": 1022
+      "Migracion": 40,
+      "Portabilidad": 1103
     }
   },
   "digitalData": [
